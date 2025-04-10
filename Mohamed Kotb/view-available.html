@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Available Books</title>
+        <link rel="stylesheet" href="view_available.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">Online Library</a>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="../Abdulrahman/index.html" id="myBooks">My Books</a>
+                    <a href="#" id="profile">Profile</a>
+                    <a href="./admin-dashboard.html" id="admin">Admin</a>
+                    <a href="./user-dashboard.html" id="user">User</a>
+                    <a href="./login.html" id="login">Login</a>
+                    <a href="./signup.html" id="signup">Sign up</a>
+                    <button id="themeToggle" class="theme-toggle">
+                        <span>🌞</span>
+                    </button>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </nav> 
+        <h1 id = "h1-available">Available books</h1>
+        
+        <div class="books-table-container">
+            <table class="books-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Papers</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="booksTableBody">
+                    <tr id = "book1">
+                        <td>1</td>
+                        <td>A Brief History of Time</td>
+                        <td>Stephen Hawking</td>
+                        <td>978-0553380163</td>
+                        <td>Science</td>
+                        <td><span class="status available">Available</span></td>
+                        <td>256</td>
+                        <td>
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr id = "book3">
+                        <td>3</td>
+                        <td>How to Win Friends and Influence People </td>
+                        <td>Dale Carnegie</td>
+                        <td>978-0671027032</td>
+                        <td>Self-Improvement, Personal Development</td>
+                        <td><span class="status available">Available</span></td>
+                        <td>288</td>
+                        <td>
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-delete">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

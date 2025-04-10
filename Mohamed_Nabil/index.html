@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Library</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Online Library</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="../Abdulrahman/index.html" id="myBooks">My Books</a>
+                <a href="#" id="profile">Profile</a>
+                <a href="../Mohamed Kotb/admin-dashboard.html" id="admin">Admin</a>
+                <a href="../Mohamed_Nabil/index.html" id="user">User</a>
+                <a href="../Rofida/login.html" id="login">Login</a>
+                <a href="../Malak/admin_signup.html" id="signup">Sign up</a>
+                <button id="themeToggle" class="theme-toggle">
+                    <span>🌞</span>
+                </button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+      </nav>
+
+    <main class="container main-content">
+        <section class="search-section">
+            <h1>Discover Your Next Book</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by title, author, or genre...">
+                <button class="btn-primary">Search</button>
+            </div>
+        </section>
+
+        <section class="books-grid">
+            <!-- Sample book cards -->
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="img/B1_1.jpg" alt="Book Cover" >
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">The Great Gatsby</h3>
+                    <p class="book-author">F. Scott Fitzgerald</p>
+                    <p class="book-genre">Fiction, Classics</p>
+                    <div class="book-actions">
+                        <button class="btn-primary">Select</button>
+                        <button class="btn-secondary">Add to Wish List</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="img/B2_1.jpg" alt="Book Cover">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">To Kill a Mockingbird</h3>
+                    <p class="book-author">Harper Lee</p>
+                    <p class="book-genre">Fiction, Classics</p>
+                    <div class="book-actions">
+                        <button class="btn-primary">Select</button>
+                        <button class="btn-secondary">Add to Wish List</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="img/B3_1.jpg" alt="Book Cover">
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">1984</h3>
+                    <p class="book-author">George Orwell</p>
+                    <p class="book-genre">Science Fiction, Dystopian</p>
+                    <div class="book-actions">
+                        <button class="btn-primary">Select</button>
+                        <button class="btn-secondary">Add to Wish List</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="img/B4_1.jpg" alt="Book Cover" >
+                </div>
+                <div class="book-info">
+                    <h3 class="book-title">Pride and Prejudice</h3>
+                    <p class="book-author">Jane Austen</p>
+                    <p class="book-genre">Romance, Classics</p>
+                    <div class="book-actions">
+                        <button class="btn-primary">Select</button>
+                        <button class="btn-secondary">Add to Wish List</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- <script src="js/admin.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/user.js"></script> -->
+</body>
+</html>

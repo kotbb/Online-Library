@@ -1,0 +1,200 @@
+:root {
+  /* Light theme (default) */
+  --bg-primary: #f5e6d3;
+  --bg-secondary: #fff8f0;
+  --text-primary: #5c3d2e;
+  --text-secondary: #8b4513;
+  --border-color: #d4a373;
+  --shadow-color: rgba(139, 69, 19, 0.1);
+  --btn-primary: #8b4513;
+  --btn-primary-hover: #6b3410;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #2c1810;
+  --bg-secondary: #3d241b;
+  --text-primary: #f5e6d3;
+  --text-secondary: #d4a373;
+  --border-color: #8b4513;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --btn-primary: #d4a373;
+  --btn-primary-hover: #c39366;
+}
+
+
+/* --- General Page Styling --- */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation bar styles */
+.navbar {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 4px 0; 
+}
+
+.nav-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  max-width: 1200px;
+  width: 100%; 
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 10px 0;
+   
+  
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+  
+}
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.0rem;
+  padding: 10px 15px;
+  
+  border-radius: 5px;
+}
+.nav-links a:hover{
+  color: var(--text-primary);
+  background-color: var(--bg-primary); 
+  transform: translateY(-2px); 
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+#logoutBtn{
+   
+  background-color: var(--btn-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  font-size: 1rem; 
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+}
+#logoutBtn:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+
+.theme-toggle {
+  background: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 1.3rem; 
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 8px 12px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle span {
+  font-size: 1rem;
+}
+
+
+.nav-links a, .btn-secondary, .theme-toggle {
+  transition: all 0.3s ease;
+}
+/* For mobile */
+@media (max-width: 768px) {
+  .nav-container {
+      flex-direction: column;
+      padding: 10px;
+  }
+  .nav-links {
+      margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+}
+/* --- Main Content --- */
+main {
+  background-color: var(--bg-secondary);
+  max-width: 600px;
+  margin: 40px auto;
+  margin-top: 120px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+}
+
+/* --- Form Styling --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  color: var(--text-secondary);
+}
+
+input {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: white;
+  color: var(--text-primary);
+}
+
+/* --- Button Styling --- */
+button {
+  background-color: var(--btn-primary);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--btn-primary-hover);
+}
+* {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
