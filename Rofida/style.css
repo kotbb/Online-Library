@@ -45,7 +45,8 @@ body {
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
-  width: 300px;
+  width: 450px; 
+  max-width: 90%; 
 }
 
 .login-box h2 {
@@ -63,6 +64,7 @@ label {
   margin-bottom: 6px;
   color: var(--text-primary);
   font-weight: bold;
+  gap: 15px;
 }
 
 input {
@@ -74,7 +76,7 @@ input {
   color: var(--text-primary);
 }
 
-#submit-btn {
+#Login-btn {
   padding: 10px;
   background-color: var(--btn-primary);
   color: white;
@@ -82,9 +84,11 @@ input {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-#submit-btn:hover {
+#Login-btn:hover {
   background-color: var(--btn-primary-hover);
 }
 
