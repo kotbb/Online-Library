@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Book</title>
+        <link rel="stylesheet" href="AddBook Style.css">
+        <link rel="stylesheet" href="navBar_Style.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="HomePage.html" class="logo">Online Library</a>
+                <div class="nav-links">
+                    <a href="HomePage.html" class="active">Home</a>
+                    <a href="#" id="myBooks">My Books</a>
+                    <a href="#" id="profile">Profile</a>
+                    <a href="admin-dashboard.html" id="admin">Admin</a>
+                    <a href="user.html" id="user">User</a>
+                    <a href="login.html" id="login">Login</a>
+                    <a href="sign-up.html" id="signup">Sign up</a>
+                    <button id="themeToggle" class="theme-toggle">
+                        <span>🌞</span>
+                    </button>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </nav>
+        <div class="form-container">
+            <h1>Add Book</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="book-name">Name</label>
+                    <input type="text" id="book-name" name="book-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="book-author">Author</label>
+                    <input type="text" id="book-author" name="book-author" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="book-id">ID</label>
+                    <input type="text" id="book-id" name="book-id" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="book-ISBN">ISBN</label>
+                    <input type="text" id="book-ISBN" name="book-ISBN" required>
+                </div>
+                <div class="form-group">
+                    <label for="book-papers">Papers</label>
+                    <input type="text" id="book-papers" name="book-papers" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="fiction">Fiction</option>
+                        <option value="non-fiction">Non-Fiction</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="science-fiction">Science Fiction</option>
+                        <option value="biography">Biography</option>
+                        <option value="history">History</option>
+                        <option value="romance">Romance</option>
+                        <option value="bilogy">Biology</option>
+                        <option value="genetics">Genetics</option>
+                        <option value="self-improvement">Self-Improvement</option>
+                        <option value="personal-development">Personal-Development</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="book-description">Description</label>
+                    <textarea name="book-description" id="book-description" rows="4" required></textarea>
+                </div>
+        
+                <div class="form-group">
+                    <label for="book-image">Book Cover Image</label>
+                    <input type="file" id="book-image" name="book-image" accept="image/*">
+                </div>
+                <div class="button-group">
+                    <button type="submit" id = "submit-btn">Submit</button>
+                    <button type="button" class="upload-btn" onclick="document.getElementById('book-image').click()">
+                        Upload Image
+                    </button>
+                </div>
+            </form>
+        </div>
+    </body>
+
+
+</html>
