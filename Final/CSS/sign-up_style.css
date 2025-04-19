@@ -8,6 +8,11 @@
     --shadow-color: rgba(139, 69, 19, 0.1);
     --btn-primary: #8b4513;
     --btn-primary-hover: #6b3410;
+    --input-bg: #fff;
+    --input-text: #5c3d2e;
+    --input-border: #d4a373;
+    --input-placeholder: #8b7566;
+    --input-focus-glow: rgba(139, 69, 19, 0.2);
 }
 
 [data-theme="dark"] {
@@ -19,6 +24,10 @@
     --shadow-color: rgba(0, 0, 0, 0.2);
     --btn-primary: #d4a373;
     --btn-primary-hover: #c39366;
+    --input-bg: #3d2e20;
+    --input-text: #f5e6d3;
+    --input-border: #6d5d4a;
+    --input-placeholder: #a08d7a;
 }
 
 body {
@@ -54,19 +63,33 @@ label {
     font-weight: bold;
     font-size: 13px;
     color: var(--text-primary);
-}
-
-
+} 
 input, select {
     width: 95%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--input-border);
     border-radius: 5px;
     font-size: 14px;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    transition: all 0.3s ease;
+}
+[data-theme="dark"] select option{
+    background: #3d2e20;
+    color: #f5e6d3;
+}
+  
+input::placeholder, select option:first-child {
+    color: var(--input-placeholder);
+}
+  
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--btn-primary);
+    box-shadow: 0 0 0 2px rgba(210, 145, 80, 0.3);
 }
 
-/* Button */
 #submit-btn {
     width: 100%;
     padding: 12px;

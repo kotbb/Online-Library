@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Available Books</title>
-        <link rel="stylesheet" href="CSS/view_available.css">
+        <link rel="stylesheet" href="CSS/admin_Style.css">
         <link rel="stylesheet" href="CSS/navBar_Style.css">
 
     </head>
@@ -27,51 +27,50 @@
                 </div>
             </div>
         </nav>
-        <h1 id = "h1-available">Available books</h1>
-        
-        <div class="books-table-container">
-            <table class="books-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Book Name</th>
-                        <th>Author</th>
-                        <th>ISBN</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Papers</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="booksTableBody">
-                    <tr id = "book1">
-                        <td>1</td>
-                        <td>A Brief History of Time</td>
-                        <td>Stephen Hawking</td>
-                        <td>978-0553380163</td>
-                        <td>Science</td>
-                        <td><span class="status available">Available</span></td>
-                        <td>256</td>
-                        <td>
-                            <button class="btn-edit">Edit</button>
-                            <button class="btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr id = "book3">
-                        <td>3</td>
-                        <td>How to Win Friends and Influence People </td>
-                        <td>Dale Carnegie</td>
-                        <td>978-0671027032</td>
-                        <td>Self-Improvement, Personal Development</td>
-                        <td><span class="status available">Available</span></td>
-                        <td>288</td>
-                        <td>
-                            <button class="btn-edit">Edit</button>
-                            <button class="btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="main-container">
+            <div class="admin-header">
+                <h2>Available Books</h2>
+            </div>
+            <div class="deleteAll-container">
+                <button id="deleteAll-btn"></button>
+            </div>
+            <div class="books-table-container">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Book Name</th>
+                            <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Papers</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="booksTbody">
+    
+                    </tbody>
+                </table>
+            </div>
+            <div class = "ReturnToAdmin-container">
+                <button id="ReturnToAdmin-btn" onclick="window.location.href='admin-dashboard.html'" 
+                >Return to admin page</button>
+            </div>
         </div>
+        <div class="modal-overlay" id="deleteModal">
+            <div class="modal-content">
+                <h3 class="modal-title">Confirm Deletion</h3>
+                <p id="modal-message"></p>
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-btn-cancel" id="cancelDelete">Cancel</button>
+                    <button class="modal-btn modal-btn-confirm" id="confirmDelete">Delete</button>
+                </div>
+            </div>
+        </div>
+        <script src="JS/theme-toggle.js"></script>
+        <script src="JS/nav-active.js"></script>
+        <script src="JS/viewAvailable.js"></script>
+
     </body>
 </html>

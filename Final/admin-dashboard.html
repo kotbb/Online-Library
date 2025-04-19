@@ -6,13 +6,14 @@
     <title>Admin Dashboard - Online Library</title>
     <link rel="stylesheet" href="CSS/admin_Style.css">
     <link rel="stylesheet" href="CSS/navBar_Style.css">
+    
 </head>
 <body class="admin-page">
     <nav class="navbar">
         <div class="nav-container">
             <a href="HomePage.html" class="logo">Online Library</a>
             <div class="nav-links">
-                <a href="HomePage.html" class="active">Home</a>
+                <a href="HomePage.html" class="nav-active">Home</a>
                 <a href="Borrow_Book.html" id="myBooks">My Books</a>
                 <a href="#" id="profile">Profile</a>
                 <a href="admin-dashboard.html" id="admin">Admin</a>
@@ -27,12 +28,14 @@
         </div>
     </nav>
 
-    <main class="container main-content">
+    <div class="main-container">
         <div class="admin-header">
             <h1>Book Management</h1>
-            <button id="addBookBtn" class="btn-primary" onclick="window.location.href= 'AddBook.html'">Add New Book</button>
+            <button id="addBookBtn" class="btn-primary">Add New Book</button>
         </div>
-    
+        <div class="deleteAll-container">
+            <button id="deleteAll-btn"></button>
+        </div>
         <div class="books-table-container">
             <table class="books-table">
                 <thead>
@@ -47,46 +50,8 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody id="booksTableBody">
-                    <tr id = "book1">
-                        <td>1</td>
-                        <td>A Brief History of Time</td>
-                        <td>Stephen Hawking</td>
-                        <td>978-0553380163</td>
-                        <td>Science</td>
-                        <td><span class="status available">Available</span></td>
-                        <td>256</td>
-                        <td>
-                            <button class="btn-edit" onclick="window.location.href= 'Edit Book.html'">Edit</button>
-                            <button class="btn-delete" onclick="window.location.href= 'Delete Book.html'">Delete</button>
-                        </td>
-                    </tr>
-                    <tr id = "book2">
-                        <td>2</td>
-                        <td>The Selfish Gene</td>
-                        <td>Richard Dawkins</td>
-                        <td>978-0192860927</td>
-                        <td>Science, Biology, Genetics</td>
-                        <td><span class="status available">Not available</span></td>
-                        <td>384</td>
-                        <td>
-                            <button class="btn-edit" onclick="window.location.href= 'Edit Book.html'">Edit</button>
-                            <button class="btn-delete" onclick="window.location.href= 'Delete Book.html'">Delete</button>
-                        </td>
-                    </tr>
-                    <tr id = "book3">
-                        <td>3</td>
-                        <td>How to Win Friends and Influence People </td>
-                        <td>Dale Carnegie</td>
-                        <td>978-0671027032</td>
-                        <td>Self-Improvement, Personal Development</td>
-                        <td><span class="status available">Available</span></td>
-                        <td>288</td>
-                        <td>
-                            <button class="btn-edit" onclick="window.location.href= 'Edit Book.html'">Edit</button>
-                            <button class="btn-delete" onclick="window.location.href= 'Delete Book.html'">Delete</button>
-                        </td>
-                    </tr>
+                <tbody id="booksTbody">
+
                 </tbody>
             </table>
         </div>
@@ -94,6 +59,19 @@
             <button id="view-available-books" onclick="window.location.href='view-available.html'" 
             >View Available Books</button>
         </div>
-    </main>
-</body>
+    </div>
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Confirm Deletion</h3>
+            <p id="modal-message"></p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="cancelDelete">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+    <script src="JS/admin-dashboard.js"></script>
+    <script src="JS/theme-toggle.js"></script>
+    <script src="JS/nav-active.js"></script>
+  </body>
 </html>

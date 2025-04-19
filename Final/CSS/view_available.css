@@ -1,5 +1,5 @@
 :root {
-
+    /* Light theme (default) */
     --bg-primary: #f5e6d3;
     --bg-secondary: #fff8f0;
     --text-primary: #5c3d2e;
@@ -8,7 +8,14 @@
     --shadow-color: rgba(139, 69, 19, 0.1);
     --btn-primary: #8b4513;
     --btn-primary-hover: #6b3410;
+    --table-bg: #fff;
+    --table-header-bg: #f8f9fa;
+    --table-text: #5c3d2e;
+    --table-border: #e0d6c9;
+    --table-hover: #f5f0e8;
+    --table-shadow: rgba(139, 69, 19, 0.1);
 }
+
 [data-theme="dark"] {
     --bg-primary: #2c1810;
     --bg-secondary: #3d241b;
@@ -18,6 +25,11 @@
     --shadow-color: rgba(0, 0, 0, 0.2);
     --btn-primary: #d4a373;
     --btn-primary-hover: #c39366;
+    --table-bg: #3a2c20;
+    --table-header-bg: #4a3a2a;
+    --table-text: #f0e6d2;
+    --table-border: #5c4d3d;
+    --table-hover: #4a3d30;
 }
 
 body {
@@ -43,65 +55,69 @@ body {
     
 }
 
-.books-table-container {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);    
-}
-
-
 .books-table {
     width: 100%;
     border-collapse: collapse;
-    
+    color: var(--table-text); 
 }
 
 .books-table th,
 .books-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--table-border); 
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
-
+.books-table tr {
+    transition: background-color 0.3s ease;
+}
 .books-table th {
-    background-color: #f8f9fa;
+    background-color: var(--table-header-bg); 
     font-weight: 600;
-    color: #333;
+    font-size: large;
+    color: var(--table-text); 
+    text-transform: uppercase;
 }
 
 .books-table tbody tr:hover {
-    background-color: #f8f9fa;
-}
-/* Action buttons in table */
-.action-buttons {
-    display: flex;
-    gap: 0.5rem;
+    background-color: var(--table-hover); 
 }
 
-.btn-edit,
-.btn-delete {
+/* Action buttons in table */
+#btn-edit,
+#btn-delete {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
+    filter: brightness(1.1);
+    
 }
 
-.btn-edit {
+#btn-edit {
     background-color: #28a745;
     color: white;
 }
 
-.btn-delete {
+#btn-delete {
     background-color: #dc3545;
     color: white;
 }
 
-.btn-edit:hover {
+[data-theme="dark"] #btn-edit {
+    background-color: #3a8f5a; 
+}
+
+[data-theme="dark"] #btn-delete {
+    background-color: #b33a3a; 
+}
+
+#btn-edit:hover {
     background-color: #218838;
 }
 
-.btn-delete:hover {
+#btn-delete:hover {
     background-color: #c82333;
 }

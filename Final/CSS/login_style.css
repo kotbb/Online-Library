@@ -18,6 +18,10 @@
   --shadow-color: rgba(0, 0, 0, 0.2);
   --btn-primary: #d4a373;
   --btn-primary-hover: #c39366;
+  --input-bg: #3d2e20;
+  --input-text: #f5e6d3;
+  --input-border: #6d5d4a;
+  --input-placeholder: #a08d7a;
 }
 
 * {
@@ -72,8 +76,19 @@ input {
   margin-bottom: 20px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: #fff;
-  color: var(--text-primary);
+  background-color: var(--input-bg); 
+  color: var(--input-text); 
+  transition: all 0.3s ease;
+}
+
+input::placeholder {
+  color: var(--input-placeholder);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--btn-primary);
+  box-shadow: 0 0 0 2px rgba(210, 145, 80, 0.3);
 }
 
 #Login-btn {
