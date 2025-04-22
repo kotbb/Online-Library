@@ -4,25 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Page</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="../NavBar/navBar_Style.css" />
+  <link rel="stylesheet" href="CSS/login_style.css" />
+  <link rel="stylesheet" href="CSS/navBar_Style.css" />
 </head>
 <body>
   <nav class="navbar">
     <div class="nav-container">
-        <a href="index.html" class="logo">Online Library</a>
+        <a href="HomePage.html" class="logo">Online Library</a>
         <div class="nav-links">
-          <a href="../Mohamed Kotb/HomePage.html" class="active">Home</a>
-            <a href="../Abdulrahman/index.html" id="myBooks">My Books</a>
-            <a href="#" id="profile">Profile</a>
-            <a href="../Mohamed Kotb/admin-dashboard.html" id="admin">Admin</a>
-            <a href="../Mohamed_Nabil/index.html" id="user">User</a>
-            <a href="../Rofida/login.html" id="login">Login</a>
-            <a href="../Malak/admin_signup.html" id="signup">Sign up</a>
             <button id="themeToggle" class="theme-toggle">
                 <span>🌞</span>
             </button>
-            <button id="logoutBtn">Logout</button>
         </div>
     </div>
   </nav>
@@ -38,8 +30,10 @@
 
         <button type="submit" id="Login-btn">Login</button>
       </form>
-      <p class="signup">Don’t have an account? <a href="../Malak/admin_signup.html">Sign up</a></p>
+      <p class="signup">Don’t have an account? <a href="sign-up.html">Sign up</a></p>
     </div>
   </div>
-</body>
+  <script src="JS/login_script.js"></script>
+  <script src="JS/theme-toggle.js"></script>
+</body> 
 </html>
