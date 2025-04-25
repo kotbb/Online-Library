@@ -14,7 +14,7 @@ dataBooks = checkEmptyArray();
 
 //------------------------------------------------------
 let deleteAll_btn = document.getElementById('deleteAll-btn');
-let countNonAvailable = 0;
+let countAvailable = 0;
 let confirmText = document.getElementById('modal-message');
 let confirmBtn = document.getElementById('confirmDelete');
 let cancelBtn = document.getElementById('cancelDelete');
@@ -29,28 +29,32 @@ let showData = function()
     let table = '';
     for(let i = 0; i < dataBooks.length;i++)
     {
-        if(dataBooks[i].status === 'Not Available')
+        if(user && user.email == dataBooks[i].userEmail)
         {
-            countNonAvailable++;
-            continue;
+            if(dataBooks[i].status === 'Not Available')
+            {
+                continue;
+            }
+            countAvailable++;
+            table += `
+            <tr>
+            <td>${i}</td>
+            <td>${dataBooks[i].name} </td>
+            <td>${dataBooks[i].author} </td>
+            <td>${dataBooks[i].ISBN} </td>
+            <td>${dataBooks[i].category} </td>
+            <td>${dataBooks[i].status ? 'Available' : 'Not available'}</td>
+            <td>${dataBooks[i].papers}</td>
+            <div class = "action-buttons">
+                <td> 
+                    <button class ="action-buttons" id="btn-edit" onclick = editData(${i}) >Edit</button>
+                    <button class ="action-buttons" id="btn-delete" onclick = "deleteData(${i})">Delete</button>  </td>
+                </td>
+            </div>
+            </tr>
+            `
         }
-        table += `
-        <tr>
-        <td>${i}</td>
-        <td>${dataBooks[i].name} </td>
-        <td>${dataBooks[i].author} </td>
-        <td>${dataBooks[i].ISBN} </td>
-        <td>${dataBooks[i].category} </td>
-        <td>${dataBooks[i].status ? 'Available' : 'Not available'}</td>
-        <td>${dataBooks[i].papers}</td>
-        <div class = "action-buttons">
-            <td> 
-                <button class ="action-buttons" id="btn-edit" onclick = editData(${i}) >Edit</button>
-                <button class ="action-buttons" id="btn-delete" onclick = "deleteData(${i})">Delete</button>  </td>
-            </td>
-        </div>
-        </tr>
-        `
+       
     }
     tbody.innerHTML = table;
 }
@@ -60,9 +64,9 @@ showData();
 let showDeleteAll = function()
 {
     
-    if((dataBooks.length-countNonAvailable) > 0)
+    if(countAvailable)
     {
-        deleteAll_btn.innerHTML = `Delete All (${(dataBooks.length-countNonAvailable)})`;
+        deleteAll_btn.innerHTML = `Delete All (${(countAvailable)})`;
         deleteAll_btn.style.display = 'block';
     }
     else{
@@ -114,7 +118,7 @@ deleteAll_btn.addEventListener('click',function()
     {
         // update the confirmation message
         confirmText.innerHTML = 
-        `Are you sure you want to delete <strong>all the available (${dataBooks.length-countNonAvailable}) books</strong> ?`;
+        `Are you sure you want to delete <strong>all the available (${countAvailable}) books</strong> ?`;
         modal.classList.add('active');
     }
 });

@@ -1,42 +1,36 @@
 
-//          *************** Show Books ***************
 // Initilize the books array and check if it is empty
-let dataBooks;
-let checkEmptyArray = function()
-{
-    if(localStorage.book != null)
-    {
-        return JSON.parse(localStorage.book);
-    }
-    else{
-        return [];
-    }
-}
-dataBooks = checkEmptyArray();
-
+let dataBooks = JSON.parse(localStorage.getItem("book")) || [];
+let countBooks = 0;
+//          *************** Show Books ***************
 let showData = function()
 {
     let tbody = document.getElementById('booksTbody')
     let table = '';
     for(let i = 0; i < dataBooks.length;i++)
     {
-        table += `
-        <tr>
-        <td>${i}</td>
-        <td>${dataBooks[i].name} </td>
-        <td>${dataBooks[i].author} </td>
-        <td>${dataBooks[i].ISBN} </td>
-        <td>${dataBooks[i].category} </td>
-        <td>${dataBooks[i].status}</td>
-        <td>${dataBooks[i].papers}</td>
-        <div class = "action-buttons">
-            <td> 
-                <button class ="action-buttons" id="btn-edit" onclick = "editData(${i})">Edit</button>
-                <button class ="action-buttons" id="btn-delete" onclick = "deleteData(${i})">Delete</button>  </td>
-            </td>
-        </div>
-        </tr>
-        `
+        if(user && user.email === dataBooks[i].userEmail)
+        {
+            countBooks++;
+            table += `
+            <tr>
+            <td>${i}</td>
+            <td>${dataBooks[i].name} </td>
+            <td>${dataBooks[i].author} </td>
+            <td>${dataBooks[i].ISBN} </td>
+            <td>${dataBooks[i].category} </td>
+            <td>${dataBooks[i].status}</td>
+            <td>${dataBooks[i].papers}</td>
+            <div class = "action-buttons">
+                <td> 
+                    <button class ="action-buttons" id="btn-edit" onclick = "editData(${i})">Edit</button>
+                    <button class ="action-buttons" id="btn-delete" onclick = "deleteData(${i})">Delete</button>  </td>
+                </td>
+            </div>
+            </tr>
+            ` 
+        }
+        
     }
     tbody.innerHTML = table;
 }
@@ -44,7 +38,6 @@ showData();
 //          *************** Delete Books ***************
 
 let deleteAll_btn = document.getElementById('deleteAll-btn');
-let countNonAvailable = dataBooks.length;
 let confirmText = document.getElementById('modal-message');
 let confirmBtn = document.getElementById('confirmDelete');
 let cancelBtn = document.getElementById('cancelDelete');
@@ -57,14 +50,15 @@ let deleteIndex = null;
 // show/hide deleteAll button
 let showDeleteAll = function()
 {
-    if(dataBooks.length !== 0)
+    if(countBooks)
     {
-        deleteAll_btn.innerHTML = `Delete All (${dataBooks.length})`;
+        deleteAll_btn.innerHTML = `Delete All (${countBooks})`;
         deleteAll_btn.style.display = 'block';
+        
     }
     else{
         deleteAll_btn.style.display = 'none';
-
+        
     }
 }
 showDeleteAll();
@@ -96,7 +90,7 @@ confirmBtn.addEventListener('click',function()
     }
     localStorage.book = JSON.stringify(dataBooks);
     showData();
-    showDeleteAll();
+    window.location.reload();
     deleteIndex = null;
     modal.classList.remove('active');
 })
@@ -108,7 +102,7 @@ deleteAll_btn.addEventListener('click',function()
     {
         // update the confirmation message
         confirmText.innerHTML = 
-        `Are you sure you want to delete <strong>all the (${countNonAvailable}) books</strong> ?`;
+        `Are you sure you want to delete <strong>all the (${countBooks}) books</strong> ?`;
 
         modal.classList.add('active');
     }

@@ -22,6 +22,85 @@ let confirmPassword = document.getElementById('confirmPassword');
 let userData = document.getElementById('userData');
 
 //----------------------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    showData(user);
+    changeDataBtn.addEventListener('click',()=> {
+        DataModal.classList.remove('hidden');
+        
+
+    })
+    changePassBtn.addEventListener('click',()=>{
+        PasswordModal.classList.remove('hidden');
+
+    })
+    // Save data and close the modal 
+    saveDataBtn.addEventListener('click',()=>{
+    
+        if (!validateForm()) {
+            DataModal.classList.remove('hidden');
+            return;
+        }
+        
+        const updatedUser = {
+            ...user,
+            username: userName.value.trim(),
+            email: email.value.trim(),
+            accountType: accountType.value
+        };
+        
+        
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].email === updatedUser.email) {
+                users[i] = updatedUser;
+            }
+        }
+        localStorage.setItem('users', JSON.stringify(users));
+
+        showData(updatedUser);
+        alert("Changes saved successfully ✅");
+        DataModal.classList.add('hidden');
+        window.location.reload();
+    })
+    savePasswordBtn.addEventListener('click',()=>{
+        
+        if (!validatePassword()) {
+            PasswordModal.classList.remove('hidden'); 
+            return;
+        }
+        const updatedUser ={
+            ...user,
+            password: newPassword.value
+        }
+
+        localStorage.setItem('users', JSON.stringify(users));
+
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].email === updatedUser.email) {
+                users[i] = updatedUser;
+            }
+        }
+        showData(updatedUser);
+        alert("Changes saved successfully ✅");
+        PasswordModal.classList.add('hidden');
+        clearPasswordFields();
+        window.location.reload();
+    })
+    cancelDataBtn.addEventListener('click',()=>{
+    
+        DataModal.classList.add('hidden');
+        showData(user);
+
+    })
+    cancelPasswordBtn.addEventListener('click',()=>{
+        PasswordModal.classList.add('hidden');
+        showData(user);
+        clearPasswordFields();
+        window.location.reload();
+    })
+})
+//-------------------------------------------------- Functions
 // Show user data
 function showData(user){
     // Show data in the box
@@ -38,92 +117,32 @@ function showData(user){
     // Clear any error fields in the modal when opens
     document.querySelectorAll('.field-error').forEach(el => el.remove());
     document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+    document.querySelectorAll('.hideImage').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.src = 'img/show.png';
+            } else {
+                input.type = 'password';
+                this.src = 'img/hide.png';
+            }
+        });
+    });
 }
-showData(user);
-
-//----------------------------------------------------------------------------
-changeDataBtn.addEventListener('click',()=> {
-    DataModal.classList.remove('hidden');
-    
-
-})
-changePassBtn.addEventListener('click',()=>{
-    PasswordModal.classList.remove('hidden');
-
-})
-// Save data and close the modal 
-saveDataBtn.addEventListener('click',()=>{
-   
-    if (!validateForm()) {
-        DataModal.classList.remove('hidden');
-        return;
-    }
-    
-    const updatedUser = {
-        ...user,
-        username: userName.value.trim(),
-        email: email.value.trim(),
-        accountType: accountType.value
-    };
-    
-    
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].email === updatedUser.email) {
-            users[i] = updatedUser;
-        }
-    }
-    localStorage.setItem('users', JSON.stringify(users));
-
-    showData(updatedUser);
-    alert("Changes saved successfully ✅");
-    DataModal.classList.add('hidden');
-    window.location.reload();
-})
-savePasswordBtn.addEventListener('click',()=>{
-    
-    if (!validatePassword()) {
-        PasswordModal.classList.remove('hidden'); 
-        return;
-    }
-    const updatedUser ={
-        ...user,
-        password: newPassword.value
-    }
-
-    localStorage.setItem('users', JSON.stringify(users));
-
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].email === updatedUser.email) {
-            users[i] = updatedUser;
-        }
-    }
-    showData(updatedUser);
-    alert("Changes saved successfully ✅");
-    PasswordModal.classList.add('hidden');
-    clearPasswordFields();
-    
-})
-cancelDataBtn.addEventListener('click',()=>{
-    
-    DataModal.classList.add('hidden');
-    showData(user);
-
-})
-cancelPasswordBtn.addEventListener('click',()=>{
-    PasswordModal.classList.add('hidden');
-    showData(user);
-    clearPasswordFields();
-
-    
-})
 
 //----------------------------------------------------------------------------
 function clearPasswordFields(){
     oldPassword.value = '';
     newPassword.value = '';
     confirmPassword.value = '';
+    document.querySelectorAll('.password-container input').forEach(input => {
+        input.type = 'password';
+    });
+    document.querySelectorAll('.hideImage').forEach(icon => {
+        icon.src = 'img/hide.png';
+    });
 }
 // Show the error in the field
 function showFieldError(field, message) {
