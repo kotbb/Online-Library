@@ -4,19 +4,24 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Online Library</title>
-        <link rel="stylesheet" href="CSS/navBar_Style.css">
         <link rel="stylesheet" href="CSS/HomePage.css">
+        <link rel="stylesheet" href="CSS/navBar_Style.css">
+        <link rel="icon" href="./img/icon.png" type="image/x-icon">
     </head>
     <body>
         <div class="overlay"></div>
         <nav class="navbar">
             <div class="nav-container">
-                <a href="HomePage.html" class="logo">Online Library</a>
+                <a href="HomePage.html" class="logo" id="logo">
+                    Online Library
+                </a>
                 <div class="nav-links">
-                    <a href="HomePage.html" id="home">Home</a>
+                    <a href="HomePage.html">Home</a>
+                    
                     <a href="login.html" id="login">Login</a>
-                    <a href="sign-up.html" id="sign-up">Sign-up</a>
+                    <a href="sign-up.html" id="signup">Sign up</a>
                     <button id="themeToggle" class="theme-toggle">
+                        <span>🌞</span>
                     </button>
                 </div>
             </div>
@@ -29,8 +34,196 @@
             <button id="Login-btn" onclick="window.location.href='login.html'">Login</button>
             <button id="Sign-up-btn" onclick="window.location.href='sign-up.html'">Sign-up</button>
         </div>
-        <script src="JS/nav-bar.js"></script>
+
+        <!-- Featured Books Section -->
+        <section class="featured-section">
+            <h2>Featured Books</h2>
+            <p class="section-description">Discover our most popular and trending books this month</p>
+            <div class="featured-books">
+                <div class="book-card">
+                    <div class="book-cover">
+                        <img src="images/books/book1.jpg" alt="Book Cover">
+                    </div>
+                    <div class="book-info">
+                        <h3>The Great Adventure</h3>
+                        <p class="author">By John Smith</p>
+                        <p class="rating">★★★★☆</p>
+                        <button class="borrow-btn">Borrow Now</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">
+                        <img src="images/books/book2.jpg" alt="Book Cover">
+                    </div>
+                    <div class="book-info">
+                        <h3>Mystery of the Lost City</h3>
+                        <p class="author">By Sarah Johnson</p>
+                        <p class="rating">★★★★★</p>
+                        <button class="borrow-btn">Borrow Now</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">
+                        <img src="images/books/book3.jpg" alt="Book Cover">
+                    </div>
+                    <div class="book-info">
+                        <h3>The Science of Everything</h3>
+                        <p class="author">By David Williams</p>
+                        <p class="rating">★★★★☆</p>
+                        <button class="borrow-btn">Borrow Now</button>
+                    </div>
+                </div>
+            </div>
+            <button class="view-all-btn">View All Books</button>
+        </section>
+
+        <!-- Book Genres Section -->
+        <section class="genres-section">
+            <h2>Explore Book Genres</h2>
+            <div class="genres-container">
+                <div class="genre-card" onclick="window.location.href='genre.html?type=fiction'">
+                    <div class="genre-icon">📚</div>
+                    <h3>Fiction</h3>
+                    <p>Novels, short stories, and literary works</p>
+                </div>
+                <div class="genre-card" onclick="window.location.href='genre.html?type=non-fiction'">
+                    <div class="genre-icon">🧠</div>
+                    <h3>Non-Fiction</h3>
+                    <p>Biographies, history, and educational books</p>
+                </div>
+                <div class="genre-card" onclick="window.location.href='genre.html?type=mystery'">
+                    <div class="genre-icon">🔍</div>
+                    <h3>Mystery</h3>
+                    <p>Thrillers, detective stories, and suspense</p>
+                </div>
+                <div class="genre-card" onclick="window.location.href='genre.html?type=science-fiction'">
+                    <div class="genre-icon">🚀</div>
+                    <h3>Science Fiction</h3>
+                    <p>Futuristic worlds, space, and technology</p>
+                </div>
+                <div class="genre-card" onclick="window.location.href='genre.html?type=fantasy'">
+                    <div class="genre-icon">🧙</div>
+                    <h3>Fantasy</h3>
+                    <p>Magic, mythical creatures, and imaginary worlds</p>
+                </div>
+                <div class="genre-card" onclick="window.location.href='genre.html?type=romance'">
+                    <div class="genre-icon">❤️</div>
+                    <h3>Romance</h3>
+                    <p>Love stories and relationships</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2>How Our Library Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-icon">1</div>
+                    <h3>Create an Account</h3>
+                    <p>Sign up for free and create your personal library profile</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">2</div>
+                    <h3>Browse Books</h3>
+                    <p>Explore our vast collection of books across various genres</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <h3>Borrow Books</h3>
+                    <p>Borrow up to 5 books at a time for up to 14 days</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">4</div>
+                    <h3>Read & Return</h3>
+                    <p>Enjoy your books and return them when you're done</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <h2>What Our Readers Say</h2>
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <div class="quote">"This online library has transformed my reading habits. I can access any book I want without leaving home!"</div>
+                    <div class="user">
+                        <div class="user-avatar">
+                            <img src="images/users/user1.jpg" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <h4>Emily Johnson</h4>
+                            <p>Regular Reader</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="quote">"The selection of academic books is impressive. It has been invaluable for my research work."</div>
+                    <div class="user">
+                        <div class="user-avatar">
+                            <img src="images/users/user2.jpg" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <h4>Professor Michael Chen</h4>
+                            <p>University Researcher</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="quote">"My children love the kids' section. The interface is so user-friendly that even they can navigate it!"</div>
+                    <div class="user">
+                        <div class="user-avatar">
+                            <img src="images/users/user3.jpg" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <h4>Sarah Williams</h4>
+                            <p>Parent</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter to receive updates on new books, events, and reading recommendations.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Online Library</h3>
+                    <p>Your gateway to knowledge and imagination.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="HomePage.html">Home</a></li>
+                        <li><a href="Borrow_Book.html">Browse Books</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@onlinelibrary.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Online Library. All rights reserved.</p>
+            </div>
+        </footer>
+
         <script src="JS/theme-toggle.js"></script>
-          
+        <script src="JS/nav-bar.js"></script>
     </body>
 </html>

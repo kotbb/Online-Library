@@ -1,7 +1,4 @@
-
-
 body {
-    background-image: url('https://i.pinimg.com/736x/0e/7d/b5/0e7db57a9cfb48327c23a1a42ae8c621.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -14,6 +11,7 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .overlay {
@@ -73,4 +71,519 @@ body {
 #Login-btn:hover, #Sign-up-btn:hover {
     background-color: var(--btn-primary-hover);
     transform: translateY(-3px);
+}
+
+/* Book Genres Section Styles */
+.genres-section {
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 30px;
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.genres-section h2 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: var(--text-primary);
+}
+
+.genres-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.genre-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    padding: 20px;
+    width: 250px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+.genre-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.genre-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.genre-card h3 {
+    margin-bottom: 10px;
+    color: var(--card-text);
+    font-weight: 600;
+}
+
+.genre-card p {
+    color: var(--card-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Featured Books Section */
+.featured-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--bg-secondary);
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.featured-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.section-description {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    color: var(--text-secondary);
+}
+
+.featured-books {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.book-card {
+    width: 250px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.book-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.book-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--card-text);
+}
+
+.author {
+    color: var(--card-text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.rating {
+    color: #f8c01a;
+    margin-bottom: 15px;
+}
+
+.borrow-btn {
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.borrow-btn:hover {
+    background-color: var(--btn-primary-hover);
+    transform: translateY(-2px);
+}
+
+.view-all-btn {
+    background-color: transparent;
+    color: var(--btn-primary);
+    border: 2px solid var(--btn-primary);
+    padding: 10px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.view-all-btn:hover {
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+}
+
+/* How It Works Section */
+.how-it-works {
+    padding: 60px 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.how-it-works h2 {
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    color: var(--text-primary);
+}
+
+.steps-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step {
+    width: 220px;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+.step h3 {
+    margin-bottom: 10px;
+    color: var(--card-text);
+}
+
+.step p {
+    color: var(--card-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 60px 20px;
+    background-color: var(--bg-secondary);
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.testimonials h2 {
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    color: var(--text-primary);
+}
+
+.testimonials-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial {
+    width: 300px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    text-align: left;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color);
+}
+
+.quote {
+    font-style: italic;
+    color: var(--card-text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.user-info {
+    margin-left: 15px;
+}
+
+.user-info h4 {
+    margin: 0;
+    color: var(--card-text);
+}
+
+.user-info p {
+    margin: 5px 0 0;
+    color: var(--card-text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Newsletter Section */
+.newsletter {
+    padding: 60px 20px;
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.newsletter-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.newsletter h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.newsletter p {
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 1rem;
+}
+
+.newsletter-form button {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    padding: 0 25px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.newsletter-form button:hover {
+    background-color: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 50px 20px 20px;
+    width: 100%;
+    margin-top: 40px;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -5px 15px var(--shadow-color);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+}
+
+.footer-section p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .Welcome-container h1 {
+        font-size: 48px;
+    }
+    
+    .Welcome-container p {
+        font-size: 20px;
+    }
+    
+    .featured-books, 
+    .steps-container, 
+    .testimonials-container {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .Welcome-container h1 {
+        font-size: 36px;
+    }
+    
+    .Welcome-container p {
+        font-size: 18px;
+    }
+    
+    .genres-container {
+        gap: 15px;
+    }
+    
+    .genre-card {
+        width: calc(50% - 15px);
+        padding: 15px;
+    }
+    
+    .book-card {
+        width: 220px;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .newsletter-form input {
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .newsletter-form button {
+        border-radius: 4px;
+        padding: 12px;
+    }
+    
+    .footer-section {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .Welcome-container h1 {
+        font-size: 28px;
+    }
+    
+    .Welcome-container p {
+        font-size: 16px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    #Login-btn, #Sign-up-btn {
+        width: 100%;
+    }
+    
+    .genre-card,
+    .book-card,
+    .step,
+    .testimonial {
+        width: 100%;
+    }
 }

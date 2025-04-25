@@ -5,6 +5,8 @@ const users = JSON.parse(localStorage.getItem('users')) || [];
 document.addEventListener("DOMContentLoaded", function () {
     let logo = document.getElementById('logo');
     let navLinks = document.getElementById('navLinks');
+     // Add book icon next to the Online Library text
+     logo.innerHTML = ' <img src="./img/icon.png" alt="icon" style="width: 20px;height: 20px;"> Online Library';
     if(user && user.accountType === 'admin'){
         logo.href = 'admin-dashboard.html'; 
         const adminLinks = 
