@@ -65,10 +65,11 @@ body {
 .form-container label {
     display: block;
     font-size: 0.95rem; 
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
     text-align: left;
+    font-size: 20px;
 }
 
 input, select, textarea {
@@ -78,18 +79,31 @@ input, select, textarea {
     margin-right: 10px;
     border: 1px solid var(--border-color);
     border-radius: 6px; 
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    background-color: var(--input-bg); 
+    color: var(--input-text); 
     transition: all 0.3s ease;
-    font-size: 0.9rem;
-     
+    font-size: 17px;
+    font-weight: 450;
 }
-
+input::placeholder {
+    color: var(--input-placeholder);
+    font-weight: 100;
+    font-size: 12px;
+}
+  
 input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--btn-primary);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); 
+    box-shadow: 0 0 0 2px rgba(210, 145, 80, 0.3);
     transform: scale(1.03);
+    
+}
+.options{
+    background-color: var(--input-bg); 
+    color: var(--btn-primary);
+    font-weight: 700;
+    font-size: 20px;
+
 }
 
 textarea {
@@ -104,7 +118,16 @@ textarea {
     gap: 0.8rem;
     margin-top: 1rem;
 }
-
+#preview-image{
+    display: none;
+    margin-top: 8px;
+    max-width: 200px;
+}
+#current-image-filename {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+}
 #submit-btn, .upload-btn {
     width: 60%;
     padding: 0.7rem;

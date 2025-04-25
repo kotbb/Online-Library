@@ -9,49 +9,31 @@
 
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="HomePage.html" class="logo">Online Library</a>
-            <div class="nav-links">
-                <a href="HomePage.html" class="active">Home</a>
-                <a href="Borrow_Book.html" id="myBooks">My Books</a>
-                <a href="#" id="profile">Profile</a>
-                <a href="admin-dashboard.html" id="admin">Admin</a>
-                <a href="user.html" id="user">User</a>
-                <a href="login.html" id="login">Login</a>
-                <a href="sign-up.html" id="signup">Sign up</a>
-                <button id="themeToggle" class="theme-toggle">
-                    <span>🌞</span>
-                </button>
-                <button id="logoutBtn">Logout</button>
-            </div>
-        </div>
-    </nav>
-<div class="signup-container">
-    <h2>Create Account</h2>
-    <form action="#" method="post">
-        <label for="username">Full Name</label>
-        <input type="text" id="username" name="username" required>
+    <div class="signup-container">
+        <h2>Create Account</h2>
+        <form action="#" method="post">
+            <label for="username">Full Name</label>
+            <input type="text" id="username" name="username" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
 
-        <label for="confirm_password">Confirm Password</label>
-        <input type="password" id="confirm_password" name="confirm_password" required>
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
 
-        <label for="account_type">Account Type</label>
-        <select id="account_type" name="account_type">
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-        </select>
+            <label for="account_type">Account Type</label>
+            <select id="account_type" name="account_type">
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
 
-        <button type="submit" id="submit-btn">Sign Up</button>
-    </form>
-    <p>Already have an account? <a id="hava-account-a"href="../Rofida/login.html">Login</a></p>
-</div>
+            <button type="submit" id="submit-btn">Sign Up</button>
+        </form>
+        <p>Already have an account? <a id="hava-account-a"href="../Rofida/login.html">Login</a></p>
+    </div>
 <script src="JS/theme-toggle.js"></script>
 <script src="JS/nav-active.js"></script>
 

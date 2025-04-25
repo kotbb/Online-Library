@@ -14,7 +14,7 @@
                 <div class="nav-links">
                     <a href="HomePage.html" class="active">Home</a>
                     <a href="Borrow_Book.html" id="myBooks">My Books</a>
-                    <a href="#" id="profile">Profile</a>
+                    <a href="profile.html" id="profile">Profile</a>
                     <a href="admin-dashboard.html" id="admin">Admin</a>
                     <a href="user.html" id="user">User</a>
                     <a href="login.html" id="login">Login</a>
@@ -31,50 +31,54 @@
             <form method="post">
                 <div class="form-group">
                     <label for="book-name">Name</label>
-                    <input type="text" id="book-name" name="book-name" required>
+                    <input type="text" id="book-name" name="book-name" placeholder="Enter book name">
                 </div>
                 
                 <div class="form-group">
                     <label for="book-author">Author</label>
-                    <input type="text" id="book-author" name="book-author" required>
+                    <input type="text" id="book-author" name="book-author" placeholder="Enter book author" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="book-ISBN">ISBN</label>
-                    <input type="text" id="book-ISBN" name="book-ISBN" required>
+                    <input type="text" id="book-ISBN" name="book-ISBN" placeholder="Enter book ISBN" required>
                 </div>
                 <div class="form-group">
                     <label for="book-papers">Papers</label>
-                    <input type="text" id="book-papers" name="book-papers" required>
+                    <input type="text" id="book-papers" name="book-papers" placeholder="Enter book papers" required>
                 </div>
+                
                 
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select id="category" name="category">
-                        <option value="fiction">Fiction</option>
-                        <option value="non-fiction">Non-Fiction</option>
-                        <option value="mystery">Mystery</option>
-                        <option value="fantasy">Fantasy</option>
-                        <option value="science-fiction">Science Fiction</option>
-                        <option value="biography">Biography</option>
-                        <option value="history">History</option>
-                        <option value="romance">Romance</option>
-                        <option value="bilogy">Biology</option>
-                        <option value="genetics">Genetics</option>
-                        <option value="self-improvement">Self-Improvement</option>
-                        <option value="personal-development">Personal-Development</option>
-                        <option value="other">Other</option>
+                        <option value="fiction" class="options">Fiction</option>
+                        <option value="non-fiction"class="options">Non-Fiction</option>
+                        <option value="mystery"class="options">Mystery</option>
+                        <option value="fantasy"class="options">Fantasy</option>
+                        <option value="science-fiction"class="options">Science Fiction</option>
+                        <option value="biography"class="options">Biography</option>
+                        <option value="history"class="options">History</option>
+                        <option value="romance"class="options">Romance</option>
+                        <option value="bilogy"class="options">Biology</option>
+                        <option value="genetics"class="options">Genetics</option>
+                        <option value="self-improvement"class="options">Self-Improvement</option>
+                        <option value="personal-development"class="options">Personal-Development</option>
+                        <option value="other"class="options">Other</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label for="book-description">Description</label>
-                    <textarea name="book-description" id="book-description" rows="4"></textarea>
+                    <textarea name="book-description" id="book-description" rows="4" placeholder="Enter book description"></textarea>
                 </div>
-        
+                
                 <div class="form-group">
                     <label for="book-image">Book Cover Image</label>
                     <input type="file" id="book-image" name="book-image" accept="image/*">
+                    <img id="preview-image" alt="BookCover">
+                    <div id="current-image-filename"></div>
+                    
                 </div>
                 <div class="button-group">
                     <button type="submit" id = "submit-btn">Submit</button>
@@ -87,6 +91,7 @@
         <script src="JS/AddBook.js"></script>
         <script src="JS/theme-toggle.js"></script>
         <script src="JS/nav-active.js"></script>
+        
 
     </body>
 

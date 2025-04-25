@@ -11,6 +11,8 @@ let category = document.getElementById('category');
 let submit = document.getElementById('submit-btn');
 let upload = document.getElementById('upload-btn');
 let form = document.querySelector('form');
+let preview = document.getElementById('preview-image');
+let filenameDisplay = document.getElementById('current-image-filename');
 //---------------------------------------------------
 
 // focus on name in loading the page
@@ -46,19 +48,41 @@ let checkValues = function(book) {
            book.author.trim() !== "" &&
            book.papers.trim() !== "";
 }
+// Read the file image
+image.addEventListener('change',function(){
+    let file = this.files[0];
+    if(file)
+    {
+        let reader = new FileReader();
+
+        // Load before read to not miss the loading event
+        reader.onload = ()=>{
+            preview.src = reader.result;
+            filenameDisplay.textContent = file.name;
+        }
+
+        // Read at the end to make sure we will not miss the loading event
+        reader.readAsDataURL(file);
+        preview.style.display = 'block';
+    }
+})
 // submiting data in the array and sending them to the local storage
 submit.addEventListener('click',function(e) 
 {
     e.preventDefault();
+    let imageName = 'defaultBookCover.jpg'; 
+    
+    if(image.files.length)
+        imageName = image.files[0].name;
     let newBook = {
         name: name.value.trim(),
         author: author.value.trim(),
         ISBN: ISBN.value.trim(),
         papers: papers.value.trim(),
-        description: description.value.trim(),
-        image: image.value.trim(),
         category: category.value,
-        status: true
+        status: 'Available',
+        description: description.value.trim(),
+        image: imageName
     }
     // to check if the user click on submit with null values to prevent sending wrong data to the array
     if(checkValues(newBook))
@@ -66,11 +90,10 @@ submit.addEventListener('click',function(e)
         dataBooks.push(newBook);
         localStorage.setItem('book',JSON.stringify(dataBooks));
         window.location.href = "admin-dashboard.html";
+        console.log(newBook.image);
 
     }
-
 })
-
 //----------------------------------------------------------------------------------------+
 
 

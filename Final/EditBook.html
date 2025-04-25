@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Book</title>
+  <link rel="stylesheet" href="CSS/edit-delete_style.css">
+  <link rel="stylesheet" href="CSS/navBar_Style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+        <a href="HomePage.html" class="logo">Online Library</a>
+        <div class="nav-links">
+            <a href="HomePage.html" class="nav-active">Home</a>
+            <a href="Borrow_Book.html" id="myBooks">My Books</a>
+            <a href="profile.html" id="profile">Profile</a>
+            <a href="admin-dashboard.html" id="admin">Admin</a>
+            <a href="user.html" id="user">User</a>
+            <a href="login.html" id="login">Login</a>
+            <a href="sign-up.html" id="signup">Sign up</a>
+            <button id="themeToggle" class="theme-toggle">
+                <span>🌞</span>
+            </button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
+</nav>
+
+  <main>
+    <h1>Edit Book Details</h1>
+    <form id = "EditForm">
+      <label>Book Name</label>
+      <input type="text" id="book-name" placeholder="Enter book name" required>
+
+      <label>Author</label>
+      <input type="text" id="book-author" placeholder="Enter book author" required>
+
+      <label for="book-ISBN">ISBN</label>
+      <input type="text" id="book-ISBN" name="book-ISBN" placeholder="Enter book ISBN" required>
+
+      <label for="book-papers">Papers</label>
+      <input type="text" id="book-papers" name="book-papers" placeholder="Enter book papers" required>
+
+
+      <label for="category">Category</label>
+      <select id="category" name="category">
+          <option value="fiction" class="options">Fiction</option>
+          <option value="non-fiction" class="options">Non-Fiction</option>
+          <option value="mystery" class="options">Mystery</option>
+          <option value="fantasy" class="options">Fantasy</option>
+          <option value="science-fiction" class="options">Science Fiction</option>
+          <option value="biography" class="options">Biography</option>
+          <option value="history" class="options">History</option>
+          <option value="romance" class="options">Romance</option>
+          <option value="bilogy" class="options">Biology</option>
+          <option value="genetics" class="options">Genetics</option>
+          <option value="self-improvement" class="options">Self-Improvement</option>
+          <option value="personal-development" class="options">Personal-Development</option>
+          <option value="other" class="options">Other</option>
+      </select>
+      
+      <label for="book-description">Description</label>
+      <textarea name="book-description" id="book-description" rows="4" placeholder="Enter book description"></textarea> 
+       
+      <label for="book-status">Status</label>
+      <select name="book-status" id="book-status">
+        <option value ="Available" class="options">Available</option>
+        <option value="Not Available"class="options">Not Available</option>
+      </select>
+
+      <label for="book-image">Book Cover Image</label>
+      <input type="file" id="book-image" name="book-image" accept="image/*">
+      <img id="preview-image" alt="BookCover">
+      <div id="current-image-filename"></div>
+
+      <button type="button" id="submit">Save Changes</button>
+    </form>
+  </main>
+  <script src="JS/theme-toggle.js"></script>
+  <script src="JS/nav-active.js"></script>
+  <script src="JS/EditBook.js"></script>
+  
+
+
+</body>
+</html>

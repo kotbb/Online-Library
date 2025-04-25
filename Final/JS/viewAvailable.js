@@ -29,7 +29,7 @@ let showData = function()
     let table = '';
     for(let i = 0; i < dataBooks.length;i++)
     {
-        if(dataBooks[i].status === false)
+        if(dataBooks[i].status === 'Not Available')
         {
             countNonAvailable++;
             continue;
@@ -97,7 +97,7 @@ confirmBtn.addEventListener('click',function()
 
     }
     else{
-        dataBooks = dataBooks.filter(book => book.status !== true);
+        dataBooks = dataBooks.filter(book => book.status !== 'Available');
     }
     localStorage.book = JSON.stringify(dataBooks);
     showData();

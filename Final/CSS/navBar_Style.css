@@ -8,6 +8,12 @@
     --shadow-color: rgba(139, 69, 19, 0.1);
     --btn-primary: #8b4513;
     --btn-primary-hover: #6b3410;
+    --table-bg: #fffdf9;
+    --table-header-bg: #f0e6d8;
+    --table-text: #4a3426;
+    --table-border: #d7c9b9;
+    --table-hover: #f5ede3;
+    --table-shadow: rgba(139, 69, 19, 0.05);
 }
 [data-theme="dark"] {
     --bg-primary: #2a241c;         
@@ -19,6 +25,11 @@
     --btn-primary: #b38b63;       
     --btn-primary-hover: #c9a47e;  
     --btn-glow: rgba(179, 139, 99, 0.2);
+    --table-bg: #3a2c20;
+    --table-header-bg: #4a3a2a;
+    --table-text: #f0e6d2;
+    --table-border: #5c4d3d;
+    --table-hover: #4a3d30;
 }
 body {
     background-color: var(--bg-primary);

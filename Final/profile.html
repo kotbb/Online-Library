@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My profile</title>
+        <link rel="stylesheet" href="CSS/profile.css">
+        <link rel="stylesheet" href="CSS/navBar_Style.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="HomePage.html" class="logo">Online Library</a>
+                <div class="nav-links">
+                    <a href="HomePage.html">Home</a>
+                    <a href="Borrow_Book.html" id="myBooks">My Books</a>
+                    <a href="profile.html" id="profile">Profile</a>
+                    <a href="admin-dashboard.html" id="admin">Admin</a>
+                    <a href="user.html" id="user">User</a>
+                    <a href="login.html" id="login">Login</a>
+                    <a href="sign-up.html" id="signup">Sign up</a>
+                    <button id="themeToggle" class="theme-toggle">
+                        <span>🌞</span>
+                    </button>
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+        </nav>
+        <div class="userData-container" >
+            <h1>User Data</h1>
+            <div class="user-box">
+                <p><strong>Full Name: </strong>Mohamed Kotb</p>
+                <p><strong>Username: </strong>kotb123</p>
+                <p><strong>Email: </strong>kotb200484@gmail.com</p>
+                <p><strong>Account Type: </strong>Admin</p>
+            </div>
+            <div class="button-group">
+                <button id="changeDataBtn" class="btn-primary">Change Data</button>
+                <button id="changePasswordBtn" class="btn-primary">Change Password</button>
+            </div>
+        </div>
+
+        <div id="DataModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 class="modal-title">Change Data</h2>
+                <div class="modal-field">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" value="John Doe">
+                </div>
+                <div class="modal-field">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" value="johndoe">
+                </div>
+                <div class="modal-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="johndoe@example.com">
+                </div>
+                <div class="modal-field">
+                    <label for="account_type">Account Type</label>
+                    <select id="account_type" name="account_type">
+                        <option value="admin" class="options">Admin</option>
+                        <option value="user"class="options">User</option>
+                    </select>
+                </div>
+                <button id="saveDataBtn" class="btn-primary">Save Changes</button>
+                <button id="cancelDataBtn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+
+        <div id="PasswordModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 class="modal-title">Change Password</h2>
+                <div class="modal-field">
+                    <label for="oldPassword">Old Password:</label>
+                    <input type="password" id="oldPassword">
+                </div>
+                <div class="modal-field">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword">
+                </div>
+                <div class="modal-field">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword">
+                </div>
+                <button id="savePasswordBtn" class="btn-primary">Save Changes</button>
+                <button id="cancelPasswordBtn" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    
+        <script src="JS/nav-active.js"></script>        
+        <script src="JS/theme-toggle.js"></script>        
+        <script src="JS/profile.js"></script>        
+    </body>   
+</html> 

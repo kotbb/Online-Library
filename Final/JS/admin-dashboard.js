@@ -1,9 +1,3 @@
-// when press on Add button, go to AddBook page
-let addBtn = document.getElementById('addBookBtn');
-addBtn.addEventListener('click',function()
-{
-    window.location.href = 'AddBook.html';
-})
 
 //          *************** Show Books ***************
 // Initilize the books array and check if it is empty
@@ -33,11 +27,11 @@ let showData = function()
         <td>${dataBooks[i].author} </td>
         <td>${dataBooks[i].ISBN} </td>
         <td>${dataBooks[i].category} </td>
-        <td>${dataBooks[i].status ? 'Available' : 'Not available'}</td>
+        <td>${dataBooks[i].status}</td>
         <td>${dataBooks[i].papers}</td>
         <div class = "action-buttons">
             <td> 
-                <button class ="action-buttons" id="btn-edit" onclick = "window.location.href = 'Edit Book.html'"    >Edit</button>
+                <button class ="action-buttons" id="btn-edit" onclick = "editData(${i})">Edit</button>
                 <button class ="action-buttons" id="btn-delete" onclick = "deleteData(${i})">Delete</button>  </td>
             </td>
         </div>
@@ -119,5 +113,14 @@ deleteAll_btn.addEventListener('click',function()
         modal.classList.add('active');
     }
 });
+//--------------------------------------------------------------
+//          *************** Edit Books ***************
+
+// load edit page with the book
+let editData = function(i) {
+    localStorage.setItem("editIndex", i);
+    window.location.href = 'EditBook.html';
+     
+}
 
 
