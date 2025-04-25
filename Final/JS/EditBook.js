@@ -1,84 +1,121 @@
-// Get data of the book
-let dataBooks = JSON.parse(localStorage.getItem("book")) || [];
-let index = localStorage.getItem("editIndex");
-let name = document.getElementById('book-name');
-let author = document.getElementById('book-author');
-let ISBN = document.getElementById('book-ISBN');
-let papers = document.getElementById('book-papers');
-let description = document.getElementById('book-description');
-let image = document.getElementById('book-image');
-let category = document.getElementById('category');
-let status = document.getElementById('book-status');
-let filenameDisplay = document.getElementById('current-image-filename');
-//--------------------------------------------------------
-// Load the date of the fields
-window.addEventListener("DOMContentLoaded", function () {
-    dataBooks = JSON.parse(localStorage.getItem("book")) || [];
-    index = localStorage.getItem("editIndex");
-    index = Number(index);
 
-    if (index === null || !dataBooks[index]) return;
-    let book = dataBooks[index];
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("EditForm");
 
-    name.value = book.name;
-    author.value = book.author;
-    ISBN.value = book.ISBN;
-    papers.value = book.papers;
-    category.value = book.category;
-    status.value = book.status;
-    description.value = book.description || "";
+  const bookNameInput = document.getElementById("book-name");
+  const authorInput = document.getElementById("book-author");
+  const isbnInput = document.getElementById("book-ISBN");
+  const papersInput = document.getElementById("book-papers");
+  const categoryInput = document.getElementById("category");
+  const descriptionInput = document.getElementById("book-description");
+  const statusInput = document.getElementById("book-status");
 
-    let preview = document.getElementById('preview-image');
+  const submitBtn = document.getElementById("submit");
 
+  let image = document.getElementById('book-image-file');
+  let filenameDisplay = document.getElementById('current-image-filename');
+  let preview = document.getElementById('preview-image');
+
+
+  // Load existing data
+  let dataBooks = JSON.parse(localStorage.getItem("book")) || [];
+  let index = localStorage.getItem("editIndex");
+
+  if (index !== null && dataBooks[index]) {
+    const book = dataBooks[index];
+    bookNameInput.value = book.name || "";
+    authorInput.value = book.author || "";
+    isbnInput.value = book.ISBN || "";
+    papersInput.value = book.papers || "";
+    categoryInput.value = book.category || "";
+    descriptionInput.value = book.description || "";
+    statusInput.value = book.status || "Available";
+    // to load the image source
     if (book.image) {
-        preview.src = 'img/'+ book.image;
-        filenameDisplay.textContent = book.image;
+      preview.src = 'img/'+ book.image;
+      filenameDisplay.textContent = book.image;
     }
-    // Read the file image
+    // Read the file image to show it in the page
     image.addEventListener('change',function(){
-    let file = this.files[0];
-    if(file)
-    {
-        let reader = new FileReader();
+      let file = this.files[0];
+      if(file)
+      {
+          let reader = new FileReader();
+  
+          // Load before read to not miss the loading event
+          reader.onload = ()=>{
+              preview.src = reader.result;
+              filenameDisplay.textContent = file.name;
+          }
+          // Read at the end to make sure we will not miss the loading event
+          reader.readAsDataURL(file);
+      }
+      })
+  }
 
-        // Load before read to not miss the loading event
-        reader.onload = ()=>{
-            preview.src = reader.result;
-            filenameDisplay.textContent = file.name;
-        }
-        // Read at the end to make sure we will not miss the loading event
-        reader.readAsDataURL(file);
-        preview.style.display = 'block';
-    }
-    })
-})
-// Check if the user doesn't enter values
-let checkValues = function(book) {
-    return book.name.trim() !== "" &&
-           book.ISBN.trim() !== "" &&
-           book.author.trim() !== "" &&
-           book.papers.trim() !== "";
-}
-// Submit the edited data
-let submitBtn = document.getElementById('submit');
-submitBtn.addEventListener('click',function(){
-    let imageName = dataBooks[index].image;
+  // Save on click
+  submitBtn.addEventListener("click", function () {
+    const name = bookNameInput.value.trim();
+    const author = authorInput.value.trim();
+    const ISBN = isbnInput.value.trim();
+    const papers = papersInput.value.trim();
+    const category = categoryInput.value.trim();
+    const description = descriptionInput.value.trim();
+    const status = statusInput.value.trim();
+
+    let imageName;
     if(image.files.length)
-        imageName = image.files[0].name;
-    let updatedBook = {
-        name: name.value,
-        author: author.value,
-        ISBN: ISBN.value,
-        papers: papers.value,
-        category: category.value,
-        status: status.value,
-        description: description.value,
-        image: imageName,
-    };
-    if(checkValues(updatedBook))
-    {
-        dataBooks[index] = updatedBook;
-        localStorage.book = JSON.stringify(dataBooks);
-        window.location.href = 'admin-dashboard.html';
+        imageName = image.files[0].name ;
+    else
+        imageName = filenameDisplay.textContent;
+
+    // Validation
+    if (!name ) {
+      alert("Please enter a book name.");
+      return;
     }
-})
+    
+    if (!author) {
+      alert("Please enter the author's name.");
+      return;
+    }
+    
+    if (!ISBN ) {
+      alert("Please enter a ISBN .");
+      return;
+    }
+    
+    if (!papers) {
+      alert("Please enter a  number of papers .");
+      return;
+    }
+    
+    if (!category) {
+      alert("Please select a category.");
+      return;
+    }
+    
+
+  
+    if (index !== null && dataBooks[index]) {
+      dataBooks[index] = {
+        name,
+        author,
+        ISBN,
+        papers,
+        category,
+        description,
+        status,
+        image: imageName
+      };
+
+      localStorage.setItem("book", JSON.stringify(dataBooks));
+      alert("Changes saved successfully ✅");
+      window.location.href = 'admin-dashboard.html'
+
+     
+    } else {
+      alert("Error: Book not found.");
+    }
+  });
+});

@@ -10,17 +10,12 @@
     <body>
         <nav class="navbar">
             <div class="nav-container">
-                <a href="HomePage.html" class="logo">Online Library</a>
-                <div class="nav-links">
-                    <a href="HomePage.html">Home</a>
-                    <a href="Borrow_Book.html" id="myBooks">My Books</a>
-                    <a href="profile.html" id="profile">Profile</a>
-                    <a href="admin-dashboard.html" id="admin">Admin</a>
-                    <a href="user.html" id="user">User</a>
-                    <a href="login.html" id="login">Login</a>
-                    <a href="sign-up.html" id="signup">Sign up</a>
+                <a href="" class="logo" id="logo">Online Library</a>
+                <div class="nav-links" id="navLinks">
+                   
+                    
                     <button id="themeToggle" class="theme-toggle">
-                        <span>🌞</span>
+                        
                     </button>
                     <button id="logoutBtn">Logout</button>
                 </div>
@@ -28,11 +23,8 @@
         </nav>
         <div class="userData-container" >
             <h1>User Data</h1>
-            <div class="user-box">
-                <p><strong>Full Name: </strong>Mohamed Kotb</p>
-                <p><strong>Username: </strong>kotb123</p>
-                <p><strong>Email: </strong>kotb200484@gmail.com</p>
-                <p><strong>Account Type: </strong>Admin</p>
+            <div class="user-box" id="userData">
+                
             </div>
             <div class="button-group">
                 <button id="changeDataBtn" class="btn-primary">Change Data</button>
@@ -44,20 +36,16 @@
             <div class="modal-content">
                 <h2 class="modal-title">Change Data</h2>
                 <div class="modal-field">
-                    <label for="fullName">Full Name:</label>
-                    <input type="text" id="fullName" value="John Doe">
-                </div>
-                <div class="modal-field">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" value="johndoe">
+                    <label for="userName">Username:</label>
+                    <input type="text" id="userName">
                 </div>
                 <div class="modal-field">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" value="johndoe@example.com">
+                    <input type="email" id="email">
                 </div>
                 <div class="modal-field">
                     <label for="account_type">Account Type</label>
-                    <select id="account_type" name="account_type">
+                    <select id="accountType" name="account_type">
                         <option value="admin" class="options">Admin</option>
                         <option value="user"class="options">User</option>
                     </select>
@@ -87,8 +75,10 @@
             </div>
         </div>
     
-        <script src="JS/nav-active.js"></script>        
+        <script src="JS/nav-bar.js"></script>        
         <script src="JS/theme-toggle.js"></script>        
-        <script src="JS/profile.js"></script>        
+        <script src="JS/logout.js"></script>
+        <script src="JS/profile.js"></script>  
+
     </body>   
 </html> 

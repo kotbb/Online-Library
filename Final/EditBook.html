@@ -9,21 +9,16 @@
 <body>
   <nav class="navbar">
     <div class="nav-container">
-        <a href="HomePage.html" class="logo">Online Library</a>
-        <div class="nav-links">
-            <a href="HomePage.html" class="nav-active">Home</a>
-            <a href="Borrow_Book.html" id="myBooks">My Books</a>
-            <a href="profile.html" id="profile">Profile</a>
-            <a href="admin-dashboard.html" id="admin">Admin</a>
-            <a href="user.html" id="user">User</a>
-            <a href="login.html" id="login">Login</a>
-            <a href="sign-up.html" id="signup">Sign up</a>
-            <button id="themeToggle" class="theme-toggle">
-                <span>🌞</span>
-            </button>
-            <button id="logoutBtn">Logout</button>
-        </div>
-    </div>
+      <a href="" class="logo" id="logo">Online Library</a>
+      <div class="nav-links" id="navLinks">
+          
+          
+          <button id="themeToggle" class="theme-toggle">
+              
+          </button>
+          <button id="logoutBtn">Logout</button>
+      </div>
+  </div>
 </nav>
 
   <main>
@@ -68,17 +63,19 @@
         <option value="Not Available"class="options">Not Available</option>
       </select>
 
-      <label for="book-image">Book Cover Image</label>
-      <input type="file" id="book-image" name="book-image" accept="image/*">
+      <label for="book-image-file">Book Cover Image</label>
+      <input type="file" id="book-image-file" name="book-image-file" accept="image/*">
       <img id="preview-image" alt="BookCover">
       <div id="current-image-filename"></div>
 
       <button type="button" id="submit">Save Changes</button>
     </form>
   </main>
+  <script src="JS/nav-bar.js"></script>
   <script src="JS/theme-toggle.js"></script>
-  <script src="JS/nav-active.js"></script>
+  <script src="JS/logout.js"></script>
   <script src="JS/EditBook.js"></script>
+
   
 
 

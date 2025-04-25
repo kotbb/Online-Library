@@ -6,19 +6,19 @@ document.addEventListener('DOMContentLoaded',function()
 
     if(currentTheme === 'dark')
     {
-        body.setAttribute('data-theme','dark')
+        body.classList.add('dark-theme');
         themeToggle.innerHTML = '<span>🌙</span>';
     }else{
-        body.removeAttribute('data-theme');
-        themeToggle.innerHTML = '<span>🌞</span>';;
+        body.classList.remove('dark-theme');
+        themeToggle.innerHTML = '<span>🌞</span>';
     }
     themeToggle.addEventListener('click', function() {
-        if (body.getAttribute('data-theme') === 'dark') {
-            body.removeAttribute('data-theme');
+        if (body.classList.contains('dark-theme')) {
+            body.classList.remove('dark-theme');
             localStorage.setItem('theme', 'light');
             themeToggle.innerHTML = '<span>🌞</span>';
         } else {
-            body.setAttribute('data-theme', 'dark');
+            body.classList.add('dark-theme', 'dark');
             localStorage.setItem('theme', 'dark');
             themeToggle.innerHTML = '<span>🌙</span>';
         }

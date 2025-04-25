@@ -135,3 +135,12 @@ input:focus, select:focus {
 .hidden {
     display: none;
 }
+.field-error {
+    color: #e74c3c;        
+    font-size: 0.8em;      
+    margin-top: 4px;    
+}   
+  
+.error {
+border-color: #e74c3c;
+}

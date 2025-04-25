@@ -41,12 +41,23 @@ let checkEmptyArray = function()
 }
 dataBooks = checkEmptyArray();
 
-// check if the user doesn't enter values
+// Check validation
 let checkValues = function(book) {
-    return book.name.trim() !== "" &&
-           book.ISBN.trim() !== "" &&
-           book.author.trim() !== "" &&
-           book.papers.trim() !== "";
+
+    // Check for empty fields
+    if( book.name.trim() === "" ||  book.ISBN.trim() === "" || book.author.trim() === "" || book.papers.trim() === "")
+    {
+        alert('Please fill in all fields ❌');
+        return false;
+    }
+    // Check for a book with the same ISBN
+    for(let i = 0; i < dataBooks.length; i++){
+        if(book.ISBN === dataBooks[i].ISBN){
+            alert('Duplicate ISBN, Please enter another ISBN ❌');
+            return false;
+        }
+    }
+    return true;
 }
 // Read the file image
 image.addEventListener('change',function(){
@@ -82,25 +93,16 @@ submit.addEventListener('click',function(e)
         category: category.value,
         status: 'Available',
         description: description.value.trim(),
-        image: imageName
-    }
+        image: imageName,
+        adminEmail: user.email
+    };
     // to check if the user click on submit with null values to prevent sending wrong data to the array
     if(checkValues(newBook))
     {
         dataBooks.push(newBook);
         localStorage.setItem('book',JSON.stringify(dataBooks));
+        alert("Book added successfully ✅");
         window.location.href = "admin-dashboard.html";
-        console.log(newBook.image);
-
     }
 })
 //----------------------------------------------------------------------------------------+
-
-
-
-
-
-
-
-
-

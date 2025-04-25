@@ -10,17 +10,12 @@
     <body>
         <nav class="navbar">
             <div class="nav-container">
-                <a href="HomePage.html" class="logo">Online Library</a>
-                <div class="nav-links">
-                    <a href="HomePage.html" class="active">Home</a>
-                    <a href="Borrow_Book.html" id="myBooks">My Books</a>
-                    <a href="profile.html" id="profile">Profile</a>
-                    <a href="admin-dashboard.html" id="admin">Admin</a>
-                    <a href="user.html" id="user">User</a>
-                    <a href="login.html" id="login">Login</a>
-                    <a href="sign-up.html" id="signup">Sign up</a>
+                <a href="" class="logo" id="logo">Online Library</a>
+                <div class="nav-links" id="navLinks">
+                   
+                    
                     <button id="themeToggle" class="theme-toggle">
-                        <span>🌞</span>
+                        
                     </button>
                     <button id="logoutBtn">Logout</button>
                 </div>
@@ -72,7 +67,15 @@
                     <label for="book-description">Description</label>
                     <textarea name="book-description" id="book-description" rows="4" placeholder="Enter book description"></textarea>
                 </div>
-                
+
+                <div class="form-group">
+                <label for="book-status">Status</label>
+                    <select name="book-status" id="book-status">
+                        <option value ="Available" class="options">Available</option>
+                        <option value="Not Available"class="options">Not Available</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="book-image">Book Cover Image</label>
                     <input type="file" id="book-image" name="book-image" accept="image/*">
@@ -88,9 +91,10 @@
                 </div>
             </form>
         </div>
-        <script src="JS/AddBook.js"></script>
+        <script src="JS/nav-bar.js"></script>
         <script src="JS/theme-toggle.js"></script>
-        <script src="JS/nav-active.js"></script>
+        <script src="JS/logout.js"></script>
+        <script src="JS/AddBook.js"></script>
         
 
     </body>

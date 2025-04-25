@@ -45,7 +45,7 @@ let showData = function()
         <td>${dataBooks[i].papers}</td>
         <div class = "action-buttons">
             <td> 
-                <button class ="action-buttons" id="btn-edit" onclick = "window.location.href = 'Edit Book.html'"    >Edit</button>
+                <button class ="action-buttons" id="btn-edit" onclick = editData(${i}) >Edit</button>
                 <button class ="action-buttons" id="btn-delete" onclick = "deleteData(${i})">Delete</button>  </td>
             </td>
         </div>
@@ -118,3 +118,12 @@ deleteAll_btn.addEventListener('click',function()
         modal.classList.add('active');
     }
 });
+//----------------------------------------------------------
+//          *************** Edit Books ***************
+
+// load edit page with the book
+let editData = function(i) {
+    localStorage.setItem("editIndex", i);
+    window.location.href = 'EditBook.html';
+     
+}
