@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3 class="book-title">${book.title}</h3>
                     <p class="book-author">${book.author}</p>
                     <p class="book-genre">${book.genre}</p>
+                    <p class="book-availability ${availabilityClass}">${availabilityText}</p>
                     <div class="book-actions">
                         <button class="btn-primary" data-book-id="${book.id}">Select</button>
                         <button class="btn-secondary" data-book-id="${book.id}">Add to Wish List</button>
