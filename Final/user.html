@@ -6,12 +6,12 @@
     <title>Online Library</title>
     <link rel="stylesheet" href="CSS/user_style.css">
     <link rel="stylesheet" href="CSS/navBar_Style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="home-page">
     <nav class="navbar">
         <div class="nav-container">
-            <a href="" class="logo" id="logo">Online Library</a>
+            <a href="" class="logo" id="logo"><i class="fas fa-book"></i> Online Library</a>
             <div class="nav-links" id="navLinks">
                 
                 
@@ -30,67 +30,8 @@
             </div>
         </section>
 
-        <section class="books-grid">
-            <!-- Sample book cards -->
-            <div class="book-card">
-                <div class="book-cover">
-                    <img src="img/B1_1.jpg" alt="Book Cover" >
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">The Great Gatsby</h3>
-                    <p class="book-author">F. Scott Fitzgerald</p>
-                    <p class="book-genre">Fiction, Classics</p>
-                    <div class="book-actions">
-                        <button class="btn-primary">Select</button>
-                        <button class="btn-secondary">Add to Wish List</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-cover">
-                    <img src="img/B2_1.jpg" alt="Book Cover">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">To Kill a Mockingbird</h3>
-                    <p class="book-author">Harper Lee</p>
-                    <p class="book-genre">Fiction, Classics</p>
-                    <div class="book-actions">
-                        <button class="btn-primary">Select</button>
-                        <button class="btn-secondary">Add to Wish List</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-cover">
-                    <img src="img/B3_1.jpg" alt="Book Cover">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">1984</h3>
-                    <p class="book-author">George Orwell</p>
-                    <p class="book-genre">Science Fiction, Dystopian</p>
-                    <div class="book-actions">
-                        <button class="btn-primary">Select</button>
-                        <button class="btn-secondary">Add to Wish List</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-cover">
-                    <img src="img/B4_1.jpg" alt="Book Cover" >
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">Pride and Prejudice</h3>
-                    <p class="book-author">Jane Austen</p>
-                    <p class="book-genre">Romance, Classics</p>
-                    <div class="book-actions">
-                        <button class="btn-primary">Select</button>
-                        <button class="btn-secondary">Add to Wish List</button>
-                    </div>
-                </div>
-            </div>
+        <section class="books-grid" id="booksContainer">
+            <!-- Books will be loaded dynamically from localStorage -->
         </section>
     </main>
 
@@ -98,8 +39,5 @@
     <script src="JS/theme-toggle.js"></script>
     <script src="JS/logout.js"></script>
     <script src="JS/user.js"></script>
-
-
-
 </body>
 </html>
