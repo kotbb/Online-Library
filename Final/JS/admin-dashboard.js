@@ -9,7 +9,7 @@ let showData = function()
     let table = '';
     for(let i = 0; i < dataBooks.length;i++)
     {
-        if(user && user.email === dataBooks[i].userEmail)
+        if(user && user.email === dataBooks[i].adminEmail)
         {
             countBooks++;
             table += `

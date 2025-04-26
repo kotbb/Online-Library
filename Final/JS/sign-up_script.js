@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.hideImage').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.src = 'img/show.png';
+            } else {
+                input.type = 'password';
+                this.src = 'img/hide.png';
+            }
+        });
+    });
     const form = document.querySelector("form");
 
     form.addEventListener("submit", function (event) {
@@ -11,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("confirm_password").value;
         const accountType = document.getElementById("account_type").value;
+
+     
 
         if (password.length < 6) {
             alert("Password must be at least 6 characters long.");

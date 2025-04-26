@@ -84,3 +84,22 @@ p {
 #haveAccount:hover {
     text-decoration: underline;
 }
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    width: 100%;
+}
+
+.hideImage {
+    position: absolute;
+    right: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    user-select: none;            /* this prevent entering the field when pressing on the icon */   
+    width: 25px;
+    height: 25px;
+}

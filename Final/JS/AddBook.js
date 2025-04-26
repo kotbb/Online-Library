@@ -94,7 +94,8 @@ submit.addEventListener('click',function(e)
         status: 'Available',
         description: description.value.trim(),
         image: imageName,
-        userEmail: user.email.trim()
+        adminEmail: user.email.trim(),
+        userEmail: null
     };
     // to check if the user click on submit with null values to prevent sending wrong data to the array
     if(checkValues(newBook))
