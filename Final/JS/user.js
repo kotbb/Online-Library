@@ -150,10 +150,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-       
-        
         // Show confirmation dialog
         if (confirm(`Would you like to borrow "${book.title}" by ${book.author}?`)) {
+            // Find and hide the book card
+            const bookCard = document.querySelector(`.book-card button[data-book-id="${bookId}"]`).closest('.book-card');
+            bookCard.style.display = 'none';
+            
             // Update book availability
             book.available = false;
             
@@ -165,8 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             alert(`You have successfully borrowed "${book.title}". It will be available in your "My Books" section.`);
             
-            // Refresh the display
-            displayBooks(filteredBooks);
+            // Redirect to the borrowed books page
+            window.location.href = 'Borrow_Book.html';
         }
     }
     

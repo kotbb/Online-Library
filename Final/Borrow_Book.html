@@ -6,6 +6,7 @@
     <title>My Books</title>
     <link rel="stylesheet" href="CSS/Borrow_Book.css" />
     <link rel="stylesheet" href="CSS/navBar_Style.css" />
+    <link rel="icon" href="./img/icon.png" type="image/x-icon">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -18,178 +19,26 @@
   <body>
     <nav class="navbar">
       <div class="nav-container">
-        <a href="" class="logo" id="logo">Online Library</a>
+        <a href="" class="logo" id="logo"><i class="fas fa-book"></i> Online Library</a>
         <div class="nav-links" id="navLinks">
             <button id="themeToggle" class="theme-toggle"></button>
             <button id="logoutBtn">Logout</button>
         </div>
       </div>
-  </nav>
+    </nav>
 
     <main>
       <div class="container">
         <h1 class="header">My Books</h1>
         <div class="borrowed-list" id="borrowed-list">
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>To Kill a Mockingbird</h3>
-              <p class="author">Harper Lee</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="1">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>1984</h3>
-              <p class="author">George Orwell</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="2">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>Pride and Prejudice</h3>
-              <p class="author">Jane Austen</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="3">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>The Great Gatsby</h3>
-              <p class="author">F. Scott Fitzgerald</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="4">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>Moby-Dick</h3>
-              <p class="author">Herman Melville</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="5">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>The Lord of the Rings</h3>
-              <p class="author">J.R.R. Tolkien</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="6">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>The Catcher in the Rye</h3>
-              <p class="author">J.D. Salinger</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="7">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>The Hobbit</h3>
-              <p class="author">J.R.R. Tolkien</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="8">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>One Hundred Years of Solitude</h3>
-              <p class="author">Gabriel Garcia Marquez</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="9">Return Book</button>
-          </div>
-          
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="https://fakeimg.pl/667x1000/cc6600" alt="Book Cover" />
-            </div>
-            <div class="book-info">
-              <h3>War and Peace</h3>
-              <p class="author">Leo Tolstoy</p>
-            </div>
-            <div class="book-details">
-              <p><i class="fas fa-calendar"></i> Due Date: 2025-04-08</p>
-              <p><i class="fas fa-clock"></i> time</p>
-            </div>
-            <button class="btn return-btn" data-id="10">Return Book</button>
-          </div>
-          
+          <!-- Books will be loaded dynamically from localStorage -->
         </div>
       </div>
     </main>
 
-    <script type="module" src="./js/main.js"></script>
     <script src="JS/nav-bar.js"></script>
     <script src="JS/theme-toggle.js"></script>
     <script src="JS/logout.js"></script>
-
-
-
+    <script src="JS/borrow-book.js"></script>
   </body>
 </html>
