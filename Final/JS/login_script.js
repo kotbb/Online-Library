@@ -36,17 +36,3 @@ if (loginForm) {
         }
     });
 }
-document.addEventListener("DOMContentLoaded", function () {
-    // Hide and show password
-    let icon = document.getElementById('hideImage');
-        icon.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.src = 'img/show.png';
-            } else {
-                input.type = 'password';
-                this.src = 'img/hide.png';
-            }
-        });
-})

@@ -117,19 +117,6 @@ function showData(user){
     // Clear any error fields in the modal when opens
     document.querySelectorAll('.field-error').forEach(el => el.remove());
     document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-
-    document.querySelectorAll('.hideImage').forEach(icon => {
-        icon.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.src = 'img/show.png';
-            } else {
-                input.type = 'password';
-                this.src = 'img/hide.png';
-            }
-        });
-    });
 }
 
 //----------------------------------------------------------------------------
@@ -140,9 +127,7 @@ function clearPasswordFields(){
     document.querySelectorAll('.password-container input').forEach(input => {
         input.type = 'password';
     });
-    document.querySelectorAll('.hideImage').forEach(icon => {
-        icon.src = 'img/hide.png';
-    });
+
 }
 // Show the error in the field
 function showFieldError(field, message) {

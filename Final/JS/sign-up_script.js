@@ -1,16 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.hideImage').forEach(icon => {
-        icon.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.src = 'img/show.png';
-            } else {
-                input.type = 'password';
-                this.src = 'img/hide.png';
-            }
-        });
-    });
+    
     const form = document.querySelector("form");
 
     form.addEventListener("submit", function (event) {

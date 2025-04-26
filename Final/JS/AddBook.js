@@ -40,6 +40,11 @@ let checkValues = function(book) {
         alert('Please fill in all fields ❌');
         return false;
     }
+    // Check for papers input
+    if(book.papers < 1 || book.papers > 1000) {
+        alert('Insert number of papers between 1 and 1000 ❌');
+        return false;
+    }
     // Check for a book with the same ISBN
     for(let i = 0; i < dataBooks.length; i++){
         if(book.ISBN === dataBooks[i].ISBN){

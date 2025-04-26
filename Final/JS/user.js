@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="${availabilityClass}">${availabilityText}</p>
                     <div class="book-actions">
                         <button class="btn-primary" data-book-id="${book.ISBN}">Select</button>
-                        <button class="btn-secondary" data-book-id="${book.ISBN}">Add to Wish List</button>
                     </div>
                 </div>
             `;
@@ -90,14 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Wishlist buttons
-        const wishlistButtons = document.querySelectorAll('.book-actions .btn-secondary');
-        wishlistButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const bookId = this.getAttribute('data-book-id');
-                addToWishlist(bookId);
-            });
-        });
     }
     
     // Handle book selection
@@ -161,54 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
     }
-    
-    // Add book to wishlist
-    function addToWishlist(bookId) {
-        const book = allBooks.find(b => b.ISBN == bookId);
-        
-        if (!book) {
-            alert('Book not found!');
-            return;
-        }
-        
-        // Check if user is logged in (simplified for demo)
-        const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
-        
-        if (!isLoggedIn) {
-            alert('Please log in to add books to your wishlist.');
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-        
-        // Check if book is already in wishlist
-        if (wishlist.some(item => item.id == bookId)) {
-            alert(`"${book.title}" is already in your wishlist.`);
-            return;
-        }
-        
-        // Add to wishlist
-        wishlist.push({
-            name: book.name,
-            author: book.author,
-            ISBN: book.ISBN,
-            papers: book.papers,
-            category: book.category,
-            status: book.status,
-            borrowStatus: book.borrowStatus,
-            description: book.description,
-            image: book.image,
-            adminEmail: book.adminEmail,
-            userEmail: currentUser.email,
-            borrowDate: borrowDate.toISOString().split('T')[0],
-            dueDate: dueDate.toISOString().split('T')[0]
-        });
-        
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        alert(`"${book.title}" has been added to your wishlist.`);
-    }
-    
+
     // Search functionality
     function setupSearch() {
         searchButton.addEventListener('click', performSearch);
@@ -229,9 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
             filteredBooks = [...allBooks];
         } else {
             filteredBooks = allBooks.filter(book => 
-                book.title.toLowerCase().includes(searchTerm) ||
+                book.name.toLowerCase().includes(searchTerm) ||
                 book.author.toLowerCase().includes(searchTerm) ||
-                book.genre.toLowerCase().includes(searchTerm)
+                book.category.toLowerCase().includes(searchTerm)
             );
         }
         
