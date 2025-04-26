@@ -47,7 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
             let availabilityText = "Available";
             if(book.status === 'Unavailable')
             {
-                availabilityText = 'Currently Borrowed';
+                if(book.userEmail === currentUser.email)
+                    availabilityText = 'Currently Borrowed';
+                else
+                    availabilityText = 'Currently Unavailable';
+
             }
             
             bookCard.innerHTML = `
@@ -80,6 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
         selectButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const bookId = this.getAttribute('data-book-id');
+                let book = filteredBooks.find(book => book.ISBN === bookId);
+                book.userEmail = currentUser.email;
                 selectBook(bookId);
             });
         });

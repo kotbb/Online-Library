@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Try to get borrowed books from localStorage
         const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks') || '[]');
         
+        let countBorrowedBooks = borrowedBooks.filter( book => currentUser.email === book.userEmail).length;
+
         // If no borrowed books, show a message
-        if (borrowedBooks.length === 0) {
+        if (countBorrowedBooks === 0) {
             borrowedList.innerHTML = '<div class="no-books-message">You have not borrowed any books yet.</div>';
             return;
         }
