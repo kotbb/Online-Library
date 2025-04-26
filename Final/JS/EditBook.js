@@ -106,7 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         category,
         description,
         status,
-        image: imageName
+        image: imageName,
+        userEmail : user.email 
       };
 
       localStorage.setItem("book", JSON.stringify(dataBooks));

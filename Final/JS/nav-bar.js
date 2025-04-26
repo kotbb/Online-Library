@@ -1,5 +1,5 @@
-const user = JSON.parse(localStorage.getItem('currentUser')) || [];
-const users = JSON.parse(localStorage.getItem('users')) || [];
+let user = JSON.parse(localStorage.getItem('currentUser')) || [];
+let users = JSON.parse(localStorage.getItem('users')) || [];
 
 // Load navBar with the type of the logged-in user
 document.addEventListener("DOMContentLoaded", function () {
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
      logo.innerHTML = ' <img src="./img/icon.png" alt="icon" style="width: 20px;height: 20px;"> Online Library';
     if(user && user.accountType === 'admin'){
         logo.href = 'admin-dashboard.html'; 
-        const adminLinks = 
+        let adminLinks = 
         `
         <a href="admin-dashboard.html" id="admin">Admin</a>
         <a href="profile.html" id="profile">Profile</a>
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     else if(user && user.accountType == 'user'){
         logo.href = 'user.html';
         
-        const userLinks = `
+        let userLinks = `
             <a href="Borrow_Book.html" id="myBooks">My Books</a>
             <a href="profile.html" id="profile">Profile</a>
             <a href="user.html" id="user">User</a>
