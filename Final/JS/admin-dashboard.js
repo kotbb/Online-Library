@@ -86,7 +86,7 @@ confirmBtn.addEventListener('click',function()
         dataBooks.splice(deleteIndex,1);
     }
     else{
-        dataBooks = [];
+        dataBooks = dataBooks.filter(book => book.adminEmail !== user.email);
     }
     localStorage.book = JSON.stringify(dataBooks);
     showData();

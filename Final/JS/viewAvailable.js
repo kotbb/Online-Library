@@ -1,16 +1,5 @@
 // Initilize the books array and check if it is empty
-let dataBooks;
-let checkEmptyArray = function()
-{
-    if(localStorage.book != null)
-    {
-        return JSON.parse(localStorage.book);
-    }
-    else{
-        return [];
-    }
-}
-dataBooks = checkEmptyArray();
+let dataBooks = JSON.parse(localStorage.getItem("book")) || [];
 
 //------------------------------------------------------
 let deleteAll_btn = document.getElementById('deleteAll-btn');
@@ -31,7 +20,7 @@ let showData = function()
     {
         if(user && user.email == dataBooks[i].adminEmail)
         {
-            if(dataBooks[i].status === 'Not Available')
+            if(dataBooks[i].status === 'Unavailable')
             {
                 continue;
             }
@@ -43,7 +32,7 @@ let showData = function()
             <td>${dataBooks[i].author} </td>
             <td>${dataBooks[i].ISBN} </td>
             <td>${dataBooks[i].category} </td>
-            <td>${dataBooks[i].status ? 'Available' : 'Not available'}</td>
+            <td>${dataBooks[i].status}</td>
             <td>${dataBooks[i].papers}</td>
             <div class = "action-buttons">
                 <td> 
@@ -101,11 +90,11 @@ confirmBtn.addEventListener('click',function()
 
     }
     else{
-        dataBooks = dataBooks.filter(book => book.status !== 'Available');
+        dataBooks = dataBooks.filter(book => book.status !== 'Available' && user.email !== book.adminEmail);
     }
     localStorage.book = JSON.stringify(dataBooks);
     showData();
-    showDeleteAll();    
+    window.location.reload();   
     deleteIndex = null;
     modal.classList.remove('active');
     

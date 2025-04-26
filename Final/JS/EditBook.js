@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     papersInput.value = book.papers || "";
     categoryInput.value = book.category || "";
     descriptionInput.value = book.description || "";
-    statusInput.value = book.status || "Available";
+    statusInput.value = book.status;
     // to load the image source
     if (book.image) {
       preview.src = 'img/'+ book.image;
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const papers = papersInput.value.trim();
     const category = categoryInput.value.trim();
     const description = descriptionInput.value.trim();
-    const status = statusInput.value.trim();
+    const status = statusInput.value;
 
     let imageName;
     if(image.files.length)
@@ -96,7 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
 
-  
+    let adminEmail = dataBooks[index].adminEmail;
+    let userEmail = dataBooks[index].userEmail;
     if (index !== null && dataBooks[index]) {
       dataBooks[index] = {
         name,
@@ -104,10 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ISBN,
         papers,
         category,
-        description,
         status,
+        description,
         image: imageName,
-        userEmail : user.email 
+        adminEmail,
+        userEmail
       };
 
       localStorage.setItem("book", JSON.stringify(dataBooks));
