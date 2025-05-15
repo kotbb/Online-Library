@@ -1,13 +1,16 @@
 const user = JSON.parse(localStorage.getItem('currentUser')) || [];
 const users = JSON.parse(localStorage.getItem('users')) || [];
-
 // Load navBar with the type of the logged-in user
 document.addEventListener("DOMContentLoaded", function () {
+    
+    const homeUrls = ['HomePage.html','login.html','sign-up.html'];  // to make sure that home page doesn't include any pages in nav except login and sign-up
+    let allPath = window.location.pathname.split('/');
+    let currentUrl = allPath.pop();
     let logo = document.getElementById('logo');
     let navLinks = document.getElementById('navLinks');
      // Add book icon next to the Online Library text
      logo.innerHTML = ' <img src="./img/icon.png" alt="icon" style="width: 20px;height: 20px;"> Online Library';
-    if(user && user.accountType === 'admin'){
+    if(user && user.accountType === 'admin' && !homeUrls.includes(currentUrl)){
         logo.href = 'admin-dashboard.html'; 
         const adminLinks = 
         `
@@ -16,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         navLinks.insertAdjacentHTML('afterbegin',adminLinks);
     }
-    else if(user && user.accountType == 'user'){
+    else if(user && user.accountType == 'user' && !homeUrls.includes(currentUrl)){
         logo.href = 'user.html';
         
         const userLinks = `
@@ -26,9 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
         `
         navLinks.insertAdjacentHTML('afterbegin', userLinks);
     }
+
     // Make the shown page is active with some border and font
-    let allPath = window.location.pathname.split('/');
-    let currentUrl = allPath.pop();
+
     document.querySelectorAll('.nav-links a').forEach(function(link){
         link.classList.remove('nav-active');
         let linkUrl = link.getAttribute('href');

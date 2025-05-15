@@ -9,9 +9,9 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="nav-container">
+    <div class="nav-container" id="navLinks">
         <a href="HomePage.html" class="logo" id="logo">Online Library</a>
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
           <a href="HomePage.html" id="home">Home</a>
           <a href="login.html" id="login">Login</a>
           <a href="sign-up.html" id="sign-up">Sign-up</a>
@@ -27,11 +27,9 @@
         <input type="email" id="email" placeholder="Enter your email" required />
 
         <label for="password">Password</label>
-        <div class="password-container">
-          <input type="password" id="password" placeholder="Enter your password" required />
-        </div>
-
-
+        
+        <input type="password" id="password" placeholder="Enter your password" required />
+        
         <button type="submit" id="Login-btn">Login</button>
       </form>
       <p class="signup">Don’t have an account? <a href="sign-up.html">Sign up</a></p>
