@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit Book - Online Library{% endblock %}
+{% block extra_css %} 
+    <link rel="stylesheet" href="{% static 'adminPages/Css/edit-delete_style.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <h1>Edit Book Details</h1>
+        <form id="EditForm">
+            <label>Book Name</label>
+            <input type="text" id="book-name" placeholder="Enter book name" required>
+
+            <label>Author</label>
+            <input type="text" id="book-author" placeholder="Enter book author" required>
+
+            <label for="book-ISBN">ISBN</label>
+            <input type="text" id="book-ISBN" name="book-ISBN" placeholder="Enter book ISBN" required>
+
+            <label for="book-papers">Papers</label>
+            <input type="text" id="book-papers" name="book-papers" placeholder="Enter book papers" required>
+
+            <label for="category">Category</label>
+            <select id="category" name="category">
+                <option value="fiction" class="options">Fiction</option>
+                <option value="non-fiction" class="options">Non-Fiction</option>
+                <option value="mystery" class="options">Mystery</option>
+                <option value="fantasy" class="options">Fantasy</option>
+                <option value="science-fiction" class="options">Science Fiction</option>
+                <option value="biography" class="options">Biography</option>
+                <option value="history" class="options">History</option>
+                <option value="romance" class="options">Romance</option>
+                <option value="bilogy" class="options">Biology</option>
+                <option value="genetics" class="options">Genetics</option>
+                <option value="self-improvement" class="options">Self-Improvement</option>
+                <option value="personal-development" class="options">Personal-Development</option>
+                <option value="other" class="options">Other</option>
+            </select>
+            
+            <label for="book-description">Description</label>
+            <textarea name="book-description" id="book-description" rows="4" placeholder="Enter book description"></textarea> 
+            
+            <label for="book-status">Status</label>
+            <select name="book-status" id="book-status">
+                <option value="Available" class="options">Available</option>
+                <option value="Unavailable" class="options">Unavailable</option>
+            </select>
+
+            <label for="book-image-file">Book Cover Image</label>
+            <input type="file" id="book-image-file" name="book-image-file" accept="image/*">
+            <img id="preview-image" alt="BookCover">
+            <div id="current-image-filename"></div>
+
+            <button type="button" id="submit">Save Changes</button>
+        </form>
+    </main>
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'adminPages/JS/EditBook.js' %}"></script>
+{% endblock extra_js %}

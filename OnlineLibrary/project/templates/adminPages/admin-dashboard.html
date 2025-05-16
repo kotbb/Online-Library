@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Admin Dashboard - Online Library{% endblock %}
+{% block extra_css %} 
+    <link rel="stylesheet" href="{% static 'adminPages/Css/admin_Style.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="main-container">
+        <div class="admin-header">
+            <h1>Book Management</h1>
+            <button id="addBookBtn" class="btn-primary" onclick="window.location.href='{% url 'add_book' %}'">Add New Book</button>
+        </div>
+        <div class="deleteAll-container">
+            <button id="deleteAll-btn"></button>
+        </div>
+        <div class="books-table-container">
+            <table class="books-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Papers</th>
+                        <th>Count</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="booksTbody">
+                    {% for book in books %}
+                    <tr data-book-id="{{ book.id }}">
+                        <td>{{ book.id }}</td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.ISBN }}</td>
+                        <td>{{ book.category }}</td>
+                        <td>{{ book.status }}</td>
+                        <td>{{ book.pages }}</td>
+                        <td>{{ book.count }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-buttons" id="btn-edit" onclick="editData({{ book.id }})">Edit</button>
+                                <button class="action-buttons" id="btn-delete" onclick="deleteData({{ book.id }})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="view-available-container">
+            <button id="view-available-books" onclick="window.location.href='{% url 'view_available' %}'">View Available Books</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Confirm Deletion</h3>
+            <p id="modal-message"></p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="cancelDelete">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'adminPages/Js/admin-dashboard.js' %}"></script>
+{% endblock extra_js %}

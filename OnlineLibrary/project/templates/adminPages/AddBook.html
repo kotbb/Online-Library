@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Book - Online Library{% endblock %}
+{% block extra_css %} 
+        <link rel="stylesheet" href="{% static 'adminPages/Css/AddBook_Style.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="form-container">
+        <h1>Add Book</h1>
+        <form method="POST" enctype="multipart/form-data" id="add-book-form">
+            {% csrf_token %}
+            {{ form }}
+            <div class="image-preview-container">
+                <img id="preview-image" src="#" alt="Book Cover Preview">
+                <p id="current-image-filename"></p>
+            </div>
+            <div class="button-group">
+                <button type="submit" id="submit-btn">Submit</button>
+                <button type="button" class="upload-btn" id="upload-btn" onclick="document.getElementById('id_cover_image').click()">
+                    Upload Image
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'adminPages/Js/AddBook.js' %}"></script>
+{% endblock extra_js %}

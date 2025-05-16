@@ -1,0 +1,86 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.signup-container {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px var(--shadow-color);
+    width: 350px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+
+input, select {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+
+}
+[data-theme="dark"] select option{
+    background: #3d2e20;
+    color: #f5e6d3;
+}
+/* Button */
+#submit-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: var(--btn-primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#submit-btn:hover {
+    background-color: var(--btn-primary-hover);
+}
+
+/* Bottom Text */
+/* Bottom Text */
+p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+#haveAccount {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+#haveAccount:hover {
+    text-decoration: underline;
+}

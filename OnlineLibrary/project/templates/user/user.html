@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Library</title>
+    <link rel="stylesheet" href="CSS/user_style.css">
+    <link rel="stylesheet" href="CSS/navBar_Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="./img/icon.png" type="image/x-icon">
+</head>
+<body class="home-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="" class="logo" id="logo"><i class="fas fa-book"></i> Online Library</a>
+            <div class="nav-links" id="navLinks">
+                
+                
+                <button id="themeToggle" class="theme-toggle"> </button>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container main-content">
+        <section class="search-section">
+            <h1>Discover Your Next Book</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by title, author, or genre...">
+                <button class="btn-primary">Search</button>
+            </div>
+        </section>
+
+        <section class="books-grid" id="booksContainer">
+            <!-- Books will be loaded dynamically from localStorage -->
+        </section>
+    </main>
+
+    <script src="JS/nav-bar.js"></script>
+    <script src="JS/theme-toggle.js"></script>
+    <script src="JS/logout.js"></script>
+    <script src="JS/user.js"></script>
+</body>
+</html>

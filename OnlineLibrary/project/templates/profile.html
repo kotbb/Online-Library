@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Online Library{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/Css/profile.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="userData-container">
+        <h1>User Data</h1>
+        <div class="user-box" id="userData">
+        </div>
+        <div class="button-group">
+            <button id="changeDataBtn" class="btn-primary">Change Data</button>
+            <button id="changePasswordBtn" class="btn-primary">Change Password</button>
+        </div>
+    </div>
+
+    <div id="DataModal" class="modal hidden">
+        <div class="modal-content">
+            <h2 class="modal-title">Change Data</h2>
+            <div class="modal-field">
+                <label for="userName">Username:</label>
+                <input type="text" id="userName">
+            </div>
+            <div class="modal-field">
+                <label for="email">Email:</label>
+                <input type="email" id="email">
+            </div>
+            <div class="modal-field">
+                <label for="account_type">Account Type</label>
+                <select id="accountType" name="account_type">
+                    <option value="admin" class="options">Admin</option>
+                    <option value="user" class="options">User</option>
+                </select>
+            </div>
+            <button id="saveDataBtn" class="btn-primary">Save Changes</button>
+            <button id="cancelDataBtn" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <div id="PasswordModal" class="modal hidden">
+        <div class="modal-content">
+            <h2 class="modal-title">Change Password</h2>
+            <div class="modal-field">
+                <label for="oldPassword">Old Password:</label>
+                <div class="password-container">
+                    <input type="password" id="oldPassword">
+                </div>
+            </div>
+            <div class="modal-field">
+                <label for="newPassword">New Password:</label>
+                <div class="password-container">
+                    <input type="password" id="newPassword">
+                </div>
+            </div>
+            <div class="modal-field">
+                <label for="confirmPassword">Confirm Password:</label>
+                <div class="password-container">
+                    <input type="password" id="confirmPassword">
+                </div>
+            </div>
+            <button id="savePasswordBtn" class="btn-primary">Save Changes</button>
+            <button id="cancelPasswordBtn" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+    
+{% endblock extra_js %}

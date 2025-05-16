@@ -1,0 +1,228 @@
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: auto;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+    padding-top: 1rem
+}
+.admin-header{
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    
+}
+.admin-header h1{
+    font-size: 50px;
+    padding-bottom: 2rem; 
+    margin-top: 100px; 
+}
+.admin-header h2{
+    font-size: 50px;
+    margin-top: 100px; 
+    margin-bottom: 0rem;
+}
+.btn-primary {
+    width: 100%;
+    padding: 7px;
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--btn-primary-hover);
+}
+
+.books-table-container {
+    background: var(--table-bg); 
+    border-radius: 10px;
+    box-shadow: 0 0 20px var(--shadow-color); 
+    overflow: hidden;
+}
+
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--table-text); 
+}
+
+.books-table th,
+.books-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--table-border); 
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+.books-table tr {
+    transition: background-color 0.3s ease;
+}
+.books-table th {
+    background-color: var(--table-header-bg); 
+    font-weight: 600;
+    font-size: large;
+    color: var(--table-text); 
+    text-transform: uppercase;
+}
+
+.books-table tbody tr:hover {
+    background-color: var(--table-hover); 
+}
+
+/* Action buttons in table */
+#btn-edit,
+#btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    filter: brightness(1.1);
+    
+}
+
+#btn-edit {
+    background-color: #28a745;
+    color: white;
+}
+
+#btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+[data-theme="dark"] #btn-edit {
+    background-color: #3a8f5a; 
+}
+
+[data-theme="dark"] #btn-delete {
+    background-color: #b33a3a; 
+}
+
+#btn-edit:hover {
+    background-color: #218838;
+}
+
+#btn-delete:hover {
+    background-color: #c82333;
+}
+
+.main-content {
+    padding-top: 50px;
+}
+.view-books-container,.deleteAll-container,.ReturnToAdmin-container {
+    margin-top: 2rem;
+}
+#view-available-books,#deleteAll-btn,#ReturnToAdmin-btn{
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 200px;
+    margin: 0.5rem 500px;
+    transition: background-color 0.3s ease;
+
+}
+#deleteAll-btn{
+    width: 12%;
+    margin-top: 60px;
+    margin-left: 520px;
+    padding: 0.4rem 0.5rem;
+    display: none;
+
+}
+
+#view-available-books:hover,#deleteAll-btn:hover,#ReturnToAdmin-btn:hover {
+    background-color: var(--btn-primary-hover);
+    transform: translateY(-1px); 
+    
+}
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px var(--shadow-color);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.modal-message {
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.modal-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.modal-btn-confirm,.modal-btn-cancel {
+    background-color: var(--btn-primary);
+    color: var(--bg-primary);
+}
+.modal-btn-cancel:hover,.modal-btn-confirm:hover {
+    background-color: var(--btn-primary-hover);
+}

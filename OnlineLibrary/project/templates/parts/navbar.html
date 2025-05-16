@@ -1,0 +1,26 @@
+{% load static %}
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{% url 'home' %}" class="logo" id="logo">
+            <img src="{% static 'img/icon.png' %}" alt="icon" style="width: 20px;height: 20px;">
+            Online Library
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="{% url 'home' %}" id="home" class="{% if current_path == '' %}nav-active{% endif %}">Home</a>
+            <a href="{% url 'profile' %}" id="profile" class="{% if current_path == 'profile' %}nav-active{% endif %}">Profile</a>
+
+            <a href="#" id="myBooks" class="{% if current_path == 'borrow-book' %}nav-active{% endif %}">My Books</a>
+            <a href="#" id="user" class="{% if current_path == 'user' %}nav-active{% endif %}">User</a>
+        
+            <a href="{% url 'admin_dashboard' %}" id="admin" class="{% if current_path == 'admin-dashboard' or is_admin_page %}nav-active{% endif %}">Admin</a>
+        
+            <a href="#" id="login" class="{% if current_path == 'login' %}nav-active{% endif %}">Login</a>
+            <a href="#" id="sign-up" class="{% if current_path == 'signup' %}nav-active{% endif %}">Sign-up</a>
+        
+            <button id="themeToggle" class="theme-toggle">
+                <span>{% if theme == 'dark' %}🌙{% else %}🌞{% endif %}</span>
+            </button>
+            <button id="logoutBtn" onclick="window.location.href='{% url 'home' %}'">Logout</button>
+        </div>
+    </div>
+</nav>

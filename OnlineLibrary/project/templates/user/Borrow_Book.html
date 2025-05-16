@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Books</title>
+    <link rel="stylesheet" href="CSS/Borrow_Book.css" />
+    <link rel="stylesheet" href="CSS/navBar_Style.css" />
+    <link rel="icon" href="./img/icon.png" type="image/x-icon">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="" class="logo" id="logo"><i class="fas fa-book"></i> Online Library</a>
+        <div class="nav-links" id="navLinks">
+            <button id="themeToggle" class="theme-toggle"></button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <h1 class="header">My Books</h1>
+        <div class="borrowed-list" id="borrowed-list">
+          <!-- Books will be loaded dynamically from localStorage -->
+        </div>
+      </div>
+    </main>
+
+    <script src="JS/nav-bar.js"></script>
+    <script src="JS/theme-toggle.js"></script>
+    <script src="JS/logout.js"></script>
+    <script src="JS/borrow-book.js"></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 60px;
+    overflow: auto;
+
+}
+
+#h1-available {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-top: 80px; 
+    margin-bottom: 20px;
+    
+}
+
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--table-text); 
+}
+
+.books-table th,
+.books-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--table-border); 
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+.books-table tr {
+    transition: background-color 0.3s ease;
+}
+.books-table th {
+    background-color: var(--table-header-bg); 
+    font-weight: 600;
+    font-size: large;
+    color: var(--table-text); 
+    text-transform: uppercase;
+}
+
+.books-table tbody tr:hover {
+    background-color: var(--table-hover); 
+}
+
+/* Action buttons in table */
+#btn-edit,
+#btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    filter: brightness(1.1);
+    
+}
+
+#btn-edit {
+    background-color: #28a745;
+    color: white;
+}
+
+#btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+[data-theme="dark"] #btn-edit {
+    background-color: #3a8f5a; 
+}
+
+[data-theme="dark"] #btn-delete {
+    background-color: #b33a3a; 
+}
+
+#btn-edit:hover {
+    background-color: #218838;
+}
+
+#btn-delete:hover {
+    background-color: #c82333;
+}
