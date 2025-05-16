@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('add-book/', views.add_book, name='add_book'),
     path('view-available/', views.view_available, name='view_available'),
+    path('edit-book/<int:book_id>/', views.edit_book, name='edit_book'),
     path('delete-book/<int:book_id>/', views.delete_book, name='delete_book'),
     path('delete-all-books/', views.delete_all_books, name='delete_all_books'),
     

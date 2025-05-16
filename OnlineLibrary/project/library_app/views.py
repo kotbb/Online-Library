@@ -62,6 +62,28 @@ def add_book(request):
             'is_admin_page': True
         })
 
+def edit_book(request, book_id):
+    try:
+        book = Book.objects.get(id=book_id)
+        if request.method == 'POST':
+            form = BookForm(request.POST, request.FILES, instance=book)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Book "{book.title}" updated successfully!')
+                return redirect('admin_dashboard')
+            else:
+                messages.error(request, 'Error updating book. Please check the form data.')
+        else:
+            form = BookForm(instance=book)
+        return render(request, 'adminPages/EditBook.html', {
+            'form': form,
+            'book': book,
+            'is_admin_page': True
+        })
+    except Book.DoesNotExist:
+        messages.error(request, 'Book not found.')
+        return redirect('admin_dashboard')
+
 @require_POST
 def delete_book(request, book_id):
     try:
@@ -91,6 +113,3 @@ def view_available(request):
         'is_admin_page': True
     }
     return render(request, 'adminPages/view-available.html', context)
-
-
-
