@@ -3,12 +3,11 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .models import Book
-from .forms import BookForm
+from .forms import BookForm, UserRegisterForm, UserLoginForm
 import json
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserLoginForm
 
 
 # Pages
@@ -134,59 +133,44 @@ def sign_up(request):
         return redirect('home')
         
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-
-        if password != confirm_password:
-            messages.error(request, 'Passwords do not match!')
-            return render(request, 'registration/sign-up.html')
-
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username already exists!')
-            return render(request, 'registration/sign-up.html')
-
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already exists!')
-            return render(request, 'registration/sign-up.html')
-
-        # Create user using Django's create_user method for proper password hashing
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
-        
-        # Log the user in
-        login(request, user)
-        messages.success(request, 'Account created successfully!')
-        return redirect('home')
-
-    return render(request, 'registration/sign-up.html') 
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}! You can now log in.')
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserRegisterForm()
+    
+    return render(request, 'registration/sign-up.html', {'form': form})
 
 #--------------------------------
-# User Login and Logout ( with some issues)
+# User Login and Logout
 #--------------------------------
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('home')
         
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            messages.success(request, f'Welcome back, {username}!')
-            if user.is_staff:
-                return redirect('admin_dashboard')
-            return redirect('home')
+        form = UserLoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Welcome back, {username}!')
+                if user.is_staff:
+                    return redirect('admin_dashboard')
+                return redirect('home')
         else:
             messages.error(request, 'Invalid username or password.')
+    else:
+        form = UserLoginForm()
             
-    return render(request, 'registration/login.html')
+    return render(request, 'registration/login.html', {'form': form})
 
 def user_logout(request):
     logout(request)
