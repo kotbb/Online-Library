@@ -14,8 +14,8 @@
         
             <a href="{% url 'admin_dashboard' %}" id="admin" class="{% if current_path == 'admin-dashboard' or is_admin_page %}nav-active{% endif %}">Admin</a>
         
-            <a href="#" id="login" class="{% if current_path == 'login' %}nav-active{% endif %}">Login</a>
-            <a href="#" id="sign-up" class="{% if current_path == 'signup' %}nav-active{% endif %}">Sign-up</a>
+            <a href="{% url 'login' %}" id="login" class="{% if current_path == 'login' %}nav-active{% endif %}">Login</a>
+            <a href="{% url 'sign_up' %}" id="sign-up" class="{% if current_path == 'signup' %}nav-active{% endif %}">Sign-up</a>
         
             <button id="themeToggle" class="theme-toggle">
                 <span>{% if theme == 'dark' %}🌙{% else %}🌞{% endif %}</span>
