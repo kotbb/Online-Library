@@ -23,57 +23,35 @@
     </nav>
 <div class="signup-container">
     <h2>Create Account</h2>
-    <form method="POST">
+    <form action="#" method="POST">
         {% csrf_token %}
+        <label for="username">Full Name</label>
+        <input type="text" id="username" name="username" required>
 
-        {% if messages %}
-          <div class="messages">
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-          </div>
-        {% endif %}
-        
-        <div class="form-group">
-            <label for="id_username">Username</label>
-            {{ form.username }}
-            {% if form.username.errors %}
-                <div class="form-error">{{ form.username.errors }}</div>
-            {% endif %}
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password</label>
+        <div class="password-container">
+            <input type="password" id="password" name="password" required>
         </div>
-        
-        <div class="form-group">
-            <label for="id_email">Email</label>
-            {{ form.email }}
-            {% if form.email.errors %}
-                <div class="form-error">{{ form.email.errors }}</div>
-            {% endif %}
+
+        <label for="confirm_password">Confirm Password</label>
+        <div class="password-container">
+            <input type="password" id="confirm_password" name="confirm_password" required>
         </div>
-        
-        <div class="form-group">
-            <label for="id_password1">Password</label>
-            <div class="password-container">
-                {{ form.password1 }}
-            </div>
-            {% if form.password1.errors %}
-                <div class="form-error">{{ form.password1.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="form-group">
-            <label for="id_password2">Confirm Password</label>
-            <div class="password-container">
-                {{ form.password2 }}
-            </div>
-            {% if form.password2.errors %}
-                <div class="form-error">{{ form.password2.errors }}</div>
-            {% endif %}
-        </div>
+
+        <label for="account_type">Account Type</label>
+        <select id="account_type" name="account_type">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select> 
         
         <button type="submit" id="submit-btn">Sign Up</button>
     </form>
-    <p>Already have an account? <a id="haveAccount" href="{% url 'login' %}">Login</a></p>
+    <p>Already have an account? <a id="haveAccount" href="login">Login</a></p>
 </div>
-  <script src="{% static 'main/Js/theme-toggle.js' %}"></script>
-  <script src="{% static 'main/Js/nav-bar.js' %}"></script>
+  <script src="registration/JS/sign-up_script.js"></script>
+  <script src="main/JS/theme-toggle.js"></script>
+  <script src="main/JS/nav-bar.js"></script>
 {% endblock content %}

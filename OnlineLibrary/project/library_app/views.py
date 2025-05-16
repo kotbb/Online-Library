@@ -129,50 +129,53 @@ def view_available(request):
 #--------------------------------
 # sign up
 def sign_up(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-        
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}! You can now log in.')
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserRegisterForm()
+        name = request.POST.get('username', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        repeat_password = request.POST.get('confirm_password', '').strip()
+        user_type = request.POST.get('account_type', '').strip()
+
+        if User.objects.filter(email=email).exists():
+            return render(request, 'registration/sign-up.html', {
+                'error': 'This account already exists',
+                'account_exists': True
+            })
+
+        if User.objects.filter(username=name).exists():
+            return render(request, 'registration/sign-up.html', {
+                'error': 'Username already taken',
+                'username_exists': True
+            })
+
+        if password != repeat_password:
+            return render(request, 'registration/sign-up.html', {
+                'error': 'Passwords do not match',
+                'password_mismatch': True
+            })
+
+        user = User.objects.create_user(username=name, email=email, password=password)
+
+        if user_type == "Admin":
+            Admin.objects.create(user=user, full_name=name)
+
+        login(request, user)
+        return redirect('home')
     
-    return render(request, 'registration/sign-up.html', {'form': form})
+    return render(request, 'registration/sign-up.html')
 
 #--------------------------------
 # User Login and Logout
 #--------------------------------
-def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-        
+def login_view(request):
     if request.method == 'POST':
-        form = UserLoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Welcome back, {username}!')
-                if user.is_staff:
-                    return redirect('admin_dashboard')
-                return redirect('home')
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        user = authenticate(request, email=email, password=password)
+        login(request, user)
+        if Admin.objects.filter(user=user).exists():
+            return redirect('admin_dashboard')
         else:
-            messages.error(request, 'Invalid username or password.')
-    else:
-        form = UserLoginForm()
-            
-    return render(request, 'registration/login.html', {'form': form})
+            return redirect('profile')
+    return render(request, 'registration/login.html')
 
-def user_logout(request):
-    logout(request)
-    messages.success(request, 'You have been logged out successfully!')
-    return redirect('home')
