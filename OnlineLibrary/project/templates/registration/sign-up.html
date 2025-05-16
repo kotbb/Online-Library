@@ -1,29 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Signup</title>
-    <link rel="stylesheet" href="CSS/sign-up_style.css">
-    <link rel="stylesheet" href="CSS/navBar_Style.css" />
-    <link rel="icon" href="./img/icon.png" type="image/x-icon">
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Admin Signup{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'registration/CSS/sign-up_style.css'%}" />
+    <link rel="stylesheet" href="{% static 'main/Css/navBar_Style.css' %}">
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
+{% endblock extra_css %}
+
+{% block content %}
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="HomePage.html" class="logo"  id="logo">Online Library</a>
-            <div class="nav-links" id="navLinks">
-                <a href="HomePage.html" id="home">Home</a>
-                <a href="login.html" id="login">Login</a>
-                <a href="sign-up.html" id="sign-up">Sign-up</a>
-                <button id="themeToggle" class="theme-toggle">
-                </button>
-            </div>
+    <div class="nav-container">
+        <a href="" class="logo" id="logo">Online Library</a>
+        <div class="nav-links" id="navLinks">
+            <a href="{% url "home" %}" id="home">Home</a>
+            <a href="{% url "login" %}" id="login">Login</a>
+            <a href="{% url 'sign_up' %}" id="sign-up">Sign-up</a>
+            <button id="themeToggle" class="theme-toggle">
+                <span>🌞</span>
+            </button>
         </div>
-      </nav>
+    </div>
+    </nav>
 <div class="signup-container">
     <h2>Create Account</h2>
-    <form action="#" method="post">
+    <form action="#" method="POST">
+        {% csrf_token %}
         <label for="username">Full Name</label>
         <input type="text" id="username" name="username" required>
 
@@ -48,11 +49,9 @@
         
         <button type="submit" id="submit-btn">Sign Up</button>
     </form>
-    <p>Already have an account? <a id="haveAccount" href="login.html">Login</a></p>
+    <p>Already have an account? <a id="haveAccount" href="login">Login</a></p>
 </div>
-
-<script src="JS/nav-bar.js"></script>
-<script src="JS/theme-toggle.js"></script>
-<script src="Js/sign-up_script.js"></script>
-</body>
-</html>
+  <script src="registration/JS/sign-up_script.js"></script>
+  <script src="main/JS/theme-toggle.js"></script>
+  <script src="main/JS/nav-bar.js"></script>
+{% endblock content %}

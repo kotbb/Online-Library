@@ -5,6 +5,12 @@ from django.contrib import messages
 from .models import Book
 from .forms import BookForm
 import json
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegisterForm, UserLoginForm
+
+
 # Pages
 def home(request):
     current_path = request.path.strip('/')
@@ -13,6 +19,7 @@ def home(request):
     }
     return render(request,'home.html',context)
 
+@login_required
 def profile(request):
     current_path = request.path.strip('/')
     context = {
@@ -20,7 +27,7 @@ def profile(request):
     }
     return render(request,'profile.html',context)
 
-
+@login_required
 def admin_dashboard(request):
     current_path = request.path.strip('/')
     books = Book.objects.all()
@@ -28,7 +35,10 @@ def admin_dashboard(request):
         'current_path': current_path,
         'books': books
     }
-    return render(request, 'adminPages/admin-dashboard.html', context)
+    if not request.user.is_staff:
+        messages.error(request, 'You do not have permission to access this page.')
+        return redirect('home')
+    return render(request, 'adminPages/admin-dashboard.html')
 
 @require_POST
 def toggle_theme(request):
@@ -113,3 +123,72 @@ def view_available(request):
         'is_admin_page': True
     }
     return render(request, 'adminPages/view-available.html', context)
+
+
+#--------------------------------
+# User Registration
+#--------------------------------
+# sign up
+def sign_up(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+        
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match!')
+            return render(request, 'registration/sign-up.html')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already exists!')
+            return render(request, 'registration/sign-up.html')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already exists!')
+            return render(request, 'registration/sign-up.html')
+
+        # Create user using Django's create_user method for proper password hashing
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+        
+        # Log the user in
+        login(request, user)
+        messages.success(request, 'Account created successfully!')
+        return redirect('home')
+
+    return render(request, 'registration/sign-up.html') 
+
+#--------------------------------
+# User Login and Logout ( with some issues)
+#--------------------------------
+def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+        
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Welcome back, {username}!')
+            if user.is_staff:
+                return redirect('admin_dashboard')
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid username or password.')
+            
+    return render(request, 'registration/login.html')
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out successfully!')
+    return redirect('home')
