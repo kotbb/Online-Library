@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
-from .models import Book
+from .models import Book, Admin
 from .forms import BookForm, UserRegisterForm, UserLoginForm
 import json
 from django.contrib.auth import login, authenticate, logout
@@ -129,53 +129,73 @@ def view_available(request):
 #--------------------------------
 # sign up
 def sign_up(request):
-    if request.method == 'POST':
-        name = request.POST.get('username', '').strip()
-        email = request.POST.get('email', '').strip()
-        password = request.POST.get('password', '').strip()
-        repeat_password = request.POST.get('confirm_password', '').strip()
-        user_type = request.POST.get('account_type', '').strip()
-
-        if User.objects.filter(email=email).exists():
-            return render(request, 'registration/sign-up.html', {
-                'error': 'This account already exists',
-                'account_exists': True
-            })
-
-        if User.objects.filter(username=name).exists():
-            return render(request, 'registration/sign-up.html', {
-                'error': 'Username already taken',
-                'username_exists': True
-            })
-
-        if password != repeat_password:
-            return render(request, 'registration/sign-up.html', {
-                'error': 'Passwords do not match',
-                'password_mismatch': True
-            })
-
-        user = User.objects.create_user(username=name, email=email, password=password)
-
-        if user_type == "Admin":
-            Admin.objects.create(user=user, full_name=name)
-
-        login(request, user)
+    if request.user.is_authenticated:
         return redirect('home')
+        
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            
+            # Check if admin account type was selected
+            account_type = request.POST.get('account_type', 'user')
+            if account_type == 'admin':
+                user.is_staff = True
+                user.save()
+                # Create Admin profile
+                Admin.objects.create(user=user, full_name=username)
+            
+            # Log the user in
+            login(request, user)
+            messages.success(request, f'Account created successfully for {username}!')
+            
+            # Redirect to appropriate page based on account type
+            if account_type == 'admin':
+                return redirect('admin_dashboard')
+            else:
+                return redirect('profile')
+    else:
+        form = UserRegisterForm()
     
-    return render(request, 'registration/sign-up.html')
+    return render(request, 'registration/sign-up.html', {'form': form})
 
 #--------------------------------
 # User Login and Logout
 #--------------------------------
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email', '').strip()
+        username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '').strip()
-        user = authenticate(request, email=email, password=password)
-        login(request, user)
-        if Admin.objects.filter(user=user).exists():
-            return redirect('admin_dashboard')
+        
+        # First try authenticating with username
+        user = authenticate(request, username=username, password=password)
+        
+        # If not successful, try to find a user with this email and authenticate with username
+        if user is None:
+            try:
+                user_obj = User.objects.get(email=username)
+                user = authenticate(request, username=user_obj.username, password=password)
+            except User.DoesNotExist:
+                user = None
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Welcome back, {user.username}!')
+            
+            # Check if user is admin
+            if user.is_staff or (hasattr(user, 'admin') and user.admin is not None):
+                return redirect('admin_dashboard')
+            else:
+                return redirect('profile')
         else:
-            return redirect('profile')
+            messages.error(request, 'Invalid username/email or password.')
+            
     return render(request, 'registration/login.html')
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out successfully!')
+    return redirect('home')
 
