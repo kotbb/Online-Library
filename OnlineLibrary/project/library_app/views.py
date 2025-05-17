@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .models import Book, Admin
-from .forms import BookForm, UserRegisterForm, UserLoginForm
+from .forms import BookForm, UserRegisterForm, UserLoginForm,UserCreationForm
 import json
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
@@ -131,9 +131,8 @@ def view_available(request):
 def sign_up(request):
     if request.user.is_authenticated:
         return redirect('home')
-        
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -157,7 +156,7 @@ def sign_up(request):
             else:
                 return redirect('profile')
     else:
-        form = UserRegisterForm()
+        form = UserCreationForm()
     
     return render(request, 'registration/sign-up.html', {'form': form})
 
