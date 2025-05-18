@@ -9,9 +9,11 @@
             <a href="{% url 'home' %}" id="home" class="{% if current_path == '' %}nav-active{% endif %}">Home</a>
             <a href="{% url 'profile' %}" id="profile" class="{% if current_path == 'profile' %}nav-active{% endif %}">Profile</a>
 
-            <a href="#" id="myBooks" class="{% if current_path == 'borrow-book' %}nav-active{% endif %}">My Books</a>
-            <a href="#" id="user" class="{% if current_path == 'user' %}nav-active{% endif %}">User</a>
-        
+
+            {% if is_user_page  %}
+                <a href="#" id="myBooks" class="{% if current_path == 'borrow-book' %}nav-active{% endif %}">My Books</a>
+                <a href="{% url 'user' %}" id="user" class="{% if current_path == 'user' %}nav-active{% endif %}">User</a>
+            {% endif %}
             <a href="{% url 'admin_dashboard' %}" id="admin" class="{% if current_path == 'admin-dashboard' or is_admin_page %}nav-active{% endif %}">Admin</a>
         
             <a href="{% url 'login' %}" id="login" class="{% if current_path == 'login' %}nav-active{% endif %}">Login</a>

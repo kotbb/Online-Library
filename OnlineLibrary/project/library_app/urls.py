@@ -16,6 +16,6 @@ urlpatterns = [
     path('edit-book/<int:book_id>/', views.edit_book, name='edit_book'),
     path('delete-book/<int:book_id>/', views.delete_book, name='delete_book'),
     path('delete-all-books/', views.delete_all_books, name='delete_all_books'),
-    
     # User urls
+    path('user/', views.user, name='user'),
 ]

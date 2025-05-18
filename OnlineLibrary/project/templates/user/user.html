@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Library</title>
-    <link rel="stylesheet" href="CSS/user_style.css">
-    <link rel="stylesheet" href="CSS/navBar_Style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="./img/icon.png" type="image/x-icon">
-</head>
-<body class="home-page">
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="" class="logo" id="logo"><i class="fas fa-book"></i> Online Library</a>
-            <div class="nav-links" id="navLinks">
-                
-                
-                <button id="themeToggle" class="theme-toggle"> </button>
-                <button id="logoutBtn">Logout</button>
-            </div>
-        </div>
-    </nav>
 
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Online Library{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'user/Css/user_style.css' %}">
+
+{% endblock extra_css %}
+
+
+{% block content %}
     <main class="container main-content">
         <section class="search-section">
             <h1>Discover Your Next Book</h1>
@@ -29,16 +16,88 @@
                 <input type="text" id="searchInput" placeholder="Search by title, author, or genre...">
                 <button class="btn-primary">Search</button>
             </div>
-        </section>
+        </section>        <section class="books-grid" id="booksContainer">
+            {% if books %}
+                {% for book in books %}
+                    <div class="book-card">
+                        <div class="book-cover">
+                            {% if book.cover_image %}
+                                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
+                            {% else %}
+                                <img src="{% static 'img/defaultBookCover.jpg' %}" alt="Default Cover">
+                            {% endif %}
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">{{ book.title }}</h3>
+                            <p class="book-author">{{ book.author }}</p>
+                            <p class="book-category">Category: {{ book.get_category_display }}</p>
+                            <p class="book-pages">Pages: {{ book.pages }}</p>
+                            <div class="book-status {{ book.status }}">
+                                <span>{{ book.get_status_display }}</span>
+                            </div>
+                            <div class="book-actions">
+                                <button class="btn-primary view-details" data-book-id="{{ book.id }}">View Details</button>
+                                {% if book.status == 'available' %}
+                                    <button class="btn-secondary borrow-book" data-book-id="{{ book.id }}">Borrow</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-books">No books available at the moment.</p>
+            {% endif %}
+        </section></main>
 
-        <section class="books-grid" id="booksContainer">
-            <!-- Books will be loaded dynamically from localStorage -->
-        </section>
-    </main>
+    <!-- Book Details Modal -->
+    <div class="modal-overlay" id="bookModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Book Details</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="book-modal-image">
+                    <img id="modalBookImage" src="" alt="Book Cover">
+                </div>
+                <div class="book-modal-details">
+                    <h2 class="book-modal-title" id="modalBookTitle"></h2>
+                    <p class="book-modal-author" id="modalBookAuthor"></p>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Category:</span>
+                        <span class="book-modal-field-value" id="modalBookCategory"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">ISBN:</span>
+                        <span class="book-modal-field-value" id="modalBookISBN"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Pages:</span>
+                        <span class="book-modal-field-value" id="modalBookPages"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Status:</span>
+                        <span class="book-modal-field-value" id="modalBookStatus"></span>
+                    </div>
+                    
+                    <div class="book-modal-description">
+                        <h4>Description</h4>
+                        <p id="modalBookDescription"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" id="modalCloseBtn">Close</button>
+                <button class="modal-btn modal-btn-primary" id="modalBorrowBtn">Borrow Book</button>
+            </div>
+        </div>
+    </div>
 
-    <script src="JS/nav-bar.js"></script>
-    <script src="JS/theme-toggle.js"></script>
-    <script src="JS/logout.js"></script>
-    <script src="JS/user.js"></script>
-</body>
-</html>
+{% block scripts %}
+    <script src="{% static 'user/Js/user.js' %}"></script>
+{% endblock scripts %}
+{% endblock content%}

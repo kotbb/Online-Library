@@ -18,6 +18,19 @@ def home(request):
     }
     return render(request,'home.html',context)
 
+
+def user(request):
+    current_path = request.path.strip('/')
+    # Get all available books from the database
+    books = Book.objects.filter(status='available')
+    context = {
+        'current_path': current_path,
+        'books': books,
+        'is_admin_page': False,
+        'is_user_page': True
+    }
+
+    return render(request,'user/user.html',context)
 @login_required
 def profile(request):
     current_path = request.path.strip('/')
@@ -197,4 +210,47 @@ def user_logout(request):
     logout(request)
     messages.success(request, 'You have been logged out successfully!')
     return redirect('home')
+
+# Book detail API
+def book_details(request, book_id):
+    try:
+        book = Book.objects.get(id=book_id)
+        data = {
+            'id': book.id,
+            'title': book.title,
+            'author': book.author,
+            'isbn': book.ISBN,
+            'pages': book.pages,
+            'category': book.get_category_display(),
+            'description': book.description,
+            'status': book.status,
+            'cover_image': book.cover_image.url if book.cover_image else None,
+        }
+        return JsonResponse(data)
+    except Book.DoesNotExist:
+        return JsonResponse({'error': 'Book not found'}, status=404)
+
+# Borrow book functionality
+@login_required
+def borrow_book(request, book_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        book = Book.objects.get(id=book_id)
+        
+        if book.status != 'available':
+            return JsonResponse({'success': False, 'message': 'This book is not available for borrowing.'})
+        
+        # Mark the book as unavailable
+        book.status = 'unavailable'
+        book.save()
+        
+        # Here you would create a BorrowRecord if you had such a model
+        # BorrowRecord.objects.create(user=request.user, book=book, due_date=datetime.now()+timedelta(days=14))
+        
+        return JsonResponse({'success': True})
+    
+    except Book.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Book not found'}, status=404)
 

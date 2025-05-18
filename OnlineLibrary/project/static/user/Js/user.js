@@ -3,192 +3,349 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const searchButton = document.querySelector('.search-box .btn-primary');
     const booksContainer = document.getElementById('booksContainer');
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || [];
     
-    // Book data
-    let allBooks = [];
-    let filteredBooks = [];
+    // Modal Elements
+    const modal = document.getElementById('bookModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
     
-    // Load books from localStorage
-    function loadBooks() {
-        const storedBooks = localStorage.getItem('book');
-        
-        if (storedBooks) {
-            try {
-                allBooks = JSON.parse(storedBooks);
-            } catch (error) {
-                console.error('Error parsing books from localStorage:', error);
-                return;
-            }
-        } else {
-            return;
-        }
-        
-        filteredBooks = [...allBooks];
-        displayBooks(filteredBooks);
-    }
+    // Modal Content Elements
+    const modalBookTitle = document.getElementById('modalBookTitle');
+    const modalBookAuthor = document.getElementById('modalBookAuthor');
+    const modalBookCategory = document.getElementById('modalBookCategory');
+    const modalBookISBN = document.getElementById('modalBookISBN');
+    const modalBookPages = document.getElementById('modalBookPages');
+    const modalBookStatus = document.getElementById('modalBookStatus');
+    const modalBookDescription = document.getElementById('modalBookDescription');
+    const modalBookImage = document.getElementById('modalBookImage');
     
-    // Display books in the grid
-    function displayBooks(books) {
-        // Clear existing books
-        booksContainer.innerHTML = '';
-        
-        if (books.length === 0) {
-            booksContainer.innerHTML = '<div class="no-results">No books found.</div>';
-            return;
-        }
-        
-        // Create book cards
-        books.forEach(book => {
-            const bookCard = document.createElement('div');
-            bookCard.className = 'book-card';
-            
-            let availabilityClass = book.status;
-            let availabilityText = "Available";
-            if(book.status === 'Unavailable')
-            {
-                if(book.userEmail === currentUser.email)
-                    availabilityText = 'Currently Borrowed';
-                else
-                    availabilityText = 'Currently Unavailable';
-
-            }
-            
-            bookCard.innerHTML = `
-                <div class="book-cover">
-                    <img src="img/${book.image}" alt="${book.name}">
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">${book.name}</h3>
-                    <p class="book-author">${book.author}</p>
-                    <p class="book-genre">${book.category}</p>
-                    <p class="${availabilityClass}">${availabilityText}</p>
-                    <div class="book-actions">
-                        <button class="btn-primary" data-book-id="${book.ISBN}">Select</button>
-                    </div>
-                </div>
-            `;
-            
-            booksContainer.appendChild(bookCard);
-        });
-        
-        // Add event listeners to buttons
-        addBookButtonListeners();
-    }
+    // Current book ID for borrowing
+    let currentBookId = null;
     
-    // Add event listeners to book buttons
-    function addBookButtonListeners() {
-        // Select book buttons
-        const selectButtons = document.querySelectorAll('.book-actions .btn-primary');
-        selectButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const bookId = this.getAttribute('data-book-id');
-                let book = filteredBooks.find(book => book.ISBN === bookId);
-                book.userEmail = currentUser.email;
-                selectBook(bookId);
-            });
-        });
-        
-    }
-    
-    // Handle book selection
-    function selectBook(bookISBN) {
-        const book = allBooks.find(b => b.ISBN == bookISBN);
-        
-        if (!book) {
-            alert('Book not found!');
-            return;
-        }
-        
-        if (book.status === 'Unavailable') {
-            alert('This book is currently not available for borrowing.');
-            return;
-        }
-        
-        // Show confirmation dialog
-        if (confirm(`Would you like to borrow "${book.name}" by ${book.author}?`)) {
-            // Find and hide the book card
-            const bookCard = document.querySelector(`.book-card button[data-book-id="${bookISBN}"]`).closest('.book-card');
-            
-            // Update book availability
-            book.status = 'Unavailable';
-            
-            // Update localStorage
-            localStorage.setItem('book', JSON.stringify(allBooks));
-            
-            // Add to user's borrowed books
-            addToBorrowedBooks(book);
-            
-            alert(`You have successfully borrowed "${book.name}". It will be available in your "My Books" section.`);
-            
-            // Redirect to the borrowed books page
-            window.location.href = 'Borrow_Book.html';
-        }
-    }
-    
-    // Add book to user's borrowed books
-    function addToBorrowedBooks(book) {
-        let borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks') || '[]');
-        
-        // Add book with borrow date and due date (14 days from now)
-        const borrowDate = new Date();
-        const dueDate = new Date();
-        dueDate.setDate(dueDate.getDate() + 14);
-        
-        borrowedBooks.push({
-            name: book.name,
-            author: book.author,
-            ISBN: book.ISBN,
-            papers: book.papers,
-            category: book.category,
-            status: book.status,
-            description: book.description,
-            image: book.image,
-            adminEmail: book.adminEmail,
-            userEmail: currentUser.email,
-            borrowDate: borrowDate.toISOString().split('T')[0],
-            dueDate: dueDate.toISOString().split('T')[0]
-        });
-        
-        localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
-    }
-
     // Search functionality
-    function setupSearch() {
-        searchButton.addEventListener('click', performSearch);
-        
-        // Also trigger search on Enter key
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-    }
+    searchButton.addEventListener('click', performSearch);
     
-    // Perform search based on input
+    // Also trigger search on Enter key
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+      // Perform search based on input with smooth animations
     function performSearch() {
-        const searchTerm = searchInput.value.trim().toLowerCase();
+        const searchTerm = searchInput.value.toLowerCase().trim();
         
         if (searchTerm === '') {
-            filteredBooks = [...allBooks];
-        } else {
-            filteredBooks = allBooks.filter(book => 
-                book.name.toLowerCase().includes(searchTerm) ||
-                book.author.toLowerCase().includes(searchTerm) ||
-                book.category.toLowerCase().includes(searchTerm)
-            );
+            resetSearch();
+            return;
         }
         
-        displayBooks(filteredBooks);
+        // Filter books using DOM elements
+        const bookCards = document.querySelectorAll('.book-card');
+        let foundBooks = false;
+        let visibleCount = 0;
+        
+        // First pass: Mark all cards that should be hidden
+        bookCards.forEach(card => {
+            const title = card.querySelector('.book-title').textContent.toLowerCase();
+            const author = card.querySelector('.book-author').textContent.toLowerCase();
+            const category = card.querySelector('.book-category')?.textContent.toLowerCase() || '';
+            
+            if (title.includes(searchTerm) || author.includes(searchTerm) || category.includes(searchTerm)) {
+                // Will be shown - add to visible count for later animation
+                card.classList.remove('hidden');
+                foundBooks = true;
+                visibleCount++;
+                
+                // Reset animation delay to create staggered effect
+                card.style.animationDelay = (0.05 * visibleCount) + 's';
+                
+                // Highlight matching text
+                highlightText(card.querySelector('.book-title'), title, searchTerm);
+                highlightText(card.querySelector('.book-author'), author, searchTerm);
+                if (card.querySelector('.book-category')) {
+                    highlightText(card.querySelector('.book-category'), category, searchTerm);
+                }
+            } else {
+                // Mark for hiding with animation
+                card.classList.add('hidden');
+            }
+        });
+        
+        // Show/hide no results message
+        toggleNoResultsMessage(foundBooks);
+    }
+      // Reset search and display all books with smooth animations
+    function resetSearch() {
+        const bookCards = document.querySelectorAll('.book-card');
+        let visibleCount = 0;
+        
+        bookCards.forEach((card, index) => {
+            // Remove 'hidden' class to show all cards
+            card.classList.remove('hidden');
+            
+            // Reset animation delay for staggered appearance
+            card.style.animationDelay = (0.03 * index) + 's';
+            visibleCount++;
+            
+            // Remove highlights
+            const title = card.querySelector('.book-title');
+            const author = card.querySelector('.book-author');
+            const category = card.querySelector('.book-category');
+            
+            if (title) title.innerHTML = title.textContent;
+            if (author) author.innerHTML = author.textContent;
+            if (category) category.innerHTML = category.textContent;
+        });
+        
+        // Hide no results message
+        const noResultsMessage = document.querySelector('.no-books');
+        if (noResultsMessage) {
+            noResultsMessage.style.display = 'none';
+        }
+        
+        // Show a quick notification if there was a previous search
+        if (searchInput.value.trim() !== '') {
+            showNotification('Showing all books', 'info');
+            searchInput.value = '';
+        }
     }
     
-    // Initialize the page
-    function init() {
-        loadBooks();
-        setupSearch();
+    // Highlight matching text in search results
+    function highlightText(element, text, searchTerm) {
+        if (!element) return;
+        
+        const regex = new RegExp('(' + escapeRegExp(searchTerm) + ')', 'gi');
+        const newText = text.replace(regex, '<mark>$1</mark>');
+        element.innerHTML = newText;
     }
     
-    // Start the application
-    init();
+    // Helper function to escape regex special characters
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+    
+    // Show/hide no results message
+    function toggleNoResultsMessage(foundBooks) {
+        let noResultsMessage = document.querySelector('.no-books');
+        
+        if (!foundBooks) {
+            if (!noResultsMessage) {
+                noResultsMessage = document.createElement('p');
+                noResultsMessage.className = 'no-books';
+                noResultsMessage.textContent = 'No books matching your search.';
+                booksContainer.appendChild(noResultsMessage);
+            } else {
+                noResultsMessage.style.display = 'block';
+            }
+        } else if (noResultsMessage) {
+            noResultsMessage.style.display = 'none';
+        }
+    }
+    
+    // Add click event listeners to view details buttons
+    function setupViewDetailsButtons() {
+        const viewDetailsButtons = document.querySelectorAll('.view-details');
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const bookId = this.getAttribute('data-book-id');
+                fetchBookDetails(bookId);
+            });
+        });
+    }
+    
+    // Add click event listeners to borrow buttons
+    function setupBorrowButtons() {
+        const borrowButtons = document.querySelectorAll('.borrow-book');
+        borrowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const bookId = this.getAttribute('data-book-id');
+                borrowBook(bookId);
+            });
+        });
+    }
+    
+    // Fetch book details from API
+    function fetchBookDetails(bookId) {
+        fetch(`/book-details/${bookId}/`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                showBookDetailsModal(data);
+            })
+            .catch(error => {
+                console.error('Error fetching book details:', error);
+                alert('Error loading book details. Please try again.');
+            });
+    }
+    
+    // Show book details in modal
+    function showBookDetailsModal(book) {
+        // Set current book ID for borrowing
+        currentBookId = book.id;
+        
+        // Populate modal with book details
+        modalBookTitle.textContent = book.title;
+        modalBookAuthor.textContent = `by ${book.author}`;
+        modalBookCategory.textContent = book.category || 'Unknown';
+        modalBookISBN.textContent = book.isbn || 'N/A';
+        modalBookPages.textContent = book.pages || 'N/A';
+        
+        // Set status with proper styling
+        const statusText = book.status === 'available' ? 'Available' : 'Not Available';
+        modalBookStatus.textContent = statusText;
+        modalBookStatus.className = book.status === 'available' ? 'available-status' : 'unavailable-status';
+        
+        // Set description
+        modalBookDescription.textContent = book.description || 'No description available.';
+        
+        // Set book cover image
+        if (book.cover_image) {
+            modalBookImage.src = book.cover_image;
+            modalBookImage.alt = book.title;
+        } else {
+            modalBookImage.src = '/static/img/defaultBookCover.jpg';
+            modalBookImage.alt = 'Default Cover';
+        }
+        
+        // Show/hide borrow button based on availability
+        modalBorrowBtn.style.display = book.status === 'available' ? 'block' : 'none';
+        
+        // Show modal with animation
+        modal.classList.add('active');
+    }
+    
+    // Borrow book functionality
+    function borrowBook(bookId) {
+        // Create a CSRF token for Django
+        const csrfToken = getCookie('csrftoken');
+        
+        fetch(`/borrow-book/${bookId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update UI to reflect borrowed status
+                const bookCard = document.querySelector(`.book-card button[data-book-id="${bookId}"]`).closest('.book-card');
+                const statusElement = bookCard.querySelector('.book-status');
+                
+                if (statusElement) {
+                    statusElement.className = 'book-status unavailable';
+                    const statusSpan = statusElement.querySelector('span');
+                    if (statusSpan) statusSpan.textContent = 'Not Available';
+                }
+                
+                // Remove borrow button
+                const borrowButton = bookCard.querySelector('.borrow-book');
+                if (borrowButton) borrowButton.remove();
+                
+                // Show success message
+                showNotification('Book borrowed successfully! You can find it in your profile.', 'success');
+                
+                // Close modal
+                closeModal();
+                
+            } else {
+                // Show error message
+                showNotification(data.message || 'Error borrowing book.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error borrowing book:', error);
+            showNotification('Error borrowing book. Please try again.', 'error');
+        });
+    }
+    
+    // Close modal when clicking close button or outside modal
+    modalClose.addEventListener('click', closeModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Close modal function
+    function closeModal() {
+        modal.classList.remove('active');
+        currentBookId = null;
+    }
+    
+    // Modal Borrow button click handler
+    modalBorrowBtn.addEventListener('click', function() {
+        if (currentBookId) {
+            borrowBook(currentBookId);
+        }
+    });
+    
+    // Helper function to get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    // Show notification function
+    function showNotification(message, type) {
+        // Check if notification container exists, if not create it
+        let notificationContainer = document.querySelector('.notification-container');
+        
+        if (!notificationContainer) {
+            notificationContainer = document.createElement('div');
+            notificationContainer.className = 'notification-container';
+            document.body.appendChild(notificationContainer);
+        }
+        
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        
+        // Create close button
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'notification-close';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.addEventListener('click', function() {
+            notification.remove();
+        });
+        
+        notification.appendChild(closeBtn);
+        notificationContainer.appendChild(notification);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+    
+    // Setup event listeners for view details and borrow buttons
+    setupViewDetailsButtons();
+    setupBorrowButtons();
+    
+    // Add keyboard support for modal (ESC key to close)
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 });
 
