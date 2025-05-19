@@ -1,19 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
     const searchInput = document.getElementById('searchInput');
     const searchButton = document.querySelector('.search-box .btn-primary');
     const booksContainer = document.getElementById('booksContainer');
-    
-    // Search functionality
+
     searchButton.addEventListener('click', performSearch);
     
-    // Also trigger search on Enter key
     searchInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             performSearch();
         }
     });
-      // Perform search based on input with smooth animations
     function performSearch() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         
@@ -124,68 +120,40 @@ document.addEventListener('DOMContentLoaded', function() {
             noResultsMessage.style.display = 'none';
         }
     }
-    
-    
-    
-    
-
-    
-   
-    
-    
-
 });
 
-// Function to open the book details modal
+
 function openBookModal(bookId) {
-    // Get the modal element
     const modal = document.getElementById('bookModal');
-    
-    // Show the modal
     modal.classList.add('active');
-    
-    // Prevent scrolling when modal is open
     document.body.style.overflow = 'hidden';
-    
-    // Fetch and display book details
     fetchBookDetails(bookId);
 }
 
-// Function to close the modal
 function closeModal() {
     const modal = document.getElementById('bookModal');
     modal.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
+    document.body.style.overflow = '';
 }
 
-// Function to fetch book details from the server
 function fetchBookDetails(bookId) {
-    // Get the book data from the book card that was clicked
-    const bookCard = document.querySelector(`.book-card [data-book-id="${bookId}"]`).closest('.book-card');
+    // Fix the selector to find the book card correctly
+    const bookCard = document.querySelector(`.book-card button[data-book-id="${bookId}"]`).closest('.book-card');
     
-    // Get book details from the book card
     const title = bookCard.querySelector('.book-title').textContent;
     const author = bookCard.querySelector('.book-author').textContent;
     const category = bookCard.querySelector('.book-category').textContent.replace('Category: ', '');
     const pages = bookCard.querySelector('.book-pages').textContent.replace('Pages: ', '');
     const status = bookCard.querySelector('.book-status span').textContent;
-    const count = bookCard.querySelector('.book-count span').textContent.replace('available amount: ', '');
     const coverImage = bookCard.querySelector('.book-cover img').src;
     
-    // Get ISBN from data attribute (you may need to add this to your book cards)
-    const isbn = bookCard.getAttribute('data-isbn') || 'N/A';
-    
-    // Populate modal with book details
+
     document.getElementById('modalBookImage').src = coverImage;
     document.getElementById('modalBookTitle').textContent = title;
     document.getElementById('modalBookAuthor').textContent = author;
     document.getElementById('modalBookCategory').textContent = category;
-    document.getElementById('modalBookISBN').textContent = isbn;
     document.getElementById('modalBookPages').textContent = pages;
     document.getElementById('modalBookStatus').textContent = status;
-    document.getElementById('modalBookCount').textContent = count;
-    
-    // Description is already in the modal from the template
     
     // Show/hide borrow button based on availability
     const borrowBtn = document.getElementById('modalBorrowBtn');
@@ -215,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle borrow button click in the modal
     document.getElementById('modalBorrowBtn').addEventListener('click', function() {
         const bookId = this.getAttribute('data-book-id');
+        // Implement borrow functionality here
         console.log('Borrowing book ID:', bookId);
         // You can redirect to a borrow page or make an AJAX request
     });

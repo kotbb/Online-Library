@@ -1,57 +1,60 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Online Library{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'user/Css/user_style.css' %}">
+<link rel="stylesheet" href="{% static 'user/Css/user_style.css' %}">
+<link rel="stylesheet" href="{% static 'user/Css/modal.css' %}">
 
 {% endblock extra_css %}
 
 
 {% block content %}
-    <main class="container main-content">
-        <section class="search-section">
-            <h1>Discover Your Next Book</h1>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search by title, author, or genre...">
-                <button class="btn-primary">Search</button>
+<main class="container main-content">
+    <section class="search-section">
+        <h1>Discover Your Next Book</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by title, author, or genre...">
+            <button class="btn-primary">Search</button>
+        </div>
+    </section>
+    <section class="books-grid" id="booksContainer">
+        {% if books %}
+        {% for book in books %}
+        <div class="book-card">
+            <div class="book-cover">
+                {% if book.cover_image %}
+                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
+                {% else %}
+                <img src="{% static 'img/defaultBookCover.jpg' %}" alt="Default Cover">
+                {% endif %}
             </div>
-        </section>        <section class="books-grid" id="booksContainer">
-            {% if books %}
-                {% for book in books %}
-                    <div class="book-card">
-                        <div class="book-cover">
-                            {% if book.cover_image %}
-                                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
-                            {% else %}
-                                <img src="{% static 'img/defaultBookCover.jpg' %}" alt="Default Cover">
-                            {% endif %}
-                        </div>
-                        <div class="book-info">
-                            <h3 class="book-title">{{ book.title }}</h3>
-                            <p class="book-author">{{ book.author }}</p>
-                            <p class="book-category">Category: {{ book.get_category_display }}</p>
-                            <p class="book-pages">Pages: {{ book.pages }}</p>
-                            <div class="book-status {{ book.status }}">
-                                <span>{{ book.get_status_display }}</span>
-                            </div>
-                            <!-- add count book -->
-                            <div class="book-count">
-                                <span>available amount: {{ book.count }}</span>
-                            </div>
-                            <div class="book-actions">
-                                <button class="btn-primary view-details" data-book-id="{{ book.id }}">View Details</button>
-                                {% if book.status == 'available' %}
-                                    <button class="btn-secondary borrow-book" data-book-id="{{ book.id }}">Borrow</button>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p class="no-books">No books available at the moment.</p>
-            {% endif %}
-        </section></main>
+            <div class="book-info">
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-author">{{ book.author }}</p>
+                <p class="book-category">Category: {{ book.get_category_display }}</p>
+                <p class="book-pages">Pages: {{ book.pages }}</p>
+                <div class="book-status {{ book.status }}">
+                    <span>{{ book.get_status_display }}</span>
+                </div>
+                <!-- add count book -->
+                <div class="book-count">
+                    <span>available amount: {{ book.count }}</span>
+                </div>
+                <div class="book-actions">
+                    <button class="btn-primary view-details" onclick="openBookModal('{{ book.id }}')"
+                        data-book-id="{{ book.id }}">View Details</button>
+                    {% if book.status == 'available' %}
+                    <button class="btn-secondary borrow-book" data-book-id="{{ book.id }}">Borrow</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="no-books">No books available at the moment.</p>
+        {% endif %}
+    </section>
+</main>
 
     <!-- Book Details Modal -->
     <div class="modal-overlay" id="bookModal">
@@ -65,7 +68,7 @@
                     <img id="modalBookImage" src="" alt="Book Cover">
                 </div>
                 <div class="book-modal-details">
-                    <h2 class="book-modal-title" id="modalBookTitle"></h2>
+                    <h2 class="book-modal-field-label" id="modalBookTitle"></h2>
                     <p class="book-modal-author" id="modalBookAuthor"></p>
                     
                     <div class="book-modal-field">
@@ -88,8 +91,13 @@
                         <span class="book-modal-field-value" id="modalBookStatus"></span>
                     </div>
                     
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Available Amount:</span>
+                        <span class="book-modal-field-value" id="modalBookCount"></span>
+                    </div>
+                    
                     <div class="book-modal-description">
-                        <h4>Description</h4>
+                        <h4 class="book-modal-field-label">Description</h4>
                         <p id="modalBookDescription"></p>
                     </div>
                 </div>
@@ -101,7 +109,9 @@
         </div>
     </div>
 
-{% block scripts %}
-    <script src="{% static 'user/Js/user.js' %}"></script>
+
+    {% block scripts %}
+<script src="{% static 'user/Js/user.js' %}"></script>
+
 {% endblock scripts %}
 {% endblock content%}
