@@ -194,6 +194,8 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 /* For smooth transitions when showing/hiding */
