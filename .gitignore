@@ -31,6 +31,12 @@ var/
 *.cpython-313*
 *.cpython-313.*
 *.cpython-313.pyc
+# Specific compiled Python files from screenshot
+__init__.cpython-313.pyc
+formats.cpython-313.pyc
+models.cpython-313.pyc
+urls.cpython-313.pyc
+views.cpython-313.pyc
 db.sqlite3
 media/
 static/admin/
