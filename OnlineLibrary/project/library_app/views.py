@@ -21,8 +21,8 @@ def home(request):
 
 def user(request):
     current_path = request.path.strip('/')
-    # Get all available books from the database
-    books = Book.objects.filter(status='available')
+    # Get all books from the database, including unavailable ones
+    books = Book.objects.all()
     context = {
         'current_path': current_path,
         'books': books,

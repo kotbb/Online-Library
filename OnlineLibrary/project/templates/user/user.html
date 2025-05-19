@@ -37,9 +37,11 @@
                     <span>{{ book.get_status_display }}</span>
                 </div>
                 <!-- add count book -->
+                {% if book.status == 'available' %}
                 <div class="book-count">
                     <span>available amount: {{ book.count }}</span>
                 </div>
+                {% endif %}
                 <!-- Hidden description for modal use -->
                 <div class="book-description" style="display: none;">{{ book.description|default:"No description available." }}</div>
                 <div class="book-actions">
