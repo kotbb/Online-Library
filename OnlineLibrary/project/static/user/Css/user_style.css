@@ -24,6 +24,8 @@
     --status-available: #28a745;
     --status-unavailable: #dc3545;
 
+ 
+    
     /* Card Styling */
     --card-border-radius: 16px;
     --card-shadow: 0 10px 20px rgba(139, 69, 19, 0.1);
@@ -182,26 +184,9 @@ body {
     border: 1px solid var(--border-color);
     backdrop-filter: blur(5px);
     transform-origin: center bottom;
-    animation: fadeIn 0.5s ease forwards;
 }
 
-/* Add this to your CSS file */
-.book-card.hidden {
-    display: none !important;
-    opacity: 0;
-    transform: scale(0.8);
-    height: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    pointer-events: none;
-    visibility: hidden;
-}
 
-/* For smooth transitions when showing/hiding */
-.book-card {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
 
 .book-card::before {
     content: '';
@@ -247,6 +232,44 @@ body {
     aspect-ratio: 2/3;
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
+}
+
+.book-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+                rgba(var(--gradient-start), 0.05) 0%, 
+                transparent 25%, 
+                transparent 75%, 
+                rgba(var(--gradient-end), 0.05) 100%);
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity var(--transition-speed) ease;
+    opacity: 0;
+}
+
+.book-cover:hover::before {
+    opacity: 1;
+}
+
+.book-cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom, 
+        transparent 70%, 
+        rgba(var(--gradient-start), 0.03) 85%,
+        rgba(var(--gradient-end), 0.08) 100%
+    );
+    z-index: 1;
 }
 
 .book-cover img {
@@ -455,7 +478,7 @@ body {
 }
 
 /* No results message */
-.no-books {
+.no-results {
     grid-column: 1 / -1;
     text-align: center;
     padding: 40px;
@@ -465,19 +488,6 @@ body {
     border-radius: 8px;
     margin: 20px 0;
     box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-mark {
-    background-color: rgba(var(--gradient-start), 0.2);
-    color: inherit;
-    padding: 0 2px;
-    border-radius: 2px;
 }
 
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
@@ -579,4 +589,22 @@ mark {
     .book-info {
         padding: 1rem 0.75rem;
     }
+}
+
+/* Add this to your CSS file */
+.book-card.hidden {
+    display: none !important;
+    opacity: 0;
+    transform: scale(0.8);
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+/* For smooth transitions when showing/hiding */
+.book-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }

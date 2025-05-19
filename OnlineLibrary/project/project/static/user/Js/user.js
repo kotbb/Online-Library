@@ -4,19 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.search-box .btn-primary');
     const booksContainer = document.getElementById('booksContainer');
     
-    // Live search functionality - trigger search as user types
-    searchInput.addEventListener('input', debounce(performSearch, 300));
-    
-    // Also keep the button functionality for accessibility
-    searchButton.addEventListener('click', performSearch);
-    
-    // Also trigger search on Enter key
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-    
     // Debounce function to prevent excessive searches while typing
     function debounce(func, delay) {
         let timeout;
@@ -28,12 +15,38 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
     
-    // Perform search based on input with smooth animations
+    // Create a single debounced search function
+    const debouncedSearch = debounce(performSearch, 300);
+    
+    // Live search functionality - trigger search as user types
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        
+        if (searchTerm === '') {
+           
+            resetSearch();
+        } else {
+            debouncedSearch();
+        }
+    });
+    
+    // Also keep the button functionality for accessibility
+    searchButton.addEventListener('click', performSearch);
+    
+    // Also trigger search on Enter key
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
     // Perform search based on input with smooth animations
     function performSearch() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         
+        
         if (searchTerm === '') {
+            
             resetSearch();
             return;
         }
@@ -86,6 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Remove 'hidden' class to show all cards
             card.classList.remove('hidden');
             
+            // Make sure display property is reset
+            card.style.display = '';
+            
             // Reset animation delay for staggered appearance
             card.style.animationDelay = (0.03 * index) + 's';
             visibleCount++;
@@ -111,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showNotification('Showing all books', 'info');
             searchInput.value = '';
         }
+        
+      
     }
     
     // Highlight matching text in search results
