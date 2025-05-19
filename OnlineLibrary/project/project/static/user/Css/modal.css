@@ -1,0 +1,211 @@
+/* Book Detail Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    background-color: var(--bg-secondary);
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+    position: relative;
+}
+
+.modal-overlay.active .modal-container {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-secondary);
+    z-index: 5;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.modal-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        flex-direction: row;
+    }
+}
+
+.book-modal-image {
+    flex: 0 0 200px;
+    margin: 0 auto;
+}
+
+.book-modal-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+.book-modal-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.book-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.book-modal-author {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.book-modal-field {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.book-modal-field-label {
+    font-weight: 600;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+}
+
+.book-modal-field-value {
+    color: var(--text-primary);
+}
+
+.book-modal-description {
+    margin-top: 20px;
+}
+
+.book-modal-description h4 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.book-modal-description p {
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-btn-primary {
+    background-color: var(--btn-primary);
+    color: white;
+    border: none;
+}
+
+.modal-btn-primary:hover {
+    background-color: var(--btn-primary-hover);
+    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+}
+
+.modal-btn-secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.modal-btn-secondary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Animation for opening/closing the modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(30px); }
+    to { transform: translateY(0); }
+}
+
+.modal-overlay.animate-in {
+    animation: fadeIn 0.3s forwards;
+}
+
+.modal-overlay.animate-in .modal-container {
+    animation: slideIn 0.4s forwards;
+}
