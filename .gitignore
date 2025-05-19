@@ -24,6 +24,11 @@ var/
 *.log
 *.pot
 *.pyc
+*.cpython
+*.pyo
+*.pyd
+*cpython-*
+*cpython-313.pyc
 db.sqlite3
 media/
 static/admin/
