@@ -1,3 +1,38 @@
+:root {
+    /* Color Variables */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.7);
+    --modal-bg: var(--bg-secondary, #ffffff);
+    --modal-header-bg: rgba(var(--gradient-start, 139, 69, 19), 0.1);
+    --modal-footer-bg: rgba(var(--gradient-start, 139, 69, 19), 0.05);
+    --modal-border-color: var(--border-color, #e0e0e0);
+    --modal-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    
+    /* Text Colors */
+    --modal-title-color: var(--text-primary, #333333);
+    --modal-text-primary: var(--text-primary, #333333);
+    --modal-text-secondary: var(--text-secondary, #666666);
+    
+    /* Button Colors */
+    --modal-btn-primary-bg: var(--btn-primary, #8b4513);
+    --modal-btn-primary-hover: var(--btn-primary-hover, #a0522d);
+    --modal-btn-text-color: #ffffff;
+    
+    /* Status Colors */
+    --modal-status-available: var(--status-available, #28a745);
+    --modal-status-unavailable: var(--status-unavailable, #dc3545);
+    
+    /* Spacing */
+    --modal-padding: 20px;
+    --modal-gap: 10px;
+    --modal-border-radius: 12px;
+    
+    /* Typography */
+    --modal-title-size: 1.5rem;
+    --modal-text-size: 0.9rem;
+    --modal-author-size: 1.2rem;
+    --modal-book-title-size: 1.8rem;
+}
+
 /* Modal Styles */
 .modal-overlay {
     display: none;
@@ -6,12 +41,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--modal-overlay-bg);
     z-index: 1000;
     justify-content: center;
     align-items: center;
     overflow-y: auto;
-    padding: 20px;
+    padding: var(--modal-padding);
 }
 
 .modal-overlay.active {
@@ -19,9 +54,9 @@
 }
 
 .modal-container {
-    background-color: var(--bg-secondary);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: var(--modal-bg);
+    border-radius: var(--modal-border-radius);
+    box-shadow: var(--modal-shadow);
     width: 100%;
     max-width: 800px;
     max-height: 90vh;
@@ -29,7 +64,7 @@
     display: flex;
     flex-direction: column;
     animation: modalFadeIn 0.3s ease-out;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--modal-border-color);
 }
 
 @keyframes modalFadeIn {
@@ -47,15 +82,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid var(--border-color);
-    background-color: rgba(var(--gradient-start), 0.1);
+    padding: 15px var(--modal-padding);
+    border-bottom: 1px solid var(--modal-border-color);
+    background-color: var(--modal-header-bg);
 }
 
 .modal-title {
     margin: 0;
-    font-size: 1.5rem;
-    color: var(--text-primary);
+    font-size: var(--modal-title-size);
+    color: var(--modal-title-color);
     font-weight: var(--font-weight-bold);
 }
 
@@ -145,7 +180,7 @@
 }
 
 .book-modal-field-label {
-    font-weight: var(--font-weight-semibold);
+    font-weight: 800px;
     color: var(--text-primary);
     margin-right: 8px;
     min-width: 120px;
@@ -194,12 +229,12 @@
 }
 
 .modal-btn-primary {
-    background-color: var(--btn-primary);
-    color: white;
+    background-color: var(--modal-btn-primary-bg);
+    color: var(--modal-btn-text-color);
 }
 
 .modal-btn-primary:hover {
-    background-color: var(--btn-primary-hover);
+    background-color: var(--modal-btn-primary-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow-color);
 }
@@ -218,11 +253,11 @@
 
 /* Status colors */
 .book-modal-field-value.available {
-    color: var(--status-available);
+    color: var(--modal-status-available);
     font-weight: var(--font-weight-bold);
 }
 
 .book-modal-field-value.unavailable {
-    color: var(--status-unavailable);
+    color: var(--modal-status-unavailable);
     font-weight: var(--font-weight-bold);
 }

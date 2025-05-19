@@ -127,14 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    
-    
-    
 
-    
-   
-    
-    
 
 });
 
