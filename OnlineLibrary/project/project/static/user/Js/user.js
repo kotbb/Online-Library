@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.search-box .btn-primary');
     const booksContainer = document.getElementById('booksContainer');
     
-    // Search functionality
+    // Live search functionality - trigger search as user types
+    searchInput.addEventListener('input', debounce(performSearch, 300));
+    
+    // Also keep the button functionality for accessibility
     searchButton.addEventListener('click', performSearch);
     
     // Also trigger search on Enter key
@@ -13,7 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
             performSearch();
         }
     });
-      // Perform search based on input with smooth animations
+    
+    // Debounce function to prevent excessive searches while typing
+    function debounce(func, delay) {
+        let timeout;
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+    
+    // Perform search based on input with smooth animations
+    // Perform search based on input with smooth animations
     function performSearch() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         
@@ -36,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (title.includes(searchTerm) || author.includes(searchTerm) || category.includes(searchTerm)) {
                 // Will be shown - add to visible count for later animation
                 card.classList.remove('hidden');
+                card.style.display = ''; // Ensure display is reset
                 foundBooks = true;
                 visibleCount++;
                 
@@ -51,13 +68,16 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 // Mark for hiding with animation
                 card.classList.add('hidden');
+                // Force hide for immediate effect
+                card.style.display = 'none';
             }
         });
         
         // Show/hide no results message
         toggleNoResultsMessage(foundBooks);
     }
-      // Reset search and display all books with smooth animations
+    
+    // Reset search and display all books with smooth animations
     function resetSearch() {
         const bookCards = document.querySelectorAll('.book-card');
         let visibleCount = 0;
@@ -125,98 +145,98 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    
-    
-    
-
-    
-   
-    
-    
-
-});
-
-// Function to open the book details modal
-function openBookModal(bookId) {
-    // Get the modal element
-    const modal = document.getElementById('bookModal');
-    
-    // Show the modal
-    modal.classList.add('active');
-    
-    // Prevent scrolling when modal is open
-    document.body.style.overflow = 'hidden';
-    
-    // Fetch and display book details
-    fetchBookDetails(bookId);
-}
-
-// Function to close the modal
-function closeModal() {
-    const modal = document.getElementById('bookModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
-}
-
-// Function to fetch book details from the server
-function fetchBookDetails(bookId) {
-    // Get the book data from the book card that was clicked
-    const bookCard = document.querySelector(`.book-card [data-book-id="${bookId}"]`).closest('.book-card');
-    
-    // Get book details from the book card
-    const title = bookCard.querySelector('.book-title').textContent;
-    const author = bookCard.querySelector('.book-author').textContent;
-    const category = bookCard.querySelector('.book-category').textContent.replace('Category: ', '');
-    const pages = bookCard.querySelector('.book-pages').textContent.replace('Pages: ', '');
-    const status = bookCard.querySelector('.book-status span').textContent;
-    const count = bookCard.querySelector('.book-count span').textContent.replace('available amount: ', '');
-    const coverImage = bookCard.querySelector('.book-cover img').src;
-    const description = bookCard.querySelector('.book-description').textContent || 'No description available.';
-    
-    // Get ISBN from data attribute (you may need to add this to your book cards)
-    const isbn = bookCard.getAttribute('data-isbn') || 'N/A';
-    
-    // Populate modal with book details
-    document.getElementById('modalBookImage').src = coverImage;
-    document.getElementById('modalBookTitle').textContent = title;
-    document.getElementById('modalBookAuthor').textContent = author;
-    document.getElementById('modalBookCategory').textContent = category;
-    document.getElementById('modalBookISBN').textContent = isbn;
-    document.getElementById('modalBookPages').textContent = pages;
-    document.getElementById('modalBookStatus').textContent = status;
-    document.getElementById('modalBookCount').textContent = count;
-    document.getElementById('modalBookDescription').textContent = description;
-    
-    
-    // Show/hide borrow button based on availability
-    const borrowBtn = document.getElementById('modalBorrowBtn');
-    if (status === 'Available') {
-        borrowBtn.style.display = 'block';
-        borrowBtn.setAttribute('data-book-id', bookId);
-    } else {
-        borrowBtn.style.display = 'none';
+    // Simple notification function
+    function showNotification(message, type = 'info') {
+        // Check if a notification already exists and remove it
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+        
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        
+        // Add to body
+        document.body.appendChild(notification);
+        
+        // Show with animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Auto hide after 3 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 3000);
     }
-}
-
-// Add event listeners when the DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Close modal when clicking the X button
-    document.getElementById('modalClose').addEventListener('click', closeModal);
     
-    // Close modal when clicking the Close button
-    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    // Book Modal Functionality
+    const bookModal = document.getElementById('bookModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
     
-    // Close modal when clicking outside the modal content
-    document.getElementById('bookModal').addEventListener('click', function(e) {
-        if (e.target === this) {
+    // Open book modal with details
+    window.openBookModal = function(bookId) {
+        const bookCard = document.querySelector(`.book-card [data-book-id="${bookId}"]`).closest('.book-card');
+        
+        // Get book details from the card
+        const title = bookCard.querySelector('.book-title').textContent;
+        const author = bookCard.querySelector('.book-author').textContent;
+        const category = bookCard.querySelector('.book-category')?.textContent || 'Not specified';
+        const pages = bookCard.querySelector('.book-pages')?.textContent || 'Not specified';
+        const status = bookCard.querySelector('.book-status span')?.textContent || 'Unknown';
+        const count = bookCard.querySelector('.book-count span')?.textContent || 'Not available';
+        const description = bookCard.querySelector('.book-description')?.textContent || 'No description available.';
+        const imageSrc = bookCard.querySelector('.book-cover img')?.src || '';
+        
+        // Populate modal with book details
+        document.getElementById('modalBookTitle').textContent = title;
+        document.getElementById('modalBookAuthor').textContent = author;
+        document.getElementById('modalBookCategory').textContent = category.replace('Category: ', '');
+        document.getElementById('modalBookPages').textContent = pages.replace('Pages: ', '');
+        document.getElementById('modalBookStatus').textContent = status;
+        document.getElementById('modalBookCount').textContent = count.replace('available amount: ', '');
+        document.getElementById('modalBookDescription').textContent = description;
+        document.getElementById('modalBookImage').src = imageSrc;
+        
+        // Show/hide borrow button based on availability
+        if (bookCard.querySelector('.book-status').classList.contains('available')) {
+            modalBorrowBtn.style.display = 'block';
+            modalBorrowBtn.setAttribute('data-book-id', bookId);
+        } else {
+            modalBorrowBtn.style.display = 'none';
+        }
+        
+        // Show modal with animation
+        bookModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    // Close modal events
+    modalClose.addEventListener('click', closeModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+    bookModal.addEventListener('click', function(e) {
+        if (e.target === bookModal) {
             closeModal();
         }
     });
     
-    // Handle borrow button click in the modal
-    document.getElementById('modalBorrowBtn').addEventListener('click', function() {
+    function closeModal() {
+        bookModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    // Borrow book functionality
+    modalBorrowBtn.addEventListener('click', function() {
         const bookId = this.getAttribute('data-book-id');
-        console.log('Borrowing book ID:', bookId);
-        // You can redirect to a borrow page or make an AJAX request
+        // Implement your borrow logic here
+        showNotification(`Book with ID ${bookId} has been borrowed successfully!`, 'success');
+        closeModal();
     });
 });
