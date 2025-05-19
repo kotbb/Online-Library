@@ -40,6 +40,8 @@
                 <div class="book-count">
                     <span>available amount: {{ book.count }}</span>
                 </div>
+                <!-- Hidden description for modal use -->
+                <div class="book-description" style="display: none;">{{ book.description|default:"No description available." }}</div>
                 <div class="book-actions">
                     <button class="btn-primary view-details" onclick="openBookModal('{{ book.id }}')"
                         data-book-id="{{ book.id }}">View Details</button>
@@ -56,10 +58,6 @@
     </section>
 </main>
 
-
-
-
-
     <!-- Book Details Modal -->
     <div class="modal-overlay" id="bookModal">
         <div class="modal-container">
@@ -70,54 +68,50 @@
             <div class="modal-content">
                 <div class="book-modal-image">
                     <img id="modalBookImage" src="" alt="Book Cover">
-                {% load static %}
-<div class="book-modal-image">
-    {% if book.cover_image %}
-        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
-    {% else %}
-        <img src="{% static 'img/defaultBookCover.jpg' %}" alt="Default Cover">
-    {% endif %}
-</div>
-<div class="book-modal-details">
-    <h2 class="book-modal-field-label">{{ book.title }}</h2>
-    <p class="book-modal-author">{{ book.author }}</p>
-    
-    <div class="book-modal-field">
-        <span class="book-modal-field-label">Category:</span>
-        <span class="book-modal-field-value">{{ book.get_category_display }}</span>
-    </div>
-    
-    <div class="book-modal-field">
-        <span class="book-modal-field-label">ISBN:</span>
-        <span class="book-modal-field-value">{{ book.ISBN }}</span>
-    </div>
-    
-    <div class="book-modal-field">
-        <span class="book-modal-field-label">Pages:</span>
-        <span class="book-modal-field-value">{{ book.pages }}</span>
-    </div>
-    
-    <div class="book-modal-field">
-        <span class="book-modal-field-label">Status:</span>
-        <span class="book-modal-field-value">{{ book.get_status_display }}</span>
-    </div>
-    
-    <div class="book-modal-field">
-        <span class="book-modal-field-label">Available Amount:</span>
-        <span class="book-modal-field-value">{{ book.count }}</span>
-    </div>
-    
-    <div class="book-modal-description">
-        <h4 class="book-modal-field-label">Description: </h4>
-        <p>{{ book.description|default:"No description available." }}</p>
-    </div>
-</div>
+                </div>
+                <div class="book-modal-details">
+                    <h2 id="modalBookTitle" class="book-modal-title"></h2>
+                    <p id="modalBookAuthor" class="book-modal-author"></p>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Category:</span>
+                        <span class="book-modal-field-value" id="modalBookCategory"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">ISBN:</span>
+                        <span class="book-modal-field-value" id="modalBookISBN"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Pages:</span>
+                        <span class="book-modal-field-value" id="modalBookPages"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Status:</span>
+                        <span class="book-modal-field-value" id="modalBookStatus"></span>
+                    </div>
+                    
+                    <div class="book-modal-field">
+                        <span class="book-modal-field-label">Available Amount:</span>
+                        <span class="book-modal-field-value" id="modalBookCount"></span>
+                    </div>
+                    
+                    <div class="book-modal-description">
+                        <h4 class="book-modal-field-label">Description:</h4>
+                        <p id="modalBookDescription"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" id="modalCloseBtn">Close</button>
+                <button class="modal-btn modal-btn-primary" id="modalBorrowBtn">Borrow Book</button>
+            </div>
         </div>
     </div>
 
-
-    {% block scripts %}
+{% block scripts %}
 <script src="{% static 'user/Js/user.js' %}"></script>
-
 {% endblock scripts %}
 {% endblock content%}
