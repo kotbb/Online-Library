@@ -7,11 +7,19 @@
 
 {% block content %}
     <div class="main-container">
+        <div class="user-username">{{ request.user.username }}</div>
         <div class="admin-header">
             <h2>Available Books</h2>
         </div>
         <div class="deleteAll-container">
-            <button id="deleteAll-btn"></button>
+            <form method="post" action="{% url 'delete_all_books' %}" id="deleteAllForm">
+                {% csrf_token %}
+                <button type="button" id="deleteAll-btn" onclick="showDeleteAllModal()">Delete All Books</button>
+            </form>
+        </div>
+        <div class="select-all-container">
+            <input type="checkbox" id="selectAllBooks" class="select-all-checkbox">
+            <label for="selectAllBooks">All Added Books in Library</label>
         </div>
         <div class="books-table-container">
             <table class="books-table">
@@ -25,12 +33,13 @@
                         <th>Status</th>
                         <th>Pages</th>
                         <th>Count</th>
+                        <th>Added By</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="booksTbody">
                     {% for book in books %}
-                    <tr data-book-id="{{ book.id }}">
+                    <tr data-book-id="{{ book.id }}" {% if book.added_by != request.user %}class="not-user-book"{% endif %}>
                         <td>{{ book.id }}</td>
                         <td>{{ book.title }}</td>
                         <td>{{ book.author }}</td>
@@ -39,10 +48,18 @@
                         <td>{{ book.status }}</td>
                         <td>{{ book.pages }}</td>
                         <td>{{book.count}}</td>
+                        <td>{{ book.added_by.username }}</td>
                         <td>
                             <div class="action-buttons">
-                                <button class="action-buttons" id="btn-edit" onclick="editData({{ book.id }})">Edit</button>
-                                <button class="action-buttons" id="btn-delete" onclick="deleteData({{ book.id }})">Delete</button>
+                            {% if book.added_by == request.user %}
+                            <button class="action-buttons" id="btn-edit" onclick="window.location.href='{% url 'edit_book' book.id %}'">Edit</button>
+                            <form method="post" action="{% url 'delete_book' book.id %}" style="display: inline;" id="deleteForm-{{ book.id }}">
+                                {% csrf_token %}
+                                <button type="button" class="action-buttons" id="btn-delete" onclick="showDeleteModal('{{ book.title }}', '{{ book.id }}')">Delete</button>
+                            </form>
+                            {% else %}
+                            <span class="read-only">Read Only</span>
+                            {% endif %}
                             </div>
                         </td>
                     </tr>

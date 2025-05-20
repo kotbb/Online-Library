@@ -1,28 +1,32 @@
 {% load static %}
 <nav class="navbar">
     <div class="nav-container">
-        <a href="{% url 'home' %}" class="logo" id="logo">
+        <a href="{% if is_main_pages %}{% url 'home' %}{% elif is_admin_page or user_type == 'admin' %}{% url 'admin_dashboard' %}{% elif is_user_page or user_type == 'user' %}{% url 'user' %}{% endif %}" class="logo" id="logo">
             <img src="{% static 'img/icon.png' %}" alt="icon" style="width: 20px;height: 20px;">
             Online Library
         </a>
         <div class="nav-links" id="navLinks">
-            <a href="{% url 'home' %}" id="home" class="{% if current_path == '' %}nav-active{% endif %}">Home</a>
-            <a href="{% url 'profile' %}" id="profile" class="{% if current_path == 'profile' %}nav-active{% endif %}">Profile</a>
+            {% if is_main_pages %}
+                <a href="{% url 'home' %}" id="home" class="{% if current_path == '' %}nav-active{% endif %}">Home</a>
+                <a href="{% url "login" %}" id="login" class="{% if current_path == 'login' %}nav-active{% endif %}">Login</a>
+                <a href="{% url 'sign_up' %}" id="sign-up" class="{% if current_path == 'sign-up' %}nav-active{% endif %}">Sign-up</a>    
+            {% endif %}
 
-
-            {% if is_user_page  %}
+            {% if is_admin_page or user_type == 'admin' %}
+                <a href="{% url 'profile' %}" id="profile" class="{% if current_path == 'profile' %}nav-active{% endif %}">Profile</a>
+                <a href="{% url 'admin_dashboard' %}" id="admin" class="{% if current_path == 'admin-dashboard' or is_admin_page %}nav-active{% endif %}">Admin</a>
+            {% endif %}
+            
+            {% if is_user_page or user_type == 'user' %}
+                <a href="{% url 'profile' %}" id="profile" class="{% if current_path == 'profile' %}nav-active{% endif %}">Profile</a>
                 <a href="#" id="myBooks" class="{% if current_path == 'borrow-book' %}nav-active{% endif %}">My Books</a>
                 <a href="{% url 'user' %}" id="user" class="{% if current_path == 'user' %}nav-active{% endif %}">User</a>
             {% endif %}
-            <a href="{% url 'admin_dashboard' %}" id="admin" class="{% if current_path == 'admin-dashboard' or is_admin_page %}nav-active{% endif %}">Admin</a>
-        
-            <a href="{% url 'login' %}" id="login" class="{% if current_path == 'login' %}nav-active{% endif %}">Login</a>
-            <a href="{% url 'sign_up' %}" id="sign-up" class="{% if current_path == 'signup' %}nav-active{% endif %}">Sign-up</a>
-        
+
             <button id="themeToggle" class="theme-toggle">
-                <span>{% if theme == 'dark' %}🌙{% else %}🌞{% endif %}</span>
+                <span>{% if request.session.theme == 'dark' %}🌙{% else %}🌞{% endif %}</span>
             </button>
-            <button id="logoutBtn" onclick="window.location.href='{% url 'home' %}'">Logout</button>
+            <button id="logoutBtn" onclick="window.location.href='{% url 'user_logout' %}'">Logout</button>
         </div>
     </div>
 </nav>

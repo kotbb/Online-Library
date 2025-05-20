@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const messages = document.querySelectorAll('.alert');
     
-    messages.forEach(message => {
-        setTimeout(() => {
-            message.classList.add('fade-out');
-            
-            setTimeout(() => {
-                message.remove();
-            }, 500);
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function(alert) {
+        setTimeout(function() {
+            alert.classList.add('hide');
+        }, 2000);
+        setTimeout(function() {
+            alert.remove();
         }, 3000);
     });
-}); 
+});

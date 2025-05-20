@@ -1,4 +1,3 @@
-
 :root {
     --bg-primary: #f5e6d3;
     --bg-secondary: #fff8f0;
@@ -170,4 +169,65 @@ button:hover {
 }
 * {
     font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+/* Messages styling */
+.messages {
+    position: fixed;
+    top: 80px;  
+    right: 20px;
+    z-index: 1000;
+}
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-width: 300px;
+    animation: slideIn 0.5s ease-out;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.alert.hide {
+    opacity: 0;
+}
+
+.alert-success {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    border-left: 4px solid #28a745;
+}
+
+.alert-error {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    border-left: 4px solid #dc3545;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Dark theme message styles */
+html[data-theme="dark"] .alert {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+html[data-theme="dark"] .alert-success {
+    border-left-color: #28a745;
+}
+
+html[data-theme="dark"] .alert-error {
+    border-left-color: #dc3545;
 }

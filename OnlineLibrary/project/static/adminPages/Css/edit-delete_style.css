@@ -1,4 +1,3 @@
-
 /* --- General Page Styling --- */
 body {
   background-color: var(--bg-primary);
@@ -31,9 +30,32 @@ form {
   gap: 15px;
 }
 
-label {
+form > p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  margin-top: 0;
+}
+
+form > p > label {
   font-weight: bold;
+  margin-bottom: 6px;
   color: var(--text-secondary);
+  width: 100%;
+}
+
+form > p > input,
+form > p > select,
+form > p > textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+
+form > p > textarea {
+  min-height: 80px;
+  resize: vertical;
 }
 
 input,select,textarea {
@@ -49,35 +71,59 @@ input,select,textarea {
   color: var(--btn-primary);
   font-weight: 700;
   font-size: 20px;
-
 } 
+
 textarea {
   height: 80px;
   resize: vertical;
   min-height: 20px; 
 }
+
 /* --- Button Styling --- */
-button {
+.button-group button {
   background-color: var(--btn-primary);
-  color: white;
+    color: var(--bg-primary);
   padding: 12px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
-
-button:hover {
+.button-group button:hover {
   background-color: var(--btn-primary-hover);
+  transform: translateY(-1px); 
 }
-#preview-image{
+#preview-image {
   display: block;
-  margin-top: 8px;
+  margin-top: 15px;
   max-width: 200px;
 }
+
 #current-image-filename {
   font-size: 0.8em;
   color: #666;
-  margin-top: 5px;
+  margin-top: 10px;
 }
+
+input[type="file"] {
+  margin-top: 12px;
+}
+input[type="checkbox"][id*="clear"], 
+label[for*="clear"] {
+  display: none;
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+
+

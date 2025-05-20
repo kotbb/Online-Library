@@ -1,4 +1,3 @@
-
 body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -96,15 +95,35 @@ textarea {
     gap: 0.8rem;
     margin-top: 1rem;
 }
-#preview-image{
-    display: none;
-    margin-top: 8px;
-    max-width: 200px;
+.image-preview-container {
+    margin: 15px 0;
+    text-align: center;
+    padding: 10px;
+    border: 1px dashed var(--border-color);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+#preview-image {
+    display: none;
+    margin: 10px auto;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
 #current-image-filename {
-    font-size: 0.8em;
-    color: #666;
-    margin-top: 5px;
+    font-size: 0.9em;
+    color: var(--text-primary);
+    margin: 8px 0;
+    text-align: center;
+    word-break: break-all;
 }
 #submit-btn, .upload-btn {
     width: 60%;

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Admin Signup{% endblock %}
+{% block title %}Sign Up{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'registration/CSS/sign-up_style.css'%}" />
     <link rel="stylesheet" href="{% static 'main/Css/navBar_Style.css' %}">
@@ -8,24 +8,12 @@
 {% endblock extra_css %}
 
 {% block content %}
-    <nav class="navbar">
-    <div class="nav-container">
-        <a href="" class="logo" id="logo">Online Library</a>
-        <div class="nav-links" id="navLinks">
-            <a href="{% url "home" %}" id="home">Home</a>
-            <a href="{% url "login" %}" id="login">Login</a>
-            <a href="{% url 'sign_up' %}" id="sign-up">Sign-up</a>
-            <button id="themeToggle" class="theme-toggle">
-                <span>🌞</span>
-            </button>
-        </div>
-    </div>
-    </nav>
+    
 <div class="signup-container">
     <h2>Create Account</h2>
     <form action="#" method="POST">
         {% csrf_token %}
-        <label for="username">Full Name</label>
+        <label for="username">Username</label>
         <input type="text" id="username" name="username" required>
 
         <label for="email">Email</label>
@@ -51,7 +39,5 @@
     </form>
     <p>Already have an account? <a id="haveAccount" href="login">Login</a></p>
 </div>
-  <script src="registration/JS/sign-up_script.js"></script>
-  <script src="main/JS/theme-toggle.js"></script>
-  <script src="main/JS/nav-bar.js"></script>
+
 {% endblock content %}

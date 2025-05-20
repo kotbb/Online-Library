@@ -15,35 +15,8 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 5px 5px 15px var(--shadow-color);
-    width: 400px;
+    width: 350px;
     text-align: center;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-error {
-    color: #f44336;
-    font-size: 12px;
-    text-align: left;
-    margin-top: 5px;
-}
-
-.alert {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
 }
 
 h2 {

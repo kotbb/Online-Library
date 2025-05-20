@@ -22,7 +22,6 @@ function updateThemeIcon(isDark) {
     }
 }
 
-// Function to toggle theme
 function toggleTheme() {
     fetch('/toggle-theme/', {
         method: 'POST',

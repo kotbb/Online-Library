@@ -3,6 +3,7 @@
 {% block title %}Online Library{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'main/Css/HomePage.css' %}">
+    <link rel="stylesheet" href="{% static 'main/Css/navBar_Style.css' %}">
 {% endblock extra_css %}
 {% block content %}
     <div class="Welcome-container">
@@ -10,8 +11,8 @@
         <p>Your one-stop destination for all your reading needs.</p>
     </div>
     <div class="button-group">
-        <button id="Login-btn" onclick="window.location.href='login.html'">Login</button>
-        <button id="Sign-up-btn" onclick="window.location.href='sign-up.html'">Sign-up</button>
+        <button id="Login-btn" onclick="window.location.href='{% url 'login' %}'">Login</button>
+        <button id="Sign-up-btn" onclick="window.location.href='{% url 'sign_up' %}'">Sign-up</button>
     </div>
 
     <!-- Featured Books Section -->
@@ -21,71 +22,71 @@
         <div class="featured-books">
             <div class="book-card">
                 <div class="book-cover">
-                    <img src="static/img/B1_1.jpg" alt="Book Cover">
+                    <img src="{% static 'img/B1_1.jpg' %}" alt="Book Cover">
                 </div>
                 <div class="book-info">
                     <h3>A Brief History of Time</h3>
                     <p class="author">By Stephen Hawking</p>
                     <p class="rating">★★★★★</p>
-                    <button class="borrow-btn">Borrow Now</button>
+                    <button class="borrow-btn" onclick="window.location.href='{% url 'login' %}'">Borrow Now</button>
                 </div>
             </div>
             <div class="book-card">
                 <div class="book-cover">
-                    <img src="static/img/B2_1.jpg" alt="Book Cover">
+                    <img src="{% static 'img/B2_1.jpg' %}" alt="Book Cover">
                 </div>
                 <div class="book-info">
                     <h3>The Selfish Gene</h3>
                     <p class="author">By Richard Dawkins</p>
                     <p class="rating">★★★★★</p>
-                    <button class="borrow-btn">Borrow Now</button>
+                    <button class="borrow-btn" onclick="window.location.href='{% url 'login' %}'">Borrow Now</button>
                 </div>
             </div>
             <div class="book-card">
                 <div class="book-cover">
-                    <img src="static/img/B3_1.jpg" alt="Book Cover">
+                    <img src="{% static 'img/B3_1.jpg' %}" alt="Book Cover">
                 </div>
                 <div class="book-info">
                     <h3>Sapiens</h3>
                     <p class="author">By Yuval Noah Harari</p>
                     <p class="rating">★★★★★</p>
-                    <button class="borrow-btn">Borrow Now</button>
+                    <button class="borrow-btn" onclick="window.location.href='{% url 'login' %}'">Borrow Now</button>
                 </div>
             </div>
         </div>
-        <button class="view-all-btn" id="viewBooks">View All Books</button>
+        <button class="view-all-btn" id="viewBooks" onclick="window.location.href='{% url 'login' %}'">View All Books</button>
     </section>
 
     <!-- Book Genres Section -->
     <section class="genres-section">
         <h2>Explore Book Genres</h2>
         <div class="genres-container">
-            <div class="genre-card" onclick="window.location.href='genre.html?type=fiction'">
+            <div class="genre-card"">
                 <div class="genre-icon">📚</div>
                 <h3>Fiction</h3>
                 <p>Novels, short stories, and literary works</p>
             </div>
-            <div class="genre-card" onclick="window.location.href='genre.html?type=non-fiction'">
+            <div class="genre-card"">
                 <div class="genre-icon">🧠</div>
                 <h3>Non-Fiction</h3>
                 <p>Biographies, history, and educational books</p>
             </div>
-            <div class="genre-card" onclick="window.location.href='genre.html?type=mystery'">
+            <div class="genre-card">
                 <div class="genre-icon">🔍</div>
                 <h3>Mystery</h3>
                 <p>Thrillers, detective stories, and suspense</p>
             </div>
-            <div class="genre-card" onclick="window.location.href='genre.html?type=science-fiction'">
+            <div class="genre-card">
                 <div class="genre-icon">🚀</div>
                 <h3>Science Fiction</h3>
                 <p>Futuristic worlds, space, and technology</p>
             </div>
-            <div class="genre-card" onclick="window.location.href='genre.html?type=fantasy'">
+            <div class="genre-card">
                 <div class="genre-icon">🧙</div>
                 <h3>Fantasy</h3>
                 <p>Magic, mythical creatures, and imaginary worlds</p>
             </div>
-            <div class="genre-card" onclick="window.location.href='genre.html?type=romance'">
+            <div class="genre-card">
                 <div class="genre-icon">❤️</div>
                 <h3>Romance</h3>
                 <p>Love stories and relationships</p>
@@ -128,7 +129,7 @@
                 <div class="quote">"This online library has transformed my reading habits. I can access any book I want without leaving home!"</div>
                 <div class="user">
                     <div class="user-avatar">
-                        <img src="static/img/avatars/person1.jpg" alt="User Avatar">
+                        <img src="{% static 'img/avatars/person1.jpg' %}" alt="User Avatar">
                     </div>
                     <div class="user-info">
                         <h4>Emily Johnson</h4>
@@ -140,7 +141,7 @@
                 <div class="quote">"The selection of academic books is impressive. It has been invaluable for my research work."</div>
                 <div class="user">
                     <div class="user-avatar">
-                        <img src="static/img/avatars/person2.jpg" alt="User Avatar">
+                        <img src="{% static 'img/avatars/person2.jpg' %}" alt="User Avatar">
                     </div>
                     <div class="user-info">
                         <h4>Professor Michael Chen</h4>
@@ -152,7 +153,7 @@
                 <div class="quote">"My children love the kids' section. The interface is so user-friendly that even they can navigate it!"</div>
                 <div class="user">
                     <div class="user-avatar">
-                        <img src="static/img/avatars/person3.jpg" alt="User Avatar">
+                        <img src="{% static 'img/avatars/person3.jpg' %}" alt="User Avatar">
                     </div>
                     <div class="user-info">
                         <h4>Sarah Williams</h4>
@@ -174,32 +175,31 @@
             </form>
         </div>
     </section>
+
     <!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3>Online Library</h3>
-            <p>Your gateway to knowledge and imagination.</p>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Online Library</h3>
+                <p>Your gateway to knowledge and imagination.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'login' %}">Browse Books</a></li>
+                    <li><a href="{% url 'home' %}">About Us</a></li>
+                    <li><a href="{% url 'home' %}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@onlinelibrary.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
         </div>
-        <div class="footer-section">
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="#">Browse Books</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Online Library. All rights reserved.</p>
         </div>
-        <div class="footer-section">
-            <h3>Contact Us</h3>
-            <p>Email: info@onlinelibrary.com</p>
-            <p>Phone: (123) 456-7890</p>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2025 Online Library. All rights reserved.</p>
-    </div>
-</footer>
-    {% block extra_js %}
-    {% endblock extra_js %}
+    </footer>
 {% endblock content%}

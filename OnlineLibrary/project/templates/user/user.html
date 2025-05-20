@@ -21,18 +21,14 @@
         {% for book in books %}
         <div class="book-card">
             <div class="book-cover">
-                {% if book.cover_image %}
-                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}">
-                {% else %}
-                <img src="{% static 'img/defaultBookCover.jpg' %}" alt="Default Cover">
-                {% endif %}
+                <img src="{{ book.book_cover.url }}" alt="{{ book.title }}">
             </div>
             <div class="book-info">
                 <h3 class="book-title">{{ book.title }}</h3>
                 <p class="book-author">{{ book.author }}</p>
                 <p class="book-category">Category: {{ book.get_category_display }}</p>
                 <p class="book-pages">Pages: {{ book.pages }}</p>
-                <!-- <p class="book-isbn">ISBN: {{book.ISBN}}</p> -->
+                <p class="book-isbn" style="display: none;">ISBN: {{book.ISBN}}</p>
                 <div class="book-status {{ book.status }}">
                     <span>{{ book.get_status_display }}</span>
                 </div>
