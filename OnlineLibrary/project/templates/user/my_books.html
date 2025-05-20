@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Borrowed Books{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'user/Css/user_style.css' %}">
+<link rel="stylesheet" href="{% static 'user/Css/modal.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="container main-content">
+    <section class="search-section">
+        <h1>My Borrowed Books</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by title, author, or genre...">
+            <button class="btn-primary">Search</button>
+        </div>
+    </section>
+    <section class="books-grid" id="booksContainer">
+        {% if borrowed_records %}
+        {% for record in borrowed_records %}
+        <div class="book-card">
+            <div class="book-cover">
+                <img src="{{ record.book.book_cover.url }}" alt="{{ record.book.title }}">
+            </div>
+            <div class="book-info">
+                <h3 class="book-title">{{ record.book.title }}</h3>
+                <p class="book-author">{{ record.book.author }}</p>
+                <p class="book-category">Category: {{ record.book.get_category_display }}</p>
+                <p class="book-pages">Pages: {{ record.book.pages }}</p>
+                <p class="book-isbn" style="display: none;">ISBN: {{record.book.ISBN}}</p>
+                <div class="book-status borrowed">
+                    <span>Borrowed on {{ record.borrow_date|date:"F d, Y" }}</span>
+                </div>
+                <!-- Hidden description for modal use -->
+                <div class="book-description" style="display: none;">{{ record.book.description|default:"No description available." }}</div>
+                <div class="book-actions">
+                    <button class="btn-primary view-details" onclick="openBookModal('{{ record.book.id }}')" 
+                        data-book-id="{{ record.book.id }}">View Details</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="no-books">You haven't borrowed any books yet.</p>
+        {% endif %}
+    </section>
+</main>
+
+<!-- Book Details Modal -->
+<div class="modal-overlay" id="bookModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">Book Details</h3>
+            <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-content">
+            <div class="book-modal-image">
+                <img id="modalBookImage" src="" alt="Book Cover">
+            </div>
+            <div class="book-modal-details">
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Title:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookTitle"></span>
+                </div>
+                
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Author:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookAuthor"></span>
+                </div>
+                
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Category:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookCategory"></span>
+                </div>
+                
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">ISBN:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookISBN"></span>
+                </div>
+                
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Pages:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookPages"></span>
+                </div>
+                
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Status:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookStatus"></span>
+                </div>
+                
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Description:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookDescription"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    // Book modal functionality
+    function openBookModal(bookId) {
+        const modal = document.getElementById('bookModal');
+        const bookCard = document.querySelector(`.book-card [data-book-id="${bookId}"]`).closest('.book-card');
+        
+        // Get book details from the card
+        const title = bookCard.querySelector('.book-title').textContent;
+        const author = bookCard.querySelector('.book-author').textContent;
+        const category = bookCard.querySelector('.book-category').textContent.replace('Category: ', '');
+        const pages = bookCard.querySelector('.book-pages').textContent.replace('Pages: ', '');
+        const isbn = bookCard.querySelector('.book-isbn').textContent.replace('ISBN: ', '');
+        const status = bookCard.querySelector('.book-status span').textContent;
+        const description = bookCard.querySelector('.book-description').textContent;
+        const imgSrc = bookCard.querySelector('.book-cover img').src;
+        
+        // Populate modal
+        document.getElementById('modalBookTitle').textContent = title;
+        document.getElementById('modalBookAuthor').textContent = author;
+        document.getElementById('modalBookCategory').textContent = category;
+        document.getElementById('modalBookISBN').textContent = isbn;
+        document.getElementById('modalBookPages').textContent = pages;
+        document.getElementById('modalBookStatus').textContent = status;
+        document.getElementById('modalBookDescription').textContent = description;
+        document.getElementById('modalBookImage').src = imgSrc;
+        
+        // Show modal
+        modal.classList.add('active');
+    }
+    
+    // Close modal
+    document.getElementById('modalClose').addEventListener('click', function() {
+        document.getElementById('bookModal').classList.remove('active');
+    });
+    
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const books = document.querySelectorAll('.book-card');
+        
+        books.forEach(book => {
+            const title = book.querySelector('.book-title').textContent.toLowerCase();
+            const author = book.querySelector('.book-author').textContent.toLowerCase();
+            const category = book.querySelector('.book-category').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || author.includes(searchTerm) || category.includes(searchTerm)) {
+                book.style.display = 'flex';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock extra_js %}

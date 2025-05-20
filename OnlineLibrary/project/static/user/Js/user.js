@@ -29,6 +29,62 @@ document.addEventListener('DOMContentLoaded', function() {
             debouncedSearch();
         }
     });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
     
     // Also keep the button functionality for accessibility
     searchButton.addEventListener('click', performSearch);
@@ -39,6 +95,62 @@ document.addEventListener('DOMContentLoaded', function() {
             performSearch();
         }
     });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
     
     // Perform search based on input with smooth animations
     function performSearch() {
@@ -85,6 +197,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.style.display = 'none';
             }
         });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
         
         // Show/hide no results message
         toggleNoResultsMessage(foundBooks);
@@ -115,6 +283,62 @@ document.addEventListener('DOMContentLoaded', function() {
             if (author) author.innerHTML = author.textContent;
             if (category) category.innerHTML = category.textContent;
         });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
         
         // Hide no results message
         const noResultsMessage = document.querySelector('.no-books');
@@ -199,6 +423,193 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const modalBorrowBtn = document.getElementById('modalBorrowBtn');
     
+    // Handle borrow button in modal
+    if (modalBorrowBtn) {
+        modalBorrowBtn.addEventListener('click', function() {
+            const bookId = this.getAttribute('data-book-id');
+            if (bookId) {
+                borrowBook(bookId);
+            }
+        });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    }
+    
+    // Handle borrow buttons in book cards
+    const borrowButtons = document.querySelectorAll('.borrow-book');
+    borrowButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const bookId = this.getAttribute('data-book-id');
+            borrowBook(bookId);
+        });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    
     // Open book modal with details
     window.openBookModal = function(bookId) {
         const bookCard = document.querySelector(`.book-card [data-book-id="${bookId}"]`).closest('.book-card');
@@ -246,6 +657,62 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
     
     function closeModal() {
         bookModal.classList.remove('active');
@@ -259,4 +726,116 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification(`Book with ID ${bookId} has been borrowed successfully!`, 'success');
         closeModal();
     });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 });
+
+// Function to borrow a book
+function borrowBook(bookId) {
+    // Get CSRF token from cookie
+    const csrftoken = getCookie('csrftoken');
+    
+    // Make AJAX request to borrow book
+    fetch(`/borrow-book/${bookId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success message
+            showNotification(data.message || 'Book borrowed successfully!', 'success');
+            
+            // Close modal if open
+            if (bookModal.classList.contains('active')) {
+                bookModal.classList.remove('active');
+            }
+            
+            // Redirect to my books page
+            setTimeout(() => {
+                window.location.href = '/my-books/';
+            }, 1500);
+        } else {
+            // Show error message
+            showNotification(data.message || 'Failed to borrow book. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error borrowing book:', error);
+        showNotification('An error occurred while borrowing the book. Please try again.', 'error');
+    });
+}
+
+// Function to get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

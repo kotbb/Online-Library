@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Book
+from .models import Book, BorrowRecord
 from .forms import BookForm
 from django.http import JsonResponse
 
@@ -315,6 +315,19 @@ def user(request):
     }
 
     return render(request,'user/user.html',context)
+
+@login_required
+def my_books(request):
+    current_path = request.path.strip('/')
+    # Get all borrowed books for the current user
+    borrowed_records = BorrowRecord.objects.filter(user=request.user, is_returned=False)
+    context = {
+        'current_path': current_path,
+        'borrowed_records': borrowed_records,
+        'is_admin_page': False,
+        'is_user_page': True
+    }
+    return render(request, 'user/my_books.html', context)
 # Book detail API
 def book_details(request, book_id):
     try:
@@ -346,14 +359,22 @@ def borrow_book(request, book_id):
         if book.status != 'available':
             return JsonResponse({'success': False, 'message': 'This book is not available for borrowing.'})
         
-        # Mark the book as unavailable
-        book.status = 'unavailable'
+        if book.count <= 0:
+            return JsonResponse({'success': False, 'message': 'No copies of this book are available.'})
+        
+        # Decrease the available count
+        book.count -= 1
+        
+        # If count reaches 0, mark the book as unavailable
+        if book.count == 0:
+            book.status = 'unavailable'
+            
         book.save()
         
-        # Here you would create a BorrowRecord if you had such a model
-        # BorrowRecord.objects.create(user=request.user, book=book, due_date=datetime.now()+timedelta(days=14))
+        # Create a borrow record
+        BorrowRecord.objects.create(user=request.user, book=book)
         
-        return JsonResponse({'success': True})
+        return JsonResponse({'success': True, 'message': 'Book borrowed successfully!'})
     
     except Book.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Book not found'}, status=404)

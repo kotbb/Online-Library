@@ -59,4 +59,18 @@ class Admin(models.Model):
     def __str__(self):
         return self.full_name
 
+# BorrowRecord Model to track borrowed books
+class BorrowRecord(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='borrowed_books')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='borrow_records')
+    borrow_date = models.DateTimeField(default=timezone.now)
+    return_date = models.DateTimeField(null=True, blank=True)
+    is_returned = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}"
+    
+    class Meta:
+        ordering = ['-borrow_date']
+
 
