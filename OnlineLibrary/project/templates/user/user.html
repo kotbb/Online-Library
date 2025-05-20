@@ -44,7 +44,10 @@
                     <button class="btn-primary view-details" onclick="openBookModal('{{ book.id }}')"
                         data-book-id="{{ book.id }}">View Details</button>
                     {% if book.status == 'available' %}
-                    <button class="btn-secondary borrow-book" data-book-id="{{ book.id }}">Borrow</button>
+                    <form method="post" action="{% url 'borrow_book' book_id=book.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-secondary borrow-book">Borrow</button>
+                    </form>
                     {% endif %}
                 </div>
             </div>
@@ -111,7 +114,10 @@
             </div>
             <div class="modal-footer">
                 <button class="modal-btn modal-btn-secondary" id="modalCloseBtn">Close</button>
-                <button class="modal-btn modal-btn-primary" id="modalBorrowBtn">Borrow Book</button>
+                <form method="post" action="" id="modalBorrowForm" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="modal-btn modal-btn-primary" id="modalBorrowBtn">Borrow Book</button>
+                </form>
             </div>
         </div>
     </div>

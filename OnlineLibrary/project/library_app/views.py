@@ -5,9 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Book, BorrowRecord
+from .models import Book
 from .forms import BookForm
 from django.http import JsonResponse
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 def home(request):
     current_path = request.path.strip('/')
@@ -280,8 +282,7 @@ def sign_up(request):
                 created_account_type='admin',
                 user_type='admin'
             )
-            login(request, user)
-            return redirect('admin_dashboard')
+            return redirect('login')
         else:
             Admin.objects.create(
                 user=user,
@@ -289,8 +290,7 @@ def sign_up(request):
                 created_account_type='user',
                 user_type='user'
             )
-            login(request, user)
-            return redirect('user')
+            return redirect('login')
             
     context = {
         'current_path': current_path,
@@ -315,19 +315,6 @@ def user(request):
     }
 
     return render(request,'user/user.html',context)
-
-@login_required
-def my_books(request):
-    current_path = request.path.strip('/')
-    # Get all borrowed books for the current user
-    borrowed_records = BorrowRecord.objects.filter(user=request.user, is_returned=False)
-    context = {
-        'current_path': current_path,
-        'borrowed_records': borrowed_records,
-        'is_admin_page': False,
-        'is_user_page': True
-    }
-    return render(request, 'user/Borrow_Book.html', context)
 # Book detail API
 def book_details(request, book_id):
     try:
@@ -346,77 +333,69 @@ def book_details(request, book_id):
         return JsonResponse(data)
     except Book.DoesNotExist:
         return JsonResponse({'error': 'Book not found'}, status=404)
-
-# Borrow book functionality
-@login_required
 def borrow_book(request, book_id):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    book = get_object_or_404(Book, id=book_id)
+
+    if book.count <= 0:
+        messages.error(request, 'This book is not available for borrowing.')
+        return redirect('user')
     
+    # Check if book is already borrowed by someone
+    if book.borrower is not None:
+        if book.borrower == request.user:
+            messages.error(request, "You have already borrowed this book.")
+            return redirect('user')
+        else:
+            messages.error(request, "This book is already borrowed by someone else.")
+            return redirect('user')
+    
+    # Update book status
+    book.count -= 1
+    book.borrower = request.user
+    book.borrowed_date = timezone.now()
+    
+    if book.count == 0:
+        book.status = 'unavailable'
+    
+    book.save()
+    messages.success(request, f"You have borrowed '{book.title}' successfully.")
+    return redirect('borrowed_books')
+
+# Add a new view for borrowed books
+@login_required
+def borrowed_books(request):
+    current_path = request.path.strip('/')
+    # Get books borrowed by the current user
+    borrowed_books = Book.objects.filter(borrower=request.user)
+    
+    context = {
+        'current_path': current_path,
+        'books': borrowed_books,
+        'is_admin_page': False,
+        'is_user_page': True
+    }
+    
+    return render(request, 'user/Borrow_Book.html', context)
+
+@login_required
+def return_book(request, book_id):
     try:
         book = Book.objects.get(id=book_id)
         
-        if book.status != 'available':
-            return JsonResponse({'success': False, 'message': 'This book is not available for borrowing.'})
+        # Update book status
+        book.count += 1
+        book.borrower = None
+        book.borrowed_date = None
         
-        if book.count <= 0:
-            return JsonResponse({'success': False, 'message': 'No copies of this book are available.'})
+        # If this was the first copy returned, mark as available
+        if book.status == 'unavailable' and book.count > 0:
+            book.status = 'available'
         
-        # Decrease the available count
-        book.count -= 1
-        
-        # If count reaches 0, mark the book as unavailable
-        if book.count == 0:
-            book.status = 'unavailable'
-            
         book.save()
-        
-        # Create a borrow record
-        BorrowRecord.objects.create(user=request.user, book=book)
-        
-        return JsonResponse({
-            'success': True, 
-            'message': 'Book borrowed successfully!',
-            'book_count': book.count,
-            'book_status': book.status
-        })
+        messages.success(request, f"Successfully returned '{book.title}'")
+        return redirect('borrowed_books')
     
     except Book.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Book not found'}, status=404)
-
-# Return book functionality
-@login_required
-def return_book(request, record_id):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
-    
-    try:
-        # Get the borrow record for this user
-        record = BorrowRecord.objects.get(id=record_id, user=request.user, is_returned=False)
-        book = record.book
-        
-        # Mark the record as returned
-        record.is_returned = True
-        record.return_date = timezone.now()
-        record.save()
-        
-        # Increase the book count
-        book.count += 1
-        
-        # If book was unavailable, mark it as available again
-        if book.status == 'unavailable':
-            book.status = 'available'
-            
-        book.save()
-        
-        return JsonResponse({
-            'success': True, 
-            'message': f'You have returned "{book.title}" successfully!'
-        })
-    
-    except BorrowRecord.DoesNotExist:
-        return JsonResponse({
-            'success': False, 
-            'message': 'Borrow record not found or already returned.'
-        }, status=404)
+        messages.error(request, 'Book not found.')
+        return redirect('borrowed_books')
 

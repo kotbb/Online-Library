@@ -39,8 +39,10 @@ class Book(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
     count = models.PositiveIntegerField(default=1,validators=[MinValueValidator(0),MaxValueValidator(100)])
     book_cover = models.ImageField(upload_to='book_covers/%y/%m/%d/', null=True, blank=True, default='book_covers/25/05/19/defaultBookCover.jpg')
-    added_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    added_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='added_books')
     added_date = models.DateTimeField(default=timezone.now)
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='borrowed_books')
+    borrowed_date = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
         return self.title
@@ -58,19 +60,5 @@ class Admin(models.Model):
     
     def __str__(self):
         return self.full_name
-
-# BorrowRecord Model to track borrowed books
-class BorrowRecord(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='borrowed_books')
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='borrow_records')
-    borrow_date = models.DateTimeField(default=timezone.now)
-    return_date = models.DateTimeField(null=True, blank=True)
-    is_returned = models.BooleanField(default=False)
-    
-    def __str__(self):
-        return f"{self.user.username} - {self.book.title}"
-    
-    class Meta:
-        ordering = ['-borrow_date']
 
 

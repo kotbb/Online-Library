@@ -19,7 +19,7 @@
             
             {% if is_user_page or user_type == 'user' %}
                 <a href="{% url 'profile' %}" id="profile" class="{% if current_path == 'profile' %}nav-active{% endif %}">Profile</a>
-                <a href="#" id="myBooks" class="{% if current_path == 'borrow-book' %}nav-active{% endif %}">My Books</a>
+                <a href="{% url 'borrowed_books' %}" id="myBooks" class="{% if current_path == 'borrowed-books' %}nav-active{% endif %}">My Books</a>
                 <a href="{% url 'user' %}" id="user" class="{% if current_path == 'user' %}nav-active{% endif %}">User</a>
             {% endif %}
 

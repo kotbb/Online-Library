@@ -24,6 +24,6 @@ urlpatterns = [
     # User urls
     path('user/', views.user, name='user'),
     path('borrow-book/<int:book_id>/', views.borrow_book, name='borrow_book'),
-    path('my-books/', views.my_books, name='my_books'),
-    path('return-book/<int:record_id>/', views.return_book, name='return_book'),
+    path('return-book/<int:book_id>/', views.return_book, name='return_book'),
+    path('borrowed-books/', views.borrowed_books, name='borrowed_books'),
 ]

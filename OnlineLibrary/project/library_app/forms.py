@@ -5,7 +5,7 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = '__all__'
-        exclude = ['added_by','added_date']
+        exclude = ['added_by','added_date','borrower','borrowed_date']
         widgets = {
             'ISBN': forms.TextInput(attrs={
                 'pattern': '[0-9]+',
