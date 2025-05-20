@@ -21,10 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Live search functionality - trigger search as user types
     searchInput.addEventListener('input', function() {
         const searchTerm = searchInput.value.toLowerCase().trim();
-        console.log('Input event triggered, search term:', searchTerm);
         
         if (searchTerm === '') {
-            console.log('Empty search term, resetting search');
+           
             resetSearch();
         } else {
             debouncedSearch();
@@ -44,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Perform search based on input with smooth animations
     function performSearch() {
         const searchTerm = searchInput.value.toLowerCase().trim();
-        console.log('Perform search called, search term:', searchTerm);
+        
         
         if (searchTerm === '') {
-            console.log('Empty search term in performSearch, calling resetSearch');
+            
             resetSearch();
             return;
         }
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             searchInput.value = '';
         }
         
-        console.log('Reset search called, showing all books');
+      
     }
     
     // Highlight matching text in search results
@@ -208,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const title = bookCard.querySelector('.book-title').textContent;
         const author = bookCard.querySelector('.book-author').textContent;
         const category = bookCard.querySelector('.book-category')?.textContent || 'Not specified';
+        const isbn = bookCard.querySelector('.book-isbn')?.textContent || 'Not specified';
         const pages = bookCard.querySelector('.book-pages')?.textContent || 'Not specified';
         const status = bookCard.querySelector('.book-status span')?.textContent || 'Unknown';
         const count = bookCard.querySelector('.book-count span')?.textContent || 'Not available';
@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modalBookTitle').textContent = title;
         document.getElementById('modalBookAuthor').textContent = author;
         document.getElementById('modalBookCategory').textContent = category.replace('Category: ', '');
+        document.getElementById('modalBookISBN').textContent = isbn.replace('ISBN: ', '');
         document.getElementById('modalBookPages').textContent = pages.replace('Pages: ', '');
         document.getElementById('modalBookStatus').textContent = status;
         document.getElementById('modalBookCount').textContent = count.replace('available amount: ', '');

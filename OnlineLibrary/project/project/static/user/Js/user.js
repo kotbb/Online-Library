@@ -207,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const title = bookCard.querySelector('.book-title').textContent;
         const author = bookCard.querySelector('.book-author').textContent;
         const category = bookCard.querySelector('.book-category')?.textContent || 'Not specified';
+        const isbn = bookCard.querySelector('.book-isbn')?.textContent || 'Not specified';
         const pages = bookCard.querySelector('.book-pages')?.textContent || 'Not specified';
         const status = bookCard.querySelector('.book-status span')?.textContent || 'Unknown';
         const count = bookCard.querySelector('.book-count span')?.textContent || 'Not available';
@@ -217,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modalBookTitle').textContent = title;
         document.getElementById('modalBookAuthor').textContent = author;
         document.getElementById('modalBookCategory').textContent = category.replace('Category: ', '');
+        document.getElementById('modalBookISBN').textContent = isbn.replace('ISBN: ', '');
         document.getElementById('modalBookPages').textContent = pages.replace('Pages: ', '');
         document.getElementById('modalBookStatus').textContent = status;
         document.getElementById('modalBookCount').textContent = count.replace('available amount: ', '');

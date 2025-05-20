@@ -4,7 +4,6 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'user/Css/user_style.css' %}">
 <link rel="stylesheet" href="{% static 'user/Css/modal.css' %}">
-<link rel="stylesheet" href="{% static 'main/Css/animation.css' %}">
 {% endblock extra_css %}
 
 
@@ -33,6 +32,7 @@
                 <p class="book-author">{{ book.author }}</p>
                 <p class="book-category">Category: {{ book.get_category_display }}</p>
                 <p class="book-pages">Pages: {{ book.pages }}</p>
+                <!-- <p class="book-isbn">ISBN: {{book.ISBN}}</p> -->
                 <div class="book-status {{ book.status }}">
                     <span>{{ book.get_status_display }}</span>
                 </div>
