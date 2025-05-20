@@ -327,7 +327,7 @@ def my_books(request):
         'is_admin_page': False,
         'is_user_page': True
     }
-    return render(request, 'user/my_books.html', context)
+    return render(request, 'user/Borrow_Book.html', context)
 # Book detail API
 def book_details(request, book_id):
     try:
@@ -374,8 +374,49 @@ def borrow_book(request, book_id):
         # Create a borrow record
         BorrowRecord.objects.create(user=request.user, book=book)
         
-        return JsonResponse({'success': True, 'message': 'Book borrowed successfully!'})
+        return JsonResponse({
+            'success': True, 
+            'message': 'Book borrowed successfully!',
+            'book_count': book.count,
+            'book_status': book.status
+        })
     
     except Book.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Book not found'}, status=404)
+
+# Return book functionality
+@login_required
+def return_book(request, record_id):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        # Get the borrow record for this user
+        record = BorrowRecord.objects.get(id=record_id, user=request.user, is_returned=False)
+        book = record.book
+        
+        # Mark the record as returned
+        record.is_returned = True
+        record.return_date = timezone.now()
+        record.save()
+        
+        # Increase the book count
+        book.count += 1
+        
+        # If book was unavailable, mark it as available again
+        if book.status == 'unavailable':
+            book.status = 'available'
+            
+        book.save()
+        
+        return JsonResponse({
+            'success': True, 
+            'message': f'You have returned "{book.title}" successfully!'
+        })
+    
+    except BorrowRecord.DoesNotExist:
+        return JsonResponse({
+            'success': False, 
+            'message': 'Borrow record not found or already returned.'
+        }, status=404)
 

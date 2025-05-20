@@ -50,9 +50,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -116,9 +162,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -218,9 +310,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -304,9 +442,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -452,9 +636,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -517,9 +747,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -574,9 +850,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -678,9 +1000,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -747,9 +1115,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
@@ -804,9 +1218,55 @@ function borrowBook(bookId) {
             // Show success message
             showNotification(data.message || 'Book borrowed successfully!', 'success');
             
+            // Update UI for the book card
+            const bookCard = document.querySelector(`.book-card[data-book-id="${bookId}"]`);
+            if (bookCard) {
+                // Update book count
+                const countElement = bookCard.querySelector('.book-count');
+                if (countElement) {
+                    countElement.textContent = `Available: ${data.book_count}`;
+                }
+                
+                // Update book status
+                const statusElement = bookCard.querySelector('.book-status');
+                if (statusElement) {
+                    statusElement.textContent = data.book_status;
+                    statusElement.className = 'book-status ' + data.book_status;
+                }
+                
+                // Hide borrow button if count is 0
+                if (data.book_count === 0) {
+                    const borrowBtn = bookCard.querySelector('.borrow-book');
+                    if (borrowBtn) {
+                        borrowBtn.style.display = 'none';
+                    }
+                }
+            }
+            
             // Close modal if open
             if (bookModal.classList.contains('active')) {
                 bookModal.classList.remove('active');
+                
+                // Update modal content if it's the same book
+                const modalBookId = document.getElementById('modalBorrowBtn').getAttribute('data-book-id');
+                if (modalBookId === bookId) {
+                    const modalCountElement = document.getElementById('modalBookCount');
+                    const modalStatusElement = document.getElementById('modalBookStatus');
+                    const modalBorrowBtn = document.getElementById('modalBorrowBtn');
+                    
+                    if (modalCountElement) {
+                        modalCountElement.textContent = `Available: ${data.book_count}`;
+                    }
+                    
+                    if (modalStatusElement) {
+                        modalStatusElement.textContent = data.book_status;
+                        modalStatusElement.className = 'modal-book-status ' + data.book_status;
+                    }
+                    
+                    if (modalBorrowBtn && data.book_count === 0) {
+                        modalBorrowBtn.style.display = 'none';
+                    }
+                }
             }
             
             // Redirect to my books page
