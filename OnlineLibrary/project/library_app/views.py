@@ -345,9 +345,6 @@ def borrow_book(request, book_id):
         if book.borrower == request.user:
             messages.error(request, "You have already borrowed this book.")
             return redirect('user')
-        else:
-            messages.error(request, "This book is already borrowed by someone else.")
-            return redirect('user')
     
     # Update book status
     book.count -= 1

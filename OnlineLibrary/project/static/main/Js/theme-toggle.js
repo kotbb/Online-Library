@@ -34,6 +34,15 @@ function toggleTheme() {
     .then(data => {
         if (data.status === 'success') {
             document.body.classList.toggle('dark-theme');
+            
+            // Add or remove data-theme attribute on the html element
+            const htmlElement = document.documentElement;
+            if (data.theme === 'dark') {
+                htmlElement.setAttribute('data-theme', 'dark');
+            } else {
+                htmlElement.removeAttribute('data-theme');
+            }
+            
             updateThemeIcon(data.theme === 'dark');
         }
     })
@@ -45,6 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         let isDark = document.body.classList.contains('dark-theme');
+        
+        // Set initial data-theme attribute based on body class
+        if (isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+        }
+        
         updateThemeIcon(isDark);
         themeToggle.addEventListener('click', toggleTheme);
     }
