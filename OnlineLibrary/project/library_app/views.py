@@ -112,6 +112,9 @@ def admin_dashboard(request):
     
     current_path = request.path.strip('/')
     books = Book.objects.all()
+    for book in books:
+        if(book.count > 0):
+            book.status = 'available'
     context = {
         'current_path': current_path,
         'books': books,
@@ -196,32 +199,36 @@ def edit_book(request, book_id):
 #-------------------------------- Registration Functions
 
 def login_view(request):
+    current_path = request.path.strip('/')
+    context = {
+        'current_path': current_path,
+        'is_main_pages': True,
+        'error': 'Invalid email or password.'
+    }   
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()
         password = request.POST.get('password', '').strip()
     
-        user = User.objects.get(email=email)
-        user = authenticate(request, username=user.username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            if Admin.objects.filter(user=user).exists():
-                admin_profile = Admin.objects.get(user=user)
-                if admin_profile.user_type == 'admin':
-                    messages.success(request, 'Login successful!')
-                    return redirect('admin_dashboard')
+        try:
+            user = User.objects.get(email=email)
+            user = authenticate(request, username=user.username, password=password)
             
-            messages.success(request, 'Login successful!')
-            return redirect('user')
-        else:
+            if user is not None:
+                login(request, user)
+                if Admin.objects.filter(user=user).exists():
+                    admin_profile = Admin.objects.get(user=user)
+                    if admin_profile.user_type == 'admin':
+                        messages.success(request, 'Login successful!')
+                        return redirect('admin_dashboard')
+                    else:
+                        messages.success(request, 'Login successful!')
+                        return redirect('user')
+            else:
+                messages.error(request, 'Invalid email or password.')
+                return render(request, 'registration/login.html', context)
+        except User.DoesNotExist:
             messages.error(request, 'Invalid email or password.')
-            return render(request, 'registration/login.html', {'error': 'Invalid email or password.'})
-            
-    current_path = request.path.strip('/')
-    context = {
-        'current_path': current_path,
-        'is_main_pages': True
-    }     
+            return render(request, 'registration/login.html', context)
     return render(request, 'registration/login.html', context)
 
 def sign_up(request):
@@ -297,7 +304,8 @@ def sign_up(request):
         'is_main_pages': True
     }    
     return render(request, 'registration/sign-up.html', context)
-
+    
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request, 'You have been logged out successfully!')
@@ -307,6 +315,10 @@ def user(request):
     current_path = request.path.strip('/')
     # Get all books from the database, including unavailable ones
     books = Book.objects.all()
+    for book in books:
+        if(book.count > 0):
+            book.status = 'available'
+        
     context = {
         'current_path': current_path,
         'books': books,
@@ -339,13 +351,13 @@ def borrow_book(request, book_id):
     if book.count <= 0:
         messages.error(request, 'This book is not available for borrowing.')
         return redirect('user')
-    
+    if(book.count > 0):
+        book.status = 'available'
     # Check if book is already borrowed by someone
     if book.borrower is not None:
         if book.borrower == request.user:
             messages.error(request, "You have already borrowed this book.")
             return redirect('user')
-    
     # Update book status
     book.count -= 1
     book.borrower = request.user

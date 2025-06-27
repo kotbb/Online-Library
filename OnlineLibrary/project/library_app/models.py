@@ -30,6 +30,7 @@ class Book(models.Model):
         ('available', 'Available'),
         ('unavailable', 'Unavailable'),
     ]
+
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     ISBN = models.CharField(max_length=15, unique=True, validators=[validate_numeric])
@@ -43,7 +44,13 @@ class Book(models.Model):
     added_date = models.DateTimeField(default=timezone.now)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='borrowed_books')
     borrowed_date = models.DateTimeField(null=True, blank=True)
-    
+
+    def save(self, *args, **kwargs):
+        # If status is unavailable, automatically set count to 0
+        if self.status == 'unavailable':
+            self.count = 0
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.title
 

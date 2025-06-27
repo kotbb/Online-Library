@@ -1,133 +1,141 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the borrowed books container
-    const borrowedList = document.getElementById('borrowed-list');
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || [];
-
-    // Load borrowed books from localStorage
-    function loadBorrowedBooks() {
-        // Try to get borrowed books from localStorage
-        const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks') || '[]');
-        
-        let countBorrowedBooks = borrowedBooks.filter( book => currentUser.email === book.userEmail).length;
-
-        // If no borrowed books, show a message
-        if (countBorrowedBooks === 0) {
-            borrowedList.innerHTML = '<div class="no-books-message">You have not borrowed any books yet.</div>';
-            return;
+window.openBookModal = function(bookId) {
+    const bookCard = document.querySelector(`.book-card [data-book-id="${bookId}"]`).closest('.book-card');
+    
+    // Get book details from the card - handle borrowed books page structure
+    const title = bookCard.querySelector('h3')?.textContent || 'Unknown Title';
+    const author = bookCard.querySelector('.author')?.textContent || 'Unknown Author';
+    const category = bookCard.querySelector('.description')?.textContent || 'Not specified';
+    const borrowedDate = bookCard.querySelector('.book-details')?.textContent || '';
+    const imageSrc = bookCard.querySelector('.book-cover img')?.src || '';
+    
+    const isbn = bookCard.querySelector('.book-isbn')?.textContent || 'Not specified';
+    const pages = bookCard.querySelector('.book-pages')?.textContent || 'Not specified';
+    const status = 'Borrowed';
+    const description = bookCard.querySelector('.book-description')?.textContent || 'No description available.';
+    
+    // Populate modal with book details - only set elements that exist
+    const modalElements = {
+        'modalBookTitle': title,
+        'modalBookAuthor': author,
+        'modalBookCategory': category.replace('Category: ', ''),
+        'modalBookISBN': isbn.replace('ISBN: ', ''),
+        'modalBookPages': pages.replace('Pages: ', ''),
+        'modalBookStatus': status,
+        'modalBookDescription': description,
+        'modalBookImage': imageSrc
+    };
+    
+    // Set each element only if it exists
+    Object.keys(modalElements).forEach(elementId => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            if (elementId === 'modalBookImage') {
+                element.src = modalElements[elementId];
+            } else {
+                element.textContent = modalElements[elementId];
+            }
         }
-        
-        // Clear the container
-        borrowedList.innerHTML = '';
-        
-        // Add each book to the container
-        borrowedBooks.forEach(book => {
-            if(book.userEmail === currentUser.email)
-            {
-                // Calculate days remaining
-                const dueDate = new Date(book.dueDate);
-                const today = new Date();
-                const daysRemaining = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
-                
-                // Create book card
-                const bookCard = document.createElement('div');
-                bookCard.className = 'book-card';
-                
-                // Set the HTML content
-                bookCard.innerHTML = `
-                    <div class="book-cover">
-                        <img src="img/${book.image}" alt="${book.name} Cover" />
-                    </div>
-                    <div class="book-info">
-                        <h3>${book.name}</h3>
-                        <p class="author">${book.author}</p>
-                        <p class="description">${book.description}</p>
-                    </div>
-                    
-                    <div class="book-details">
-                        <p><i class="fas fa-calendar"></i> Due Date: ${book.dueDate}</p>
-                        <p><i class="fas fa-clock"></i> ${daysRemaining > 0 ? daysRemaining + ' days remaining' : 'Overdue!'}</p>
-                    </div>
-                    <button class="btn return-btn" data-id="${book.ISBN}">Return Book</button>
-                `;
-                // Add the book card to the container
-                borrowedList.appendChild(bookCard);
+    });
+    
+    // Handle borrowed date if the element exists
+    const borrowedDateElement = document.getElementById('modalBookBorrowedDate');
+    if (borrowedDateElement) {
+        borrowedDateElement.textContent = borrowedDate.replace('Borrowed on: ', '');
+    }
+    
+    // Handle days remaining in modal
+    const modalDaysRemainingElement = document.getElementById('modalBookDaysRemaining');
+    if (modalDaysRemainingElement) {
+        const daysRemainingElement = bookCard.querySelector('.days-remaining');
+        if (daysRemainingElement) {
+            const remainingCountSpan = daysRemainingElement.querySelector('.remaining-count');
+            if (remainingCountSpan) {
+                modalDaysRemainingElement.textContent = remainingCountSpan.textContent;
+            }
+        }
+    }
+    
+    // Set the form action for return functionality
+    const modalReturnForm = document.getElementById('modalReturnForm');
+    if (modalReturnForm) {
+        modalReturnForm.action = `/return-book/${bookId}/`;
+        const modalBookId = document.getElementById('modalBookId');
+        if (modalBookId) {
+            modalBookId.value = bookId;
+        }
+    }
+    
+    // Show modal with animation
+    const bookModal = document.getElementById('bookModal');
+    if (bookModal) {
+        bookModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // Calculate and display days remaining for all borrowed books
+    calculateDaysRemaining();
+    
+    const bookModal = document.getElementById('bookModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    
+    // Close modal events
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', closeModal);
+    }
+    if (bookModal) {
+        bookModal.addEventListener('click', function(e) {
+            if (e.target === bookModal) {
+                closeModal();
             }
         });
-        
-        // Add event listeners to return buttons
-        addReturnButtonListeners();
     }
     
-    // Add event listeners to return buttons
-    function addReturnButtonListeners() {
-        const returnButtons = document.querySelectorAll('.return-btn');
-        returnButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const bookId = this.getAttribute('data-id');
-                returnBook(bookId);
-            });
+    function closeModal() {
+        if (bookModal) {
+            bookModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+    }
+    
+    const modalReturnForm = document.getElementById('modalReturnForm');
+    if (modalReturnForm) {
+        modalReturnForm.addEventListener('submit', function(e) {
+            // The form will submit normally to the Django view
+            closeModal();
         });
     }
     
-    // Return a book
-    function returnBook(bookId) {
-        // Get borrowed books from localStorage
-        let borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks') || '[]');
+    // Function to calculate days remaining for all books
+    function calculateDaysRemaining() {
+        const daysRemainingElements = document.querySelectorAll('.days-remaining');
         
-        // Find the book to return
-        const bookIndex = borrowedBooks.findIndex(book => book.ISBN == bookId);
-        
-        if (bookIndex === -1) {
-            alert('Book not found!');
-            return;
-        }
-        
-        // Get the book details
-        const book = borrowedBooks[bookIndex];
-        
-        // Confirm return
-        if (confirm(`Are you sure you want to return "${book.name}"?`)) {
-            // Remove the book from borrowed books
-            borrowedBooks.splice(bookIndex, 1);
+        daysRemainingElements.forEach(element => {
+            const borrowedDateStr = element.getAttribute('data-borrowed-date');
+            const remainingCountSpan = element.querySelector('.remaining-count');
             
-            // Update localStorage
-            localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
-            
-            // Update the book's availability in the books collection
-            updateBookAvailability(bookId);
-            
-            // Reload the borrowed books
-            loadBorrowedBooks();
-            
-            // Show success message
-            alert(`"${book.name}" has been returned successfully.`);
-        }
+            if (borrowedDateStr && remainingCountSpan) {
+                const borrowedDate = new Date(borrowedDateStr);
+                const today = new Date();
+                const dueDate = new Date(borrowedDate);
+                dueDate.setDate(borrowedDate.getDate() + 14); // Add 14 days
+                
+                const timeDiff = dueDate.getTime() - today.getTime();
+                const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                if (daysRemaining > 0) {
+                    remainingCountSpan.textContent = daysRemaining;
+                } else if (daysRemaining === 0) {
+                    remainingCountSpan.textContent = 'Due today!';
+                } else {
+                    remainingCountSpan.textContent = `${Math.abs(daysRemaining)} days overdue`;
+                    element.style.color = '#dc3545'; // Red for overdue
+                }
+            }
+        });
     }
-    
-    // Update book availability in the books collection
-    function updateBookAvailability(bookId) {
-        // Get all books from localStorage
-        let allBooks = JSON.parse(localStorage.getItem('book') || '[]');
-        
-        // Find the book
-        const book = allBooks.find(b => b.ISBN == bookId);
-        
-        if (book) {
-            // Update availability
-            book.status = 'Available';
-            
-            // Update localStorage
-            localStorage.setItem('book', JSON.stringify(allBooks));
-        }
-    }
-   
-    // Initialize the page
-    function init() {
-        
-        // Load borrowed books
-        loadBorrowedBooks();
-    }
-    
-    // Start the application
-    init();
 });

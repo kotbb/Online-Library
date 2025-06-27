@@ -1,43 +1,25 @@
 :root {
-
-    /* Light theme (default) */ 
-    --bg-primary: #f5e6d3; 
-    --bg-secondary: #fff8f0; 
-    --text-primary: #5c3d2e; 
-    --text-secondary: #8b4513; 
-    --border-color: #d4a373; 
-    --shadow-color: rgba(139, 69, 19, 0.1); 
-    --btn-primary: #8b4513; 
-    --btn-primary-hover: #6b3410;
-    
-    /* Button Colors */
-    --btn-primary: #8B4513;
-    --btn-primary-hover: #A0522D;
-    --btn-secondary: transparent;
-    --btn-text: #ffffff;
-
-    /* Color Variables */
-    --modal-overlay-bg: #000000b3;
-    --modal-header-bg: rgba(var(--gradient-start, 139, 69, 19), 0.1);
-    --modal-footer-bg: rgba(var(--gradient-start, 139, 69, 19), 0.05);
-    --modal-border-color: var(--border-color, #e0e0e0);
+    /* Color Variables - using the same as navbar */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.7);
+    --modal-bg: var(--bg-secondary, #fff8f0);
+    --modal-header-bg: rgba(139, 69, 19, 0.1);
+    --modal-footer-bg: rgba(139, 69, 19, 0.05);
+    --modal-border-color: var(--border-color, #d4a373);
     --modal-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     
-    /* Text Colors */
-    --modal-title-color: var(--text-primary, #333333);
-    --modal-text-primary: var(--text-primary, #333333);
-    --modal-text-secondary: var(--text-secondary, #666666);
+    /* Text Colors - using navbar variables */
+    --modal-title-color: var(--text-primary, #5c3d2e);
+    --modal-text-primary: var(--text-primary, #5c3d2e);
+    --modal-text-secondary: var(--text-secondary, #8b4513);
     
-    /* Button Colors */
+    /* Button Colors - using navbar variables */
     --modal-btn-primary-bg: var(--btn-primary, #8b4513);
-    --modal-btn-primary-hover: var(--btn-primary-hover, #a0522d);
-    --modal-btn-text-color: #ffffff;
+    --modal-btn-primary-hover: var(--btn-primary-hover, #6b3410);
+    --modal-btn-text-color: var(--bg-primary, #f5e6d3);
     
     /* Status Colors */
-    --status-available: #28a745; /* Ensure this is defined globally if not already */
-    --status-unavailable: #dc3545; /* Ensure this is defined globally if not already */
-    --modal-status-available: var(--status-available);
-    --modal-status-unavailable: var(--status-unavailable);
+    --modal-status-available: #28a745;
+    --modal-status-unavailable: #dc3545;
     
     /* Spacing */
     --modal-padding: 20px;
@@ -49,41 +31,24 @@
     --modal-text-size: 0.9rem;
     --modal-author-size: 1.2rem;
     --modal-book-title-size: 1.8rem;
-    
-    /* Gradient start value for light mode */
-    --gradient-start: 139, 69, 19;
-
-    /* General font weights if not defined elsewhere */
-    --font-weight-bold: 700;
-    --font-weight-semibold: 600;
-    --font-weight-medium: 500;
 }
 
-[data-theme="dark"] { 
-    --bg-primary: #2c1810; 
-    --bg-secondary: #3d241b; 
-    --text-primary: #f5e6d3; 
-    --text-secondary: #d4a373; 
-    --border-color: #8b4513; 
-    --shadow-color: rgba(0, 0, 0, 0.2); 
-    --btn-primary: #d4a373; 
-    --btn-primary-hover: #c39366;
-    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    --card-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+/* Dark theme overrides */
+body.dark-theme {
+    --modal-overlay-bg: rgba(0, 0, 0, 0.8);
+    --modal-bg: var(--bg-secondary, #3a3329);
+    --modal-header-bg: rgba(179, 139, 99, 0.1);
+    --modal-footer-bg: rgba(179, 139, 99, 0.05);
+    --modal-border-color: var(--border-color, #6d5d4a);
+    --modal-shadow: 0 5px 15px rgba(30, 25, 20, 0.4);
     
-    /* Dark mode specific modal variables (these should already be in your file) */
-    --modal-overlay-bg: rgba(0, 0, 0, 0.85);
-    --bg-secondary: var(--bg-secondary); /* Use general dark theme secondary background */
-    --modal-border-color: var(--border-color); /* Use general dark theme border color */
-    --modal-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    --gradient-start: 212, 163, 115; /* Dark theme gradient start */
-    --modal-header-bg: rgba(var(--gradient-start), 0.1);
-    --modal-footer-bg: rgba(var(--gradient-start), 0.05);
-    --modal-title-color: var(--text-primary);
-    /* --modal-text-primary and --modal-text-secondary will use dark --text-primary and --text-secondary */
-    /* If you want specific status colors for dark mode, define them here */
-    /* --status-available: #38c172; */ /* Example: slightly different green */
-    /* --status-unavailable: #e3342f; */ /* Example: slightly different red */
+    --modal-title-color: var(--text-primary, #f0e6d2);
+    --modal-text-primary: var(--text-primary, #f0e6d2);
+    --modal-text-secondary: var(--text-secondary, #d7b987);
+    
+    --modal-btn-primary-bg: var(--btn-primary, #b38b63);
+    --modal-btn-primary-hover: var(--btn-primary-hover, #c9a47e);
+    --modal-btn-text-color: var(--bg-primary, #2a241c);
 }
 
 /* Modal Styles */
@@ -107,7 +72,7 @@
 }
 
 .modal-container {
-    background-color: var(--bg-secondary);
+    background-color: var(--modal-bg);
     border-radius: var(--modal-border-radius);
     box-shadow: var(--modal-shadow);
     width: 100%;
@@ -164,7 +129,7 @@
 }
 
 .modal-close:hover {
-    color: var(--status-unavailable);
+    color: var(--modal-status-unavailable);
 }
 
 .modal-content {
@@ -173,6 +138,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background-color: var(--modal-bg);
 }
 
 @media (min-width: 768px) {
@@ -268,7 +234,7 @@
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    background-color: rgba(var(--gradient-start), 0.05);
+    background-color: var(--modal-footer-bg);
 }
 
 .modal-btn {
@@ -299,7 +265,7 @@
 }
 
 .modal-btn-secondary:hover {
-    background-color: rgba(var(--gradient-start), 0.1);
+    background-color: var(--modal-header-bg);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow-color);
 }
@@ -313,96 +279,4 @@
 .book-modal-field-value.unavailable {
     color: var(--modal-status-unavailable);
     font-weight: var(--font-weight-bold);
-}
-
-/* === Added/Modified Dark Theme Specific Styles for Modal Components === */
-/* These rules are more specific to ensure dark theme applies to modal elements */
-
-[data-theme="dark"] .modal-container {
-    background-color: var(--bg-secondary); /* Uses --bg-secondary from [data-theme="dark"] scope */
-    border-color: var(--modal-border-color); /* Uses --modal-border-color from [data-theme="dark"] scope */
-    box-shadow: var(--modal-shadow); /* Uses --modal-shadow from [data-theme="dark"] scope */
-}
-
-[data-theme="dark"] .modal-header {
-    background-color: var(--modal-header-bg); /* Uses --modal-header-bg from [data-theme="dark"] scope */
-    border-bottom-color: var(--modal-border-color);
-}
-
-[data-theme="dark"] .modal-title {
-    color: var(--modal-title-color); /* Uses --modal-title-color from [data-theme="dark"] scope */
-}
-
-[data-theme="dark"] .modal-close {
-    color: var(--text-primary); /* Uses --text-primary from [data-theme="dark"] scope */
-}
-
-[data-theme="dark"] .modal-close:hover {
-    color: var(--status-unavailable); /* Or a specific dark theme hover color */
-}
-
-[data-theme="dark"] .book-modal-image img {
-    box-shadow: 0 2px 8px var(--shadow-color); /* Uses --shadow-color from [data-theme="dark"] scope */
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .book-modal-title {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .book-modal-author {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .book-modal-field-label {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .book-modal-field-value {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .book-modal-description {
-    border-top-color: var(--border-color);
-}
-
-[data-theme="dark"] .book-modal-description h4 {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .book-modal-description p {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .modal-footer {
-    background-color: var(--modal-footer-bg); /* Uses --modal-footer-bg from [data-theme="dark"] scope */
-    border-top-color: var(--modal-border-color);
-}
-
-[data-theme="dark"] .modal-btn-primary {
-    background-color: var(--btn-primary); /* Uses --btn-primary from [data-theme="dark"] scope */
-    color: var(--bg-primary); /* Example: dark text on lighter dark button */
-}
-
-[data-theme="dark"] .modal-btn-primary:hover {
-    background-color: var(--btn-primary-hover);
-    box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-[data-theme="dark"] .modal-btn-secondary {
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .modal-btn-secondary:hover {
-    background-color: rgba(var(--gradient-start), 0.1); /* Uses --gradient-start from [data-theme="dark"] scope */
-    box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-[data-theme="dark"] .book-modal-field-value.available {
-    color: var(--status-available); /* Or a specific dark-theme available color if defined */
-}
-
-[data-theme="dark"] .book-modal-field-value.unavailable {
-    color: var(--status-unavailable); /* Or a specific dark-theme unavailable color if defined */
 }

@@ -1,0 +1,14 @@
+Admins:
+admin1@gmail.com
+admin2@gmail.com
+
+Users:
+user1@gmail.com
+user2@gmail.com
+
+Password for all emails:
+123456
+
+SuperUser(Admin Django):
+admin
+123

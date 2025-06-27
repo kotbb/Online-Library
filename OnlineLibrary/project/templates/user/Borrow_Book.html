@@ -18,12 +18,15 @@
                         <div class="book-cover">
                             <img src="{{ book.book_cover.url }}" alt="{{ book.title }}">
                         </div>
-                        
                         <div class="book-info">
                             <h3>{{ book.title }}</h3>
                             <p class="author">{{ book.author }}</p>
                             <p class="description">Category: {{ book.get_category_display }}</p>
                             <p class="book-details">Borrowed on: {{ book.borrowed_date|date:"F d, Y" }}</p>
+                            <p class="days-remaining" data-borrowed-date="{{ book.borrowed_date|date:'Y-m-d' }}">Days Remaining: <span class="remaining-count"></span></p>
+                            <p class="book-isbn" style="display: none;">ISBN: {{ book.ISBN }}</p>
+                            <p class="book-pages" style="display: none;">Pages: {{ book.pages }}</p>
+                            <div class="book-description" style="display: none;">{{ book.description|default:"No description available." }}</div>
                             <div class="book-actions">
                                 <button class="btn-primary view-details" onclick="openBookModal('{{ book.id }}')" data-book-id="{{ book.id }}">View Details</button>
                                 <form method="post" action="{% url 'return_book' book_id=book.id %}" style="display: inline;">
@@ -83,6 +86,11 @@
                     <span class="book-modal-field-value" id="modalBookBorrowedDate"></span>
                 </div>
                 
+                <div class="book-modal-field">
+                    <span class="book-modal-field-label">Days Remaining:&nbsp;</span>
+                    <span class="book-modal-field-value" id="modalBookDaysRemaining"></span>
+                </div>
+                
                 <div class="book-modal-description">
                     <h4 class="book-modal-field-label">Description:&nbsp;</h4>
                     <p id="modalBookDescription"></p>
@@ -91,11 +99,16 @@
         </div>
         <div class="modal-footer">
             <button class="modal-btn modal-btn-secondary" id="modalCloseBtn">Close</button>
+            <form method="post" id="modalReturnForm" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" id="modalBookId" name="book_id" value="">
+                <button type="submit" class="modal-btn modal-btn-primary" id="modalReturnForm">Return Book</button>
+            </form>
         </div>
     </div>
 </div>
 
 {% block scripts %}
-<script src="{% static 'user/Js/user.js' %}"></script>
+<script src="{% static 'user/Js/borrow-book.js' %}"></script>
 {% endblock scripts %}
 {% endblock content %}
